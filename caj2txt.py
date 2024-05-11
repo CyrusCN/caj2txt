@@ -16,11 +16,6 @@ def batch_convert_to_text(caj_path):
         # 转换为 PDF
         caj2pdf.convert_to_pdf(caj_file)
 
-import os
-import glob
-import re
-from pdfminer.high_level import extract_text
-
 def pdf_to_text(caj_path, output_path):
     # 读取生成pdf位置
     pdf_files = glob.glob(os.path.join(caj_path, "*.pdf"))
@@ -33,14 +28,30 @@ def pdf_to_text(caj_path, output_path):
             f.write(text)
 
 
-#开关caj转pdf
+
+# 开关caj转pdf
 #batch_convert_to_text(caj_path)
 
 # 开关pdf转txt
 #pdf_to_text(caj_path, output_path)
 
-# 上一个作者把输出封装了当前目录，因本人编程不是很好，只会用GPT拉屎，为了目录结构整洁，统一在最后将同一目录（./caj）下pdf移动到./pdf目录下,./txt文件不变
 
+
+
+# 原作者把输出封装了当前目录
+# 因本人编程不是很好，只会用GPT拉屎，为了目录结构整洁，统一在最后将同一目录（./caj）下pdf移动到./pdf目录下,./txt文件不变
+# 源文件夹路径
+source_folder = './caj'
+# 目标文件夹路径
+destination_folder = './pdf'
+# 遍历源文件夹中的文件
+for filename in os.listdir(source_folder):
+    # 如果文件是以.pdf结尾的文件，则移动到目标文件夹
+    if filename.endswith('.pdf'):
+        source_path = os.path.join(source_folder, filename)
+        destination_path = os.path.join(destination_folder, filename)
+        os.rename(source_path, destination_path)
+        print(f'Moved {filename} to {destination_folder}')
 
 
 
