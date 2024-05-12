@@ -3,9 +3,7 @@
 
 本项目将caj文件只保留文本导出到txt文件，并且结构，公式会有乱码，
 但，我认为，这些文字对于使用vscode(我)快速对论文索引(vscode搜索匹配功能)有很大帮助，并且投喂润色较为快速，故基于项目caj2pdf 
-
-.. ref:: https://github.com/caj2pdf/caj2pdf
-
+.. ref::https://github.com/caj2pdf/caj2pdf
 做个了批量化转为txt的脚本。
 本人对项目贡献较小，原项目对于caj解码做出很多贡献。
 
