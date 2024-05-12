@@ -4,7 +4,7 @@ import os,re
 import glob
 
 #定义你下载的一堆caj文件目录
-caj_path = "/home/ubuntu/caj2txt/cajcopy"
+caj_path = "/home/ubuntu/caj2txt/caj"
 
 #定义你的txt输出目录
 output_path = "/home/ubuntu/caj2txt/txt"
@@ -30,7 +30,7 @@ def pdf_to_text(caj_path, output_path):
 
 
 #开关caj转pdf
-batch_convert_to_text(caj_path)
+# batch_convert_to_text(caj_path)
 
 # 开关pdf转txt
 #pdf_to_text(caj_path, output_path)
@@ -38,20 +38,20 @@ batch_convert_to_text(caj_path)
 
 
 
-# 原作者把输出封装了当前目录
-# 因本人编程不是很好，只会用GPT拉屎，为了目录结构整洁，统一在最后将同一目录（./caj）下pdf移动到./pdf目录下,./txt文件不变
-# 源文件夹路径
-#source_folder = './caj'
-# 目标文件夹路径
-#destination_folder = './pdf'
-# 遍历源文件夹中的文件
-#for filename in os.listdir(source_folder):
-    # 如果文件是以.pdf结尾的文件，则移动到目标文件夹
- #   if filename.endswith('.pdf'):
-  #      source_path = os.path.join(source_folder, filename)
-   #     destination_path = os.path.join(destination_folder, filename)
-    #    os.rename(source_path, destination_path)
-     #   print(f'Moved {filename} to {destination_folder}')
+#原作者把输出封装了当前目录
+#因本人编程不是很好，只会用GPT拉屎，为了目录结构整洁，统一在最后将同一目录（./caj）下pdf移动到./pdf目录下,./txt文件不变
+#源文件夹路径
+source_folder = caj_path
+#目标文件夹路径
+destination_folder = './pdf'
+#遍历源文件夹中的文件
+for filename in os.listdir(source_folder):
+#    如果文件是以.pdf结尾的文件，则移动到目标文件夹
+   if filename.endswith('.pdf'):
+       source_path = os.path.join(source_folder, filename)
+       destination_path = os.path.join(destination_folder, filename)
+       os.rename(source_path, destination_path)
+       print(f'Moved {filename} to {destination_folder}')
 
 
 

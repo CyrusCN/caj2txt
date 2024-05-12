@@ -147,6 +147,10 @@ MTCNN
 
 ;
 
+;
+
+,
+
 ,
 
 。
@@ -165,17 +169,9 @@ A
 最后考虑到疲劳的时序性
 证明了 红 外 生 理 特 征 提 取 模 型 的 可 靠 性
 
-基于
-
-;
-
-,
-
 ,
 FAHD
 本文方法融合 后 的 预 测 结 果 与 疲 劳 标 定 值 间 的 相 关 系 数 提 高 了
-
-,
 
 ;
 
@@ -197,6 +193,10 @@ rPPG
 均 方 根 误
 
 Bi-LSTM
+
+基于
+
+,
 
 ,
 
@@ -372,6 +372,8 @@ combined
 occlusion
 modes,
 
+and
+
 traffic
 
 addresses
@@ -407,8 +409,6 @@ by
 accidents
 the
 poor
-
-and
 
 caused
 core
@@ -2276,9 +2276,9 @@ N
 
 n
 
-n
-
 W
+
+n
 
 )
 

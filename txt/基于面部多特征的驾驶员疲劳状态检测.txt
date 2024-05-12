@@ -216,17 +216,17 @@ Adaboost
 
 2022
 
-年
-
 月
 
 年
 
-8
+年
 
 9
 
 1
+
+8
 
 日
 
@@ -1500,9 +1500,9 @@ trend of road traffic accidents in China
 
 ）：
 
-（
-
 ，
+
+（
 
 ，
 
@@ -2292,11 +2292,11 @@ BP
 judgement based on BP neural network
 ）：
 
-，
-
-，
-
 （
+
+，
+
+，
 
 and Digital Engineering
 

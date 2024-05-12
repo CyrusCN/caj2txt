@@ -1,0 +1,542 @@
+第 31 卷 第 2 期
+2021 年 2 月
+
+计 算 机 技 术 与 发 展
+
+COMPUTER TECHNOLOGY AND DEVELOPMENT
+
+Vol．31 No．2
+2021
+Feb．
+
+基于多特征融合的眼睛状态检测算法研究
+
+梁元辉1，2，吴清乐1，2，曹立佳1，2
+( 1．四川轻化工大学 自动化与信息工程学院，四川 宜宾 644005;
+2．四川轻化工大学 人工智能四川省重点实验室，四川 宜宾 644005)
+
+摘 要: 疲劳驾驶检测算法研究对提升交通安全有着重要的意义。目前，已有大量关于疲劳驾驶的文献和成果。在疲劳
+
+驾驶检测算法中，眼睛开闭状态的判断起着至关重要的作用。深度级联卷积神经网络用来检测人脸和人脸特征，利用 Dlib
+
+工具快速提取驾驶员人脸特征。基于眼睛特征计算眼睛宽高比，并将眼睛宽高比、传统人眼特征的人眼虹膜等用于判断
+
+眼睛开闭的参数。该文提出一种实时地融合了 EAR、虹膜等多个特征的眼睛状态检测算法，可补偿传统人眼特征的像素
+
+值比较敏感的不足，也补偿了 EAR 在人脸倾斜、戴眼镜、光照变换、眼睛周围有光斑等情况下非常不可靠的不足。在640*
+
+480 分辨率，帧率 30 fps 的视频上获得平均 92%的检测正确率。实验结果表明融合后的算法可在光照变换、人脸倾斜、佩
+
+戴眼镜等条件下提升检测性能，鲁棒性较高。
+
+关键词: 眼睛状态监测; 疲劳驾驶; 多特征融合; PERCLOS; EAR
+
+中图分类号: TP391
+
+文献标识码: A
+
+文章编号: 1673－629X( 2021) 02－0097－04
+
+doi: 10．3969 / j．issn．1673－629X．2021．02．018
+
+Research on Eye State Detection Algorithm Based on
+Multi－feature Fusion
+
+LIANG Yuan－hui1，2，WU Qing －le1，2，CAO Li－jia1，2
+( 1．School of Automation and Information Engineering，Sichuan University of Science ＆ Engineering，
+
+2．Key Laboratory of Artificial Intelligence of Sichuan，Sichuan University of Science ＆ Engineering，
+
+Yibin 644005，China)
+
+Yibin 644005，China;
+
+Abstract: The research about driving drow siness detection algorithm is of great significance to improve traffic safety． Presently，there are
+
+many literatures and achievements about driving drow siness． In driving drow siness detection algorithm，the judgment of eye state plays an
+
+important role． A deep cascaded convolutional neural netw ork to detect faces and face features，and Dlib tool to quickly extract drivers’
+
+face features． Eye aspect ratio ( EAR) and pupil are used to detect eye stature． We propose a real－time eye state detection algorithm that
+
+integrates EAR，pupil and other features，w hich can compensate for the lack of relatively sensitive pixel value of traditional human eye
+
+features and compensate for the unreliability of EAR in face tilt，glasses w earing，light transformation，light spots around the eyes and oth-
+
+er situations． The average detection accuracy is 92% in 640* 480 resolution and 30 fps video． The experiment show s that the proposed al-
+
+gorithm can improve the detection accuracy especially in light transformation，face tilt，glasses w earing，etc．，w ith high robustness．
+
+Key words: eye state detection; drow sing driving; multi－feature fusion; PERCLOS; EAR
+
+0 引 言
+
+随着车辆急剧增多，交通事故严重威胁着人们的
+生命和财产安全。根据世界健康组织的报告，交通事
+故是损害人生命的十大原因之一［1］。为了减少疲劳驾
+驶所导致的交通安全问题，对疲劳驾驶自动检测的研
+究具有重要意义。基于人脸显著特征检测的算法可直
+
+观地定位眼睛所在的位置，然后利用积分投影、眼睛角
+点、眼帘 曲 率、上 下 眼 帘 高 度 等 方 法 判 断 眼 睛 的 状
+态［2－6］，但这些方法在光照不均、人脸倾斜、佩戴眼镜、
+驾驶员改变等环境中效果较差。You 等人［7］提出的眼
+睛宽高比( eye aspect ratio，EAR) ［8］结合 PERCLOSE［9］
+方法来判断驾驶员是否疲劳，该方法在降低检测时间
+
+收稿日期: 2020－03－05
+
+修回日期: 2020－07－08
+
+基金项目: 四川省重大科技专项项目( 2018GZDZX0046) ; 自贡市科技计划重点项目( 2019YYJC03)
+
+作者简介: 梁元辉( 1987－) ，男，硕士，讲师，研究方向为深度学习的应用、模糊数学的应用等。
+
+·89·
+
+计算机技术与发展
+
+第 31 卷
+
+的同时取得了较高的准确率。该算法考虑了个体差异
+但只有 EAR 作为判断依据，在光照变换、人脸倾斜、佩
+戴眼镜等条件下检测效果较差，具有很大的局限性。
+周云鹏等人［10－12］利用面部的多个特征融合检测驾驶
+员是否疲劳驾驶。周涛等人［13－15］利用人眼状态检测
+驾驶员是否疲劳驾驶。
+
+在上述研究的基础上，该文对驾驶员的眼睛状态
+检测方法进行改进，算法融合了人眼张开角度、EAR
+以及人眼虹膜等多个特征进行人眼开闭的判断。
+
+1 人眼特征提取
+1．1 人脸检测及眼睛定位
+
+Dlib 是一个开源的工具箱，包括了机器学习模块、
+深度学习模块、图像处理模块等［9］。它常被用来解决
+工业和学术界实际难题，用它开发的复杂算法在机器
+人开发、嵌入设备、手机和大型高级性能计算环境频繁
+使用。级联姿势回归( cascaded pose regression，CPR)
+算法常被 用 于 估 计 检 测 物 体 的 姿 态，该 工 具 箱 通 过
+CPR［16］算法以及标记的人脸 68 个特征点的回归器获
+取驾驶员的人脸特征，通过眼睛的状态检测判断驾驶
+员是否疲劳。如图 1 所示，该文采用了 Dlib 中人脸检
+测和人脸 68 个特征点模型检测视频中的人脸，并返回
+人脸特征点坐标、人脸框及人脸角度等。
+
+图 1 人脸检测及特征点
+
+1．2 EAR
+
+在 1．1 节中获取了人脸的特征点，对于每个眼睛
+都有 6 个对应的特征点，两个眼角的特征点，以及分布
+在上下眼帘上的 4 个特征点。这些特征点确定了眼睛
+在图像中的具体位置。EAR［8］在文献［8］中被用来检
+测眼睛眨眼的频率。EAR 值可通过图 2 中的 6 个点
+来计算，计算公式如下:
+
+EAR =
+
+‖P37 － P41‖ + ‖P38 － P40‖
+2‖P36 － P39‖
+
+( 1)
+
+如图 2 给出了眼睛的 EAR 值，其中( a) 眼睛张开
+的 6 个特征点; ( b) 眼睛关闭的 6 个特征点; ( c) 不同
+眼睛大小的驾驶员眼睛开闭的 EAR 曲线。由图 2 可
+以看出，眼睛的张开和关闭所对应的 EAR 的值差别比
+较 大。因 而 EAR 值 是 一 个 可 靠 的 评 价 眼 睛 开 闭 的
+参数。
+
+图 2 EAR
+
+根据驾驶员驾驶中的情形设定四种场景，分别是
+正常状态、人脸倾斜状态、戴眼镜状态、光照不均状态。
+根据经验设定 EAR 的阈值为 0．3。每种场景判断眼睛
+开闭的结果和实际眼睛开闭的结果比较，结果一致则
+设定标签为 0，结果不一致则设定标签为 1，图 3 给出
+了四种场景下的 EAR 数据和实际眼睛状态的比较结
+果，横坐标为每个场景视频的帧数，纵坐标为比较的结
+果。除了正常状态下 EAR 可以用来检测眼睛开闭状
+态外，其他三种情况如果只用 EAR 对眼睛开闭状态
+
+图 3 各种场景的 EAR 和实际眼睛状态比较
+
+第 2 期
+
+梁元辉等: 基于多特征融合的眼睛状态检测算法研究
+
+·99·
+
+进行判 断，判 断 结 果 错 误 较 多，因 而 在 这 些 场 景 中
+EAR 是不可靠的，需要借助其他方法进行辅助才能更
+好地判断。经过反复的测试发现 EAR 在人脸倾斜、戴
+眼镜、光 照 变 换、眼 睛 周 围 有 光 斑 等 情 况 下 非 常 不
+可靠。
+1．3 眼角张开角度
+
+参考 1．2 节 CPR 获取的特征点，取出眼睛的 6 个
+特征点，然后选取其中 3 个角点( P36 、P37 、P41 ) 计算
+眼角的张开角度，两只眼睛的张开角度取其平均，该平
+均值作为眼睛状态检测算法的特征参数。眼睛张开角
+度计算公式如下:
+
+ANGLE = 2arcsin(
+
+‖P37 － P41‖
+2‖P36 － P37‖
+
+)
+
+( 2)
+
+1．4 人眼虹膜
+
+通过 1．2 节 CPR 获取的特征点，取出眼睛的 6 个
+特征点，计算这些点的外接矩并将外接矩的坐标映射
+
+到原始图像中即可得到包括眼睛的感兴趣图像，如图
+4 所示。人脸虹膜检测算法详细步骤描述如下: 首先
+对原始眼睛图像做图像增强处理平滑噪声，然后通过
+
+自适应二值化操作获取虹膜的二值图像，再次对二值
+
+图像进行开闭操作以及孔洞填充，最后对二值图像的
+白色虹膜区块做椭圆拟合处理。椭圆的长轴和短轴范
+
+围不应超过眼睛左右角点之间的距离以及上下眼帘的
+距离。Tolba 等人在文献［11］中也提出了关于虹膜检
+测作为眼睛状态判断的算法。人眼虹膜也可作为人脸
+倾斜、戴 眼 镜、光 照 变 换、眼 睛 周 围 有 光 斑 等 情 况 下
+EAR 不足的补充。
+
+图 4 人脸虹膜检测流程
+
+图 5 给出了虹膜的检测图像。
+
+( c) 虹膜灰度图 ( d) 虹膜二值图像 ( e) 椭圆拟合的眼睛图像
+
+图 5 人脸虹膜检测
+
+2 基于多特征融合的人眼状态判断
+
+参考 1．2 节数据分析，使用 EAR 算法进行眼睛状
+态判断时，在倾斜、戴眼镜、晚上欠光照样本中效果较
+差。而在复杂的环境中像素值比较敏感，鲁棒性差，导
+致人眼虹膜椭圆拟合算法性能较差 。该文提出基于
+EAR、人眼虹膜相融合的人眼状态判断算法，图 6 给出
+了融合算法方案流程。首先通过视频流分别计算人眼
+EAR 和虹膜椭圆拟合; 其次，设定 EAR 的阈值和椭圆
+长短轴的阈值，EAR 超过阈值设定标签 Eflag 为 1，否
+则设定标签 Eflag 为 0; 椭圆长短轴同时小于阈值 ，设
+定标签 Pflag 为 0，否则设定标签 Pflag 为 1; 再次，判断
+Eflag 和 Pflag 的值是否一 致，如 果 是，则 输 出 结 果 为
+EAR 或者人眼虹膜的结果，否则进行下一次判断。最
+后判断 EAR 和其阈值之差的绝对值是否大于 ε ，ε 的
+值 根 据 样 本 和 EAR 阈 值 来 确 定。如 果 大 于 则 输 出
+EAR 的判断结果，否则输出虹膜的检测结果。将提出
+的多 特 征 融 合 算 法 简 称 为 EP 算 法，该 算 法 结 合 了
+EAR 算法、眼睛虹膜算法在检测眼睛状态时的优势 ，
+并且在检测到的 EAR 值与阈值比较接近时，利用眼睛
+虹膜的检测结果来进行辅助判断。
+
+( a) 裁剪的眼睛图像
+
+( b) dlib 眼睛黑白图
+
+图 6 EAR 和人眼虹膜融合
+
+·001·
+
+计算机技术与发展
+
+第 31 卷
+
+3 实验结果分析
+
+为了验证文中算法的有效性，对 EP 算法( 提出的
+融合方案) 、EAR 算法、眼睛张开角度算法、虹膜算法
+进行了比较。测试视频为正常、夜晚、倾斜、戴眼镜睁
+闭眼视频，视频流分辨率为 640* 480、帧率为 30 fps。
+实验设定 EAR 的硬阈值为 0．3，ε = 0．05。从表 1 可以
+看出，该文所提的方法在正常视频、倾斜视频、戴眼镜
+
+视频中比单纯 EAR 的方法眼睛开闭状态检测效果较
+好; 在正常视频中和人眼虹膜检测算法相当，但倾斜视
+频、戴眼镜视频、晚上视频中比单纯人眼虹膜的方法眼
+睛开闭状态检测效果较好。综上比较，该方法获得检
+测视频的平均正确率为 92%，和 EAR、人眼虹膜、眼角
+相比明显提高了检测正确率，可以为疲劳驾驶检测提
+供更可靠的参考。
+
+表 1 实验结果
+
+正常视频
+
+倾斜视频
+
+戴眼镜视频
+
+晚上视频
+
+平均
+
+方法
+
+正确
+
+错误
+
+误判数
+
+正确
+
+错误
+
+误判数
+
+正确
+
+错误
+
+误判数
+
+正确
+
+错误
+
+误判数
+
+正确
+
+率
+
+率
+
+数量
+
+率
+
+率
+
+数量
+
+率
+
+率
+
+数量
+
+率
+
+率
+
+数量
+
+率
+
+文中方法
+
+0．92
+
+0．08
+
+30 399
+
+0．91
+
+0．09
+
+19 223
+
+0．85
+
+0．15
+
+79 520
+
+0．98
+
+0．02
+
+4 387
+
+0．92
+
+EAR［8］
+
+0．88
+
+0．12
+
+48 399
+
+0．85
+
+0．15
+
+34 223
+
+0．81
+
+0．19
+
+91 520
+
+0．99
+
+0．01
+
+2 387
+
+0．88
+
+人眼虹膜［11］
+
+0．92
+
+0．08
+
+30 399
+
+0．89
+
+0．11
+
+23 223
+
+0．75
+
+0．25
+
+129 520
+
+0．93
+
+0．07
+
+21 387
+
+0．87
+
+眼角
+
+0．91
+
+0．09
+
+32 399
+
+0．87
+
+0．13
+
+30 223
+
+0．66
+
+0．34
+
+72 520
+
+0．99
+
+0．01
+
+2 387
+
+0．86
+
+4 结束语
+
+针对疲劳驾驶中的眼睛状态判断，提出了一种融
+合了 EAR、人脸虹膜等多个特征的算法( EP 算法) 进
+行眼睛开闭状态判断，EP 算法综合了 EAR、眼睛虹膜
+在眼睛状态检测时的优势。结果表明，该方法可以有
+
+效提高眼睛开闭检测的准确率并且能满足实时检测的
+
+要求，但算法在晚上弱光照条件下的性能需要进一步
+提高以增强算法在夜晚的适应能力。
+
+参考文献:
+
+京: 北京交通大学，2014．
+
+［7］ YOU F，LI X，GONG Y，et al． A real － time driving drow si-
+
+ness detection algorithm w ith individual differences consider-
+
+ation［J］．IEEE Access，2019，7: 179396－179408．
+
+［8］ KONG X，XIA F，LI J，et al． A shared bus prolling scheme
+
+for smart cities based on heterogeneous mobile crow dsourced
+
+data［J］． IEEE Transactions on Industrial Information，2020，
+
+16( 2) : 1436－1444．
+
+［9］ KING D E． Dlib － ml: a machine learning toolkit［J］． Journal
+
+of M achine Learning Research，2019，10: 1755－1758．
+
+［10］ 周云鹏．基于面部视觉多特征融合的驾驶员疲劳检测方法
+
+研究［D］．长沙: 湖南大学，2015．
+
+［1］ AM ODIO A，ERM IDORO M ，M AGGI D，et al．Automatic
+
+［11］ 李 阳．基于多特征融合的面部表情识别方法研究［D］．西
+
+detection of driver impairment based on pupillary light reflex
+
+安: 西安科技大学，2017．
+
+［J］． IEEE Transactions on Intelligent Transportation Sys-
+
+［12］ ZHAO Li，LI Nianqiang． Fatigue driving detection system
+
+tems，2019，20( 8) : 3038－3048．
+
+［2］ 冀翀晓，吕 青，李 何．基于实时检测眼睛状态的一种安
+
+based on face feature［C］/ / International conference on elec-
+
+tronics technology．［s．l．］: ［s．n．］，2019: 525－529．
+
+全驾驶方法［J］．现代电子技术，2019，42( 20) : 133－138．
+
+［13］ 周 涛．基于人眼状态的驾驶疲劳检测系统研究［D］． 杭
+
+［3］ 崔庆华，程 科，李肇基．积分投影与连通域法结合的人眼
+定位［J］．计算机与数字工程，2019，47( 4) : 949－953．
+
+［4］ 赵 文，张 意，张卫华，等． 基于红外图像的眼睛开闭检
+测方法［J］．计算机工程与设计，2015，36( 2) : 436－440．
+［5］ TOLBA A．Trust－based distributed authentication method for
+
+州: 浙江理工大学，2012．
+
+［14］ 曹 永． 驾驶员眼睛开闭状态计算机图像识别技术开发
+
+［D］．青岛: 青岛大学，2011．
+
+［15］ 刘 军．复杂环境下驾驶员眼睛定位及眼睛状态识别算法
+
+研究［D］．广州: 华南理工大学，2014．
+
+collision attack avoidance in VANWTs［J］． IEEE Access，
+
+［16］ DOLLAR P，WELINDER P，PERONA P． Cascaded pose re-
+
+2018，6: 62747－62755．
+
+gression［J］．IEEE Computer Vision and Pattern Recognition，
+
+［6］ 李 强．基于 PERCLOS 的列车司机驾驶疲劳研究［D］．北
+
+2010，10: 1078－1085．
+
+

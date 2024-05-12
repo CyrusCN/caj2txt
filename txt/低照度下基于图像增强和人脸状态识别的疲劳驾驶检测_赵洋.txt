@@ -1,0 +1,140 @@
+激光与光电子学进展 
+
+Laser & Optoelectronics Progress 
+
+ISSN 1006-4125,CN 31-1690/TN 
+
+《激光与光电子学进展》网络首发论文 
+
+题目： 
+低照度下基于图像增强和人脸状态识别的疲劳驾驶检测 
+作者： 
+赵洋，苗佳龙，刘雪枫，赵锦程，徐森 
+收稿日期： 
+2024-02-20 
+网络首发日期：  2024-04-24 
+引用格式： 
+
+赵洋，苗佳龙，刘雪枫，赵锦程，徐森．低照度下基于图像增强和人脸状态
+识别的疲劳驾驶检测[J/OL]．激光与光电子学进展. 
+https://link.cnki.net/urlid/31.1690.TN.20240422.1635.098 
+
+网络首发：在编辑部工作流程中，稿件从录用到出版要经历录用定稿、排版定稿、整期汇编定稿等阶
+
+段。录用定稿指内容已经确定，且通过同行评议、主编终审同意刊用的稿件。排版定稿指录用定稿按照期
+
+刊特定版式（包括网络呈现版式）排版后的稿件，可暂不确定出版年、卷、期和页码。整期汇编定稿指出
+
+版年、卷、期、页码均已确定的印刷或数字出版的整期汇编稿件。录用定稿网络首发稿件内容必须符合《出
+
+版管理条例》和《期刊出版管理规定》的有关规定；学术研究成果具有创新性、科学性和先进性，符合编
+
+辑部对刊文的录用要求，不存在学术不端行为及其他侵权行为；稿件内容应基本符合国家有关书刊编辑、
+
+出版的技术标准，正确使用和统一规范语言文字、符号、数字、外文字母、法定计量单位及地图标注等。
+
+为确保录用定稿网络首发的严肃性，录用定稿一经发布，不得修改论文题目、作者、机构名称和学术内容，
+
+只可基于编辑规范进行少量文字的修改。 
+
+出版确认：纸质期刊编辑部通过与《中国学术期刊（光盘版）》电子杂志社有限公司签约，在《中国
+
+学术期刊（网络版）》出版传播平台上创办与纸质期刊内容一致的网络版，以单篇或整期出版形式，在印刷
+
+出版之前刊发论文的录用定稿、排版定稿、整期汇编定稿。因为《中国学术期刊（网络版）》是国家新闻出
+
+版广电总局批准的网络连续型出版物（ISSN 2096-4188，CN 11-6037/Z），所以签约期刊的网络版上网络首
+发论文视为正式出版。 
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+网络首发时间：2024-04-24 18:57:24
+网络首发地址：https://link.cnki.net/urlid/31.1690.TN.20240422.1635.098
+
+低照度下基于图像增强和人脸状态识别的疲劳驾驶检测赵洋1,2，苗佳龙1*，刘雪枫1，赵锦程3，徐森1,21沈阳化工大学计算机科学与技术学院，辽宁沈阳110142；2辽宁省化工过程工业智能化技术重点实验室，辽宁沈阳110142；3沈阳化工大学信息工程学院，辽宁沈阳110142摘要针对现有的疲劳驾驶检测模型存在精度低、模型体积较大且在低光环境下性能降低等问题，提出一种基于图像增强和人脸状态识别的疲劳驾驶检测模型。首先通过改进YOLOv5s模型用于低照度下人脸检测和关键点定位，在YOLOv5s中引入SCI（Self-CalibratedIllumination）模块对低照度图像进行图像增强；下采样层替换为StemBlock模块，提高特征表达能力；主干网络替换为ShuffleNetv2网络，大幅降低模型的参数量和计算量；提出CIBC3（cbaminvertedbottleneck）模块代替C3模块，降低噪声对检测的干扰，增强模型的全局感知能力；总损失函数中添加Wingloss损失函数用于人脸关键点回归。之后使用疲劳状态识别网络判断人脸检测模型定位到的眼嘴部位的开闭状态，最后使用评价指标判断疲劳状态。改进后的YOLOv5s模型在DARKFACE数据集上的实验表明，在参数量和计算量上分别下降了62.12%、63.41%的同时精度提高了2.38%。提出的疲劳驾驶检测模型在YawDD正常光照数据集与自建低光照数据集上分别达到了96.07%，94.5%的准确率，优于其他模型且处理单张图像的时间为27ms。验证了提出的疲劳驾驶检测模型在保证正常环境与低光环境下的检测准确率的同时满足实时性要求，且具备能部署在算力有限的边缘计算设备上的能力。关键词图像处理；疲劳驾驶检测；人脸状态识别；YOLOv5s；轻量化算法中图分类号TP391.4文献标志码AFatigue driving detection under low illumination based on imageenhancement and face state recognitionZhao Yang1,2, Miao Jialong1*, Liu Xuefeng1, Zhao Jincheng3, Xu Sen1,21 The College of Computer Science and Technology, Shenyang University of ChemicalTechnology, Shenyang 110142, Liaoning China;2 Key Laboratory of Intelligent Technology for Chemical Process Industry of LiaoningProvince, Shenyang 110142, Liaoning China;3 The College of Information Engineering, Shenyang University of Chemical Technology,Shenyang 110142, Liaoning ChinaAbstract To tackle the shortcomings of current fatigue driving detection models, such as their suboptimal accuracy, considerable model size, and diminished performance in low-light conditions, a new fatigue driving detection model based on image enhancement and face state recognition is proposed. Firstly, the YOLOv5s model is improved for face detection and key基金项目：辽宁省教育厅基本科研项目面上项目(LJKMZ20220782)通信作者：*E-mail：igxiaodingdang@163.com；pointpositioninginlowlightconditions.Theself-calibratedillumination(SCI)moduleisincorporatedintoYOLOv5s,aimingtoenhanceimagesunderlowillumination.ThesubsamplinglayerisreplacedwithStemBlockmoduletoimprovethefeatureexpressionability.ThebackbonenetworkisreplacedbyShuffleNetv2network,whichgreatlyreducesthenumberofparametersandcalculationamountofthemodel.Thecbaminvertedbottleneck(CIBC3)moduleisproposedtoreplacetheC3moduletoreducetheinterferenceofnoisetothedetectionandenhancetheglobalperceptionabilityofthemodel.Winglosslossfunctionisaddedtothetotallossfunctionforfacekeypointregression.Afterthat,thefatiguestaterecognitionnetworkisusedtojudgetheopeningandclosingstateoftheeyeandmouthpartslocatedbythefacedetectionmodel.Finallytheevaluationmetricsisusedtojudgethefatiguestate.TheexperimentoftheimprovedYOLOv5smodelontheDARKFACEdatasetshowsthatthenumberofparametersandtheamountofcomputationdecreasedby62.12%and63.41%respectively,whiletheaccuracyincreasedby2.38%.Theproposedfatiguedrivingdetectionmodelachievedanaccuracyof96.07%and94.5%respectivelyonYawDDnormallightdatasetandself-builtlowlightdataset,whichisbetterthanothermodelsandtheprocessingtimeofasingleimageis27ms.Itisverifiedthattheproposedfatiguedrivingdetectionmodelmeetsthereal-timerequirementswhileensuringthedetectionaccuracyinnormalandlowlightenvironments,andcanbedeployedonedgecomputingdeviceswithlimitedcomputingpower.Keywordsimageprocessing;fatiguedrivingdetection;facestaterecognition;YOLOv5s;lightweightalgorithm1引言疲劳驾驶已经成为导致交通事故的一个重要因素[1]，准确检测并阻止疲劳驾驶对减少交通事故与保护人民生命安全具有重要的现实意义。目前，针对疲劳驾驶的检测方法主要基于三种方式：基于车辆行驶信息[2]、基于驾驶人生理特征[3]和基于驾驶人面部特征[4]。相较于前两种方式，基于驾驶人面部特征的检测方法优势在于准确率高且不影响正常驾驶。因此该方法得到了广泛的关注。近年来，由于深度学习在图像处理[5]与目标检测[6]等领域中取得了巨大的成就。许多研究者将其应用于疲劳驾驶检测中。张志威等[7]使用VGG19网络来检测不规范驾驶行为。但该模型稳定性较差，面对特殊情况时无法有效定位到主驾驶人。敖邦乾等[8]将MTCNN网络与眼、嘴检测网络进行级联用于检测疲劳驾驶。由于该模型检测精度较差难以实际应用。Wang等[9]设计了一款基于深度学习的个性化框架用来判断驾驶人的疲劳状态。但该模型综合性较差，在检测脸部特征时存在特征不易区分等问题。吕秀丽等[10]使用改进后的SSD网络，并结合人脸特征点、眼睛纵横比和嘴巴纵横比用来判断疲劳驾驶。由于该模型体积较大而无法部署在资源有限的边缘计算设备上。此外，这些模型并未考虑到在夜晚低光环境下会导致成像设备在拍摄图像时存在对比度下降和噪声等情况，这些情况会导致检测性能大幅下降。因此，亟需设计一款准确率高、实时性好且在复杂低光环境下仍能保持良好性能的轻量级疲劳驾驶检测模型。在低照度环境下，能够快速准确地检测到人脸是提高疲劳驾驶检测性能的核心。不少研究者通过使用图像增强方法提高低照度图像的质量来增加人脸检测精度。Chen等[11]提出图像增强网络并与SSD模型进行结合提升了人脸检测性能。SaSagawa等[12]提出YOLO-in-the-Dark模型应用于低光照下的人脸检测，该模型是将低光照模型与YOLO模型进行融合。Ma等[13]提出自校准照明SCI（Self-CalibratedIllumination）模型并与检测模型相结合用于低光照人脸检测。因此本文采用将图像增强方法与目标检测算法相结合的方式用于低光照人脸检测。综上，本文提出一种基于图像增强和人脸状态识别的疲劳驾驶检测模型。该疲劳驾驶检测模型主要分为三部分：人脸检测及人脸关键点定位、人脸状态识别和疲劳评估。在人脸检测及关键点定位中本文将YOLOv5s[14]模型作为基准模型进行改进，旨在提高人脸检测的准确率、降低模型的参数量与计算量并对人脸关键点定位，同时融合图像增强方法对低照度图像进行处理；在人脸状态识别中本文通过关键点对驾驶人眼、嘴部位进行定位分割，然后将各部位图像分别送入疲劳状态识别网络进行检测；在疲劳评估中本文设计了两个评价指标用于判断疲劳状态。2人脸检测及关键点定位模型2.1YOLOv5s模型YOLOv5s模型以泛化性能好、准确率高等优点，被广泛应用于人脸检测中。本文选用YOLOv5s模型作为基础网络进行改进。模型共由输入（input）、主干网络（Backbone）、颈部网络（Neck）、检测层（Head）四部分组成。输入端主要采用Mosaic数据增强、自适应锚框计算、自适应图片缩放等方法对输入图像进行预处理；主干网络负责特征提取，主要包括CBS（ConvBNSILU）模块、C3模块和SPPF模块；颈部网络采用特征金字塔与路径聚合结构，在缩短信息传输路径的同时为整个特征融合网络增加丰富特征信息。检测层用于识别图像中的物体，该层采用非极大值抑制对检测的目标框进行筛选，增强对目标的检测能力。模型结构见图1。图1YOLOv5s模型结构Fig.1YOLOv5smodelstructure2.2图像增强模块在低光照环境下，成像设备拍摄出的图像往往会存在对比度下降、亮度低和噪声干扰等情况，这导致模型难以提取到有效特征，检测精度会大幅下降。图像增强算法在最大程度上保留特征信息的同时，可以提高图像的对比度和亮度、降低噪声产生的影响。因此本文将图像增强方法与YOLOv5s模型进行融合，达到提高检测精度的目的。本文选取三种图像增强方法对图像进行增强，其可视化结果见图2。图2各图像增强方法后的可视化结果。（a）原图；（b）LIME；（c）EnlightenGAN；（d）SCIFig.2Thevisualizationresultsofeachimageenhancementmethod.(a)Image;(b)LIME;(c)EnlightenGAN;(d)SCI如图2所示，LIME[15]（Low-LightImageEnhancement）方法在提高对比度的同时放大了噪声；EnlightenGAN[16]（EnlightenGenerativeAdversarialNetwork）方法在图像上增强的效果很不均匀，仍存在一些阴影区域；SCI方法处理后的图像整体效果较好，细节较为清晰。本文采用SCI图像增强方法作为增强模块对低照度图像进行图像增强，同时本文将在5.1.3小节进行具体实验。2.3StemBlock模块YOLOv5s模型中的原下采样操作是通过两个卷积层实现的，该操作特征提取效率较低。本文采用StemBlock[17]模块替换原下采样操作，在减少参数量与计算量的同时，可以有效地提高特征表达能力。该模块见图3。图3StemBlock模块Fig.3StemBlockmoduleStemBlock模块首先将输入特征图经过3×3的卷积用于下采样操作并改变通道数。之后分为两个支路，一个支路分别经过1×1和3×3的卷积用于降低通道数和下采样操作，该分支引入瓶颈层目的在于减少模型参数量；另一支路进行最大池化操作，目的是防止特征图的特征信息丢失。最后将这两个支路的输出结果进行合并后再经过一个1×1的卷积还原通道数。因此该模块在保证减少参数量和计算量的同时能够保留足够的特征信息，不会造成信息的过度损失。2.4主干网络改进YOLOv5s模型虽然检测性能良好，但由于其参数量计算量较大导致无法满足实时性。近年来，研究人员提出了许多轻量化模型，其中ShuffleNetV2[18]模型在降低模型的参数量和计算量的同时，具备高效提取特征的能力。本文采用ShuffleNetV2模型替换原主干网络，实现模型的轻量化。ShuffleNetV2模型有两个模块，分别是基本模块和下采样模块，具体结构见图4。图4ShuffleNetV2模块。（a）基本模块S_block1；（b）下采样模块S_block2Fig.4ShuffleNetV2module.(a)BasicmoduleS_block1;(b)subsamplingmoduleS_block2基本模块通过引入通道切分操作，将输入特征通道数分成两部分。其中一个分支不做任何操作，另一个分支进行卷积操作和批量归一化等处理。之后将两个分支进行特征融合，最后通过通道重排进行不同组之间的特征融合。下采样模块由于没有通道切分操作，两个分支在经过卷积操作和批量归一化等处理并进行融合之后，特征图的大小将减半，输出通道数为输入通道数的两倍。2.5改进C3模块YOLOv5s模型中的C3模块是一种特征提取模块。然而随着模型的网络层数加深，会出现特征信息丢失的情况。同时在低光环境下，很容易出现漏检误检。针对上述问题，本文提出了CIBC3（cbaminvertedbottleneckC3）模块。1）反向瓶颈模块瓶颈模块是通过1×1与3×3的卷积核进行特征提取。这种方式可能会存在信息丢失问题，使得模型精度降低。因此本文引入反向瓶颈模块，该模块的思想是将特征提取阶段提前并采取大卷积核增大感受野，这种方式可以减少特征信息的丢失并可以有效地提取到丰富的特征；同时利用深度卷积DWConv（depthwiseconvolution）与点卷积PWConv（pointwiseconvolution）减少计算成本。瓶颈模块和反向瓶颈模块见图5。图5瓶颈模块与反向瓶颈模块。（a）瓶颈模块；（b）反向瓶颈模块Fig.5Bottleneckmoduleandinvertedbottleneckmodule.(a)Bottleneckmodule;(b)invertedbottleneckmodule2）CBAM注意力机制由于实际的检测环境更加复杂，很容易出现误检和漏检的情况。计算机视觉中的注意力机制的功能是让模型学会关注图像中的重点信息，忽略无关信息。因此本文引入CBAM[19]注意力机制，CBAM注意力机制将空间和通道结合在一起，强调空间和通道两个维度上的关键特征用来增强模型的全局感知能力，同时调整特征图的权重，使模型能够提取到有用的特征信息从而提高模型精度。其结构见图6。图6CBAM结构Fig.6ThestructureofCBAM3）构建CIBC3模块本文首先将CBAM注意力机制嵌入反瓶颈模块中构建CIB（cbaminvertedbottleneck）模块，然后将C3中的瓶颈模块替换为CIB模块形成CIBC3模块。CIB模块见图7，CIBC3模块见图8。图7CIB模块Fig.7CIBmodule图8CIBC3模块Fig.8CIBC3moduleCIBC3模块可以保留更多的特征信息并能增强模型的全局感知能力，使其可以有效地提取到丰富的特征。2.6人脸关键点检测如何准确地检测到人脸状态很大程度上依靠于精确的人脸关键点所提供的人脸面部组件特殊位置。传统的人脸检测关键点由68个点组成[20]，但在实际检测过程中发现仅获取驾驶人眼嘴部位就可以判断是否疲劳。因此本文只选取其中4个关键点，分别为右、左眼中心点，右、左嘴角点。由于YOLOv5s模型没有人脸关键点预测，无法将其直接应用，本文设计了一种用于关键点回归的翼型分段损失函数Wingloss，如式（1）所示。elog1, if  ,                   othersizewxexwwingxxC，（1）式中：wing为损失函数；,ww（w为非负数）是Wingloss损失函数的非线性区；e为约束非线性区域的曲率；elog1Cwwwe是一个常数，用于平滑的连接分段的线性部分和非线性部分。Wingloss函数在不同参数下的图像见图9。图9Wingloss在不同参数下的函数图像Fig.9Winglossfunctionimagewithdifferentparameters关键点的坐标值iss与其预测值iss的损失函数见式（2）。Liiilosswingss，（2）式中：Lloss为关键点损失函数；1,2,,isin为第i个坐标点的真实值；1,2,,isin为第i个坐标点的预测值。将该损失函数加入YOLOv5s模型总损失函数Oloss中，YOLOv5s模型新的总损失函数见式（3）。OLlosslossloss，（3）式中：loss为YOLOv5s模型新的总损失函数；Oloss为YOLOv5s模型原损失函数；为关键点损失函数的权重因子。2.7改进后的YOLOv5s模型本文以YOLOv5s模型为基础网络进行改进，首先将输入的低照度图像经过图像增强模块SCI进行增强处理，其次将下采样层替换为StemBlock模块，在减少参数量与计算复杂度的同时，可以有效地提高特征表达能力；然后将主干网络替换为ShuffleNetV2网络，实现模型的轻量化；之后提出CIBC3模块代替C3模块，可以保留更多的特征信息并能增强模型的全局感知能力；最后将Wingloss损失函数加YOLOv5s总损失函数中用于人脸关键点回归。综上，改进后的YOLOv5s模型结构见图10，其检测人脸的结果示例见图11。图10改进后的YOLOv5s模型Fig.10ImprovedYOLOv5smodel图11结果实例Fig.11Resultinstance3人脸状态识别3.1截取眼部和嘴部区域在实际的图像采集过程中，当驾驶人头部发生偏转时，所获取到的眼部区域也有一定倾斜，这势必增大了检测难度。在将眼部图像送入分类网络之前，需要将眼部图像旋转至水平。头部倾斜后的眼部示意图见图12，双眼距离与截取图像宽高之间的关系见式（4）。本文将通过图12与式（4）来截取眼部区域图像。图12眼部区域示意图Fig.12Schematicdiagramofeyearea22eeeeelrlreeee53109dxxyyWdHd，（4）式中：ee1ll,Pxy、ee2rr,Pxy为左、右眼中心点坐标；ed为双眼中心相距距离；eW、eH分别为截取的眼部图像宽度和高度。利用文献[21]中的研究结果，本文设置截取图像的宽度为双眼中心距离的5/3，高度为双眼中心距离的10/9。可以根据图12中1l、2l、3l、4l、5l计算出眼部图像的四个边界点1O、2O、3O、4O。1l、2l、3l、4l、5l公式见式（5）。:0nnnlkxyb，（5）式中：1,2,,5nkn为nl的斜率；nb为nl的截距。1l计算见式（6）。eelr1eelree1l1lyykxxbykx，（6）由于2l、3l与1l平行且距离为59d，因此2l、3l的斜率与1l相等，即为1k，1b、2b计算分别见式（7）、（8）。221e1519bbdk，（7）231e1519bbdk，（8）由于4l、5l与1l垂直，因此斜率为11k，4b、5b计算分别见式（9）、（10）。eeeelrlr4e211511226yyxxbdkk，（9）eeeelrlr5e211511226yyxxbdkk，（10）由此可以得到1l、2l、3l、4l、5l五条线段，其中截取图像左上角点1O是3l与4l交点，1O计算见式（11），其余三个点同理可得。1O1O132O1O1400kxybkxyb，（11）式中：O1x、O1y分别为要截取图像左上角点1O的横、纵坐标值。根据这四个点可以将眼部区域确定，并旋转原图像至水平后进行截取。嘴角相距距离与截取图像宽高相应关系见式（12）。22mmmmmlrlrmmmm6565dxxyyWdHd，（12）式中：m1x、m1y为左嘴角中心点横、纵坐标值；mrx、mry为右嘴角中心点横、纵坐标值；md为左右嘴角相距距离；mW、mH分别为截取的嘴部图像宽度和高度。采用上述相同原理完成嘴部区域的截取。最终，眼部和嘴部的截取图像示意图见图13。（a）（b）图13眼部嘴部截取图像示意图。（a）眼部截取图像；（b）嘴部截取图像Fig.13Schematicdiagramofanimagecaptureoftheeyeandmouth.(a)Croppedimageoftheeyeregion;(b)croppedimageofthemouthregion3.2疲劳状态识别网络在获取眼部与嘴部图像后，本文构建了用于判断眼嘴开闭状态的疲劳状态识别网络FSR-Net（fatiguestaterecognitionnetwork）。FSR-Net采用了残差网络结构，输入图像首先通过32个3×3卷积核生成32个特征图，这些特征图经过2×2的最大池化层进行降维处理。上述特征图通过64个3×3卷积核做进一步的特征提取，特征提取完后经过一个残差块，生成64个特征图。经过2×2的平均池化层进行降维处理，上述特征图在经过由256个神经元组成的全连接层，用于接收前层提取的特征。最后通过softmax层对输入图像进行二分类，即眼睛和嘴巴张开或闭合的状态。网络结构见图14。图14FSR-Net结构Fig.14ThestructureofFSR-Net4疲劳评估与疲劳驾驶检测模型本文提出两个评价指标用于对疲劳状态进行评估，分别为最长闭眼时间MCT（maximumclosingtime）、最长打哈欠时间MYD（maximumyawnduration）。4.1最长闭眼时间指标在实际驾驶过程中，驾驶人会因为疲劳而长时间闭眼，这种情况应该被预警。本文提出最长闭眼时间指标，当驾驶人开始闭眼时，计算连续闭眼的时间见式（13）。eendstartTEET，（13）式中：eT为总共闭眼的时间；endE表示从连续闭眼到睁眼的帧序列号；startE表示开始闭眼的帧序列号；T表示采集每帧图像的时间间隔。本文设定当最长闭眼时间超过2s时，驾驶人处于疲劳状态。在数据集中每段视频以平均每秒20帧的速率播放，即每帧图像的时间间隔为50ms，因此当连续闭眼帧数超过40帧后，判定驾驶人当前处于疲劳状态。4.2最长打哈欠时间指标除闭眼外，当驾驶人处于疲劳状态时还会出现打哈欠行为。本文提出最长打哈欠时间指标，计算持续张嘴的时间见式（14）。mendstartTMMT，（14）式中：mT表示持续张嘴的时间；endM表示从持续张嘴到闭嘴的帧序列号；startM表示开始张嘴的帧序列号。本文设定当最长打哈欠时间指标超过3s时，驾驶人处于疲劳状态。即当持续张嘴超过60帧后，判定驾驶人处于疲劳状态。4.3疲劳驾驶检测模型综上，本文最终提出了疲劳驾驶检测模型，模型结构见图15。图15疲劳驾驶检测模型Fig.15Fatiguedrivingdetectionmodel本文提出的疲劳驾驶检测算法流程如下：首先将视频进行分帧，转化为帧图像，将帧图像依次输入到疲劳驾驶检测模型中。该模型通过改进后的YOLOv5s模型对输入图像进行人脸检测及关键点定位；随后通过关键点对驾驶人眼、嘴部位进行定位分割；然后将各部位图片分别送入FSR-Net对驾驶人状态进行检测；最后通过MYD、MCT指标判断驾驶人当前是否处于疲劳状态。5实验与结果分析本文实验环境及配置如下：Intel(R)Core(TM)i7-9300H处理器，32GB运行内存，NVIDIAGeForceRTX1050Ti显卡，Win10操作系统，Pytorch1.13.0。5.1改进后的YOLOv5s模型的实验与结果分析5.1.1实验数据集与参数设置该实验选用的数据集为DARKFACE公共数据集。DARKFACE数据集中包含了6000张真实环境下拍摄的低光照图像，本文将该数据集划分为训练集、验证集、测试集，比例为5：1：4。参数设置如下：epochs（总迭代次数）为300；输入图像尺寸为640×640；学习率为0.01；batch（每次迭代的训练样本）为16；动量为0.937；权重衰减系数为0.005；关键点损失函数的权重因子本文通过手动调参的方式最终确定为0.005。5.1.2评估指标评估网络性能的指标有精确率P（precision），召回率R（recall），平均精度AP（averageprecesion），平均精度均值mAP（meanaverageprecesion）。计算公式见式（15）。1011cjjTPPTPFPTPRTPFNAPPRmAPAPc，（15）式中：TP为预测正确的正样本数量；FN为预测错误的负样本数；FP为预测错误的正样本数；c为总样本数。5.1.3不同图像增强方法对比在2.2节中本文展示了不同图像增强方法下的可视化结果。为继续探究不同图像增强方法对模型精度的影响，本文设置了在不同图像增强方法下的实验，并将未使用图像增强方法的YOLOv5s模型作为基准进行对比。实验结果如表1所示，表中“—”处代表未使用图像增强方法。表1各图像增强方法对比实验Table1ComparativetestofeachimageenhancementmethodenhancementmethodmAP@0.5/%—71.36LIME70.17EnlightenGAN70.33SCI72.19LIME在增强过程中放大了噪声，EnlightenGAN增强的效果不是很均匀，仍存在一些阴影区域，这些问题导致了人脸检测性能的下降，而SCI处理后的图像因为整体效果较好细节较为清晰使人脸检测性能提升，因此本文选用SCI图像增强方法对低照度图像进行处理。5.1.4对比实验为验证改进后的YOLOv5s模型的先进性，将其与主流的目标检测模型SSD[22]、FasterRCNN[23]、YOLOv7[24]、YOLOv8[25]、YOLOv5s在DARKFACE数据集中进行对比分析，实验结果如表2所示。表2DARKFACE数据集上的实验结果Table2ExperimentalresultsontheDARKFACEdatasetModelmAP@0.5/%Parmas/MBFLOPs/GSSD57.3426.29242.71FasterRCNN62.52137.18398.12YOLOv5s69.817.2616.78YOLOv771.6737.21103.58YOLOv869.2811.1927.96Ours72.192.756.14Parts123456ShuffleNetV2×√√√√√StemBlock××√√√√IBC3×××√√√CIBC3××××√√  从表 2 中可以看出本文提出的改进模型在参数量和计算量大幅下降的同时检测精度最高，对比基准模型 YOLOv5s 不仅在参数量和计算量上分别下降了 62.12%、63.41%，在检测精度上还提高了 2.38%。对比最新的检测模型 YOLOv7 和 YOLOv8，在参数量上分别下降了92.61%、75.45%，计算量上分别下降了 94.07%、78.04%，检测精度分别提升了 0.52%、2.91%。本文提出的改进模型在参数量和计算量大幅下降的前提下，对比其它模型仍具有较高的检测精度。5.1.5 消融实验  为了验证不同改进方法对算法的影响程度，本文在 DARK FACE 公共数据集上进行了消融实验，实验结果如表 3 所示。表 3 消融实验Table 3 Ablation experimentSCI×××××√mAP@0.5/%69.8168.9369.7570.4971.3672.19Parmas/MB7.262.922.912.732.752.75FLOPs/G16.787.476.316.06.146.14在DARKFACE公共数据集上，将ShuffleNetV2网络代替原YOLOv5s网络中的主干网络后，mAP值下降了0.88%，参数量和计算量分别下降了59.78%、55.48%，在第三组实验中，将下采样模块替换为StemBlock模块，模型的mAP值增加了0.82%，同时参数量下降0.01MB，计算量下降1.16G。在第四组实验中，将C3模块替换为IBC3模块，mAP值上升了0.74%，参数量下降了0.18MB，计算量减少了0.31G。在第五组实验中，在IBC3模块中添加了CBAM注意力机制，mAP值增加了0.87%，参数量增加了0.02MB，计算量增加了0.14G。在第六组实验中添加了图像增强模块SCI，mAP值提高了0.83%。本文提出的改进模型更适合部署在边缘计算设备中并能满足复杂低光环境下的需求。5.2FSR-Net实验结果与分析5.2.1实验数据集该实验选用的数据集为CEW公开数据集、YawDD公开数据集和自建数据集。CEW数据集是由Song等[26]收集的数据，用于检测眼睛状态。YawDD数据集是由Abtahi等[27]构建的视频数据集，本文先将视频格式转换为帧图像，并对图像进行预处理和分类用于构建数据集。自建数据集是在模拟驾驶环境下进行拍摄而成的数据集。将各数据集分别划分为训练集、验证集、测试集，比例为8：1：1。最终划分的眼部、嘴部数据集信息如表4、5所示。表4眼部数据集信息Table4InformationofeyedatasetDatasetTrainingsetValidationsetTestsetTotalCEW19392422422423YawDD28803603603600Selt-builtdataset28803603603600表5嘴部数据集信息Table5InformationofmouthdatasetDatasetTrainingsetValidationsetTestsetTotalYawDD28803603603600Selt-builtdataset28803603603600数据集实例见图16。图16数据集实例Fig.16Exampleofdateset5.2.2对比实验FSR-Net在各个数据集下的测试集平均准确率为97.89%，具体准确率如表6所示。表6FSR-Net检测准确率Table6FSR-NetdetectionaccuracyDatasetAccuracyofEye/%AccuracyofMouth/%CEW97.22—YawDD97.5098.06Selt-builtdataset98.0698.61AverageAccuracy/%97.89为验证FSR-Net的有效性，在同数据集上将该网络与目前先进的分类网络MobileNetV2[28]、ShuffleNetV2、GhostNet[29]、ResNet50[30]和同类型网络EMs-Net[8]、EMSD-Net[31]进行对比，检测准确率和参数量如表7所示。表7FSR-Net与不同网络的实验结果对比Table7ComparisonofdetectionresultsbetweenFSR-NetanddifferentnetworksAlgorithmAverageAccuracy/%Params/MBMobileNetV295.533.50ShuffleNetV295.711.36GhostNet96.497.30ResNet5090.6425.64EMs-Net97.414.84EMSD-Net97.520.84Ours97.890.45由表7可知，本文提出的FSR-Net检测平均准确率为97.89%，在参照网络中准确率最高，同时参数量最小为0.45MB。综上可知，FSR-Net在眼嘴状态分类任务中具有可行性和有效性。5.3疲劳驾驶模型实验结果与分析5.3.1实验数据集该实验采用了YawDD公开数据集和自建数据集。YawDD公共数据集是在正常光照环境下进行拍摄的视频数据集，共有178段视频。由于目前很少有公开的在夜晚环境下疲劳驾驶数据集，因此本文自制了相关数据集。该数据集在夜间真实驾驶场景下进行拍摄，参与者共有20名（14名男性，6名女性），每位参与者被要求分别执行正常驾驶和疲劳驾驶的行为活动。最终拍摄视频200段，每段视频大约10s左右。其中标签为疲劳驾驶的视频数据为93段，标签为正常驾驶的视频数据为107段。数据集实例见图17。图像增强后的自建数据集实例见图18。图17疲劳驾驶数据集实例（a）YawDD公共数据集实例；（b）自建数据集实例Fig.17Exampleoffatiguedrivingdataset(a)ExampleoftheYawDDpublicdataset;(b)exampleoftheSelf-builtdataset图18图像增强后的自建数据集实例Fig.18ExampleofimageenhancedSelf-builtdataset5.3.2对比实验为验证本文所提模型的检测性能，将其与目前先进的几种疲劳驾驶检测模型MTCNN+EMs-Net[8]，DWC-basedone-stagealgorithm[9]，RetinaFace+EMSD-Net[31]分别在YawDD数据集与自建数据集上进行对比。结果如表8所示。表8不同模型实验结果Table8ExperimentalresultsofdifferentmodelsModelYawDD/%Selt-builtdataset/%Averagetimeexpenditure/msMTCNN+EMs-Net93.2681.5019DWC-basedone-stagealgorithm94.3879.0024RetinaFace+EMSD-Net95.5083.5040Ours96.0794.5027注：平均时间开销为检测一帧图像所耗费时间。由表8可知，本文所提模型在YawDD数据集与自建数据集上的准确率分别为96.07%、94.5%，相较于对比模型准确率最高。YawDD数据集是在正常光照下拍摄的，对比模型在该数据集上的准确率相对稳定。由于自建数据集是在低光环境下拍摄的，这导致了对比模型的准确率大幅下降。综上，本文所提模型无论在正常光照还是在低光照环境下都能保持良好的准确性，并且该模型处理单张图片的时间为27ms，每秒可以处理大约37帧图像，能够满足实时性要求。疲劳检测结果实例见图19。图19疲劳检测结果实例。（a）（b）（c）（d）YawDD公共数据集检测结果；（e）（f）（g）（h）自建数据集检测结果Fig.19Examplesoffatiguedetectionresults.(a)(b)(c)(d)YawDDpublicdatasetdetectionresults;(e)(f)(g)(h)Self-builtdatasetdetectionresults图19（a）（e)为正常驾驶状态；图19（b）（f）（g）为检测到驾驶人打哈欠，由于（b）（g）的MYD指标分别为12、27，没有达到设定阈值故不会发出警报，（f）的MYD指标为64，超过设定的阈值故发出警报；图19（c）（d）（h）为检测到驾驶人闭眼，由于（c）（h）MCT指标分别为9、19，没有达到设定阈值故不会发出警报，但是（d）的MCT指标为42，超过设定的阈值故发出警报。6结论本文提出一种基于图像增强和人脸状态识别的疲劳驾驶检测模型。首先通过改进YOLOv5s模型用于低光环境下人脸检测及关键点定位；之后提出了FSR-Net用于判断眼嘴图像的开闭状态；最后设计了MCT指标与MYD指标判断驾驶人当前是否处于疲劳驾驶。所提模型在YawDD正常光照数据集与自建低光照数据集上分别达到了96.07%，94.5%的准确率，并能每秒处理37帧的图像，验证了所提模型在正常环境与低光环境下都具有良好的实时性和准确性。参考文献[1]张瑞,朱天军,邹志亮,等.驾驶员疲劳驾驶检测方法研究综述[J].计算机工程与应用,2022,58(21):53-66.ZhangR,ZhuTJ,ZouTL,etal.Reviewofresearchondriverfatiguedrivingdetectionmethods[J].ComputerEngineeringandApplications,2022,58(21):53-66.[2]ArefnezhadS,SamieeS,EichbergerA,etal.Applyingdeepneuralnetworksformulti-levelclassificationofdriverdrowsinessusingVehicle-basedmeasures[J].ExpertSystemswithApplications,2020,162(1):113778.[3]ZhengW,GaoK,LiG,etal.VigilanceestimationusingawearableEOGdeviceinrealdrivingenvironment[J].IEEETransactionsonIntelligentTransportationSystems,2020,21(1):170-184.[4]JiaHJ,XiaoZJ,JiP.Real-timefatiguedrivingdetectionsystembasedonmulti-modulefusion[J].ComputersGraphics,2022,108:22-33.[5]李迟件,姚靖,高玉峰,等.利用深度学习扩展双光子成像视场[J].中国激光,2023,50(9):0907107.LiCJ,YaoY,GaoYF,etal.ExtendingField-of-ViewofTwo-PhotonMicroscopyUsingDeepLearning[J].ChineseJournalofLasers,2023,50(9):0907107.[6]赵菲,邓英捷.融合多异构滤波器的轻型弱小目标检测网络[J].光学学报,2023,43(9):0915001.ZhaoF,DengYJ.LightDimSmallTargetDetectionNetworkwithMulti-HeterogeneousFilters[J].ActaOpticaSinica,2023,43(9):0915001.[7]张志威.基于机器视觉的异常驾驶行为检测方法研究[D].长沙:湖南大学,2020.ZhangZW.Researchonthedetectionmet-hodofabnormaldrivingbehaviorbasedonmachinevision[D].Changsha:HunanUniversity,2020.[8]敖邦乾,杨莎,令狐金卿,等.基于级联神经网络疲劳驾驶检测系统设计[J].系统仿真学报,2022,34(02):323-333.AoBQ,YangS,LinghuJQ,etal.Designoffatiguedrivingdetectionsystembasedoncascadedneuralnetwork[J].JournalofSystemSimulation,2022,34(02):323-333.[9]WangJ,HuangS,LinJ,etal.Driverfatiguedetectionusingimproveddeeplearningandpersonalizedframework[J].InternationalJournalonArtificialIntelligenceTools,2022,31(02):2250024.[10]吕秀丽,刘希凤,白永强.基于SSD的多因素融合的驾驶疲劳检测研究[J].电子测量技术,2022,45(15):138-143.LvXL,LiuXF,BaiYQ,etal.ResearchondrivingfatiguedetectionbasedonSSDmuti-factorfusion[J].ElectronicMeasurementTechnology,2022,31(02):2250024.[11]ChenW,ShahT.Exploringlow-lightobjectdetectiontechniques[EB/OL].(2021-07-30)[2024-02-09].https://arxiv.org/abs/2107.14382.[12]SasagawaY,NagaharaH.Yolointhedark-domainadaptationmethodformergingmultiplemodels[C]//ComputerVision-ECCV2020:16thEuropeanConference,August23-28,2020,Glasgow,UK.Berlin:Springer,2020:345-359.[13]MaL,MaT,LiuR,etal.Towardfast,flexible,androbustlow-lightimageenhancement[C]//ProceedingsoftheIEEE/CVFConferenceonComputerVisionandPatternRecognition,June18-24,2022,LA,USA.Piscataway:IEEE,2022:5637-5646.[14]刘丰,韩民,万军,等.基于深度学习的牙齿病变自动检测算法[J].中国激光,2022,49(20):2007207.LiuF,HanM,WangJ,etal.AutomaticDetectionofDentalLesionsBasedonDeepLearning[J].ChineseJournalofLasers,2022,49(20):2007207.[15]GuoXJ,LiY,LingHB.LIME:Low-lightimageenhancementviailluminationmapestimation[J].IEEETransactionsonimageprocessing,2016,26(2):982-993.[16]JiangY,GongX,LiuD,etal.Enlightengan:Deeplightenhancementwithoutpairedsupervision[J].IEEEtransactionsonimageprocessing,2021,30:2340-2349.[17]WangRJ,LiX,LingCX.Pelee:areal-timeobjectdetectionsystemonmobiledevices[EB/OL].(2018-04-18)[2024-03-17].https://arxiv.org/abs/1804.06882.[18]YangH,LiuJ,MeiG,etal.Researchonreal-timedetectionmethodofrailcorrugationbasedonimprovedShuffleNetV2[J].EngineeringApplicationsofArtificialIntelligence,2023,126:106825.[19]WangQ,ShengJ,TongC,etal.Afastfacet-basedSARimagingmodelandtargetdetectionbasedonYOLOv5withCBAMandanotherdetectionhead[J].Electronics,2023,12(19):4039.[20]崔馨方.关于人脸关键点检测的若干问题研究[D].南京:东南大学,2020.CuiQF.Researchonseveralissuesaboutfacekeypointsdetection[D].Nanjing:SoutheastUniversity,2020.[21]JiY,WangS,ZhaoY,etal.Fatiguestatedetectionbasedonmulti-indexfusionandstaterecognitionnetwork[J].IEEEAccess,2019,7:64136-64147.[22]YinZB,LiuFY,GengH,etal.Ahigh-precisionjujubediseasespotdetectionbasedonSSDduringthesortingprocess[J].Plosone,2024,19(1):e0296314.[23]KongX,LiX,ZhuX,etal.Detectionmodelbasedonimprovedfaster-RCNNinappleorchardenvironment[J].IntelligentSystemswithApplications,2024,21:200325.[24]LiZ,ZhuY,SuiS,etal.Real-timedetectionandcountingofwheatearsbasedonimprovedYOLOv7[J].ComputersandElectronicsinAgriculture,2024,218:108670.[25]GuanH,DengH,MaX,etal.AcorncanopyorgansdetectionmethodbasedonimprovedDBi-YOLOv8network[J].EuropeanJournalofAgronomy,2024,154:127076.[26]SongF,TanX,LiuX,etal.Eyesclosenessdetectionfromstillimageswithmulti-scalehistogramsofprincipalorientedgradients[J].PatternRecognition,2014,47(9):2825-2838.[27]AbtahiS,OmidyeganehM,ShirmohammadiIS,etal.YawDD:ayawningdetectiondataset[C]//Proceedingsofthe5thACMmultimediasystemsconference,March19,2014,Tainan,Taiwan.NewYork:AssociationforComputingMachinery,2014.[28]AnilBK,MohanB.FacemaskdetectiononphotoandReal-TimevideoimagesusingCaffe-MobileNetV2transferlearning[J].AppliedSciences,2023,13(2):935-935.[29]DuZ,XuX,BaiZ,etal.FeaturefusionstrategyandimprovedGhostNetforaccuraterecognitionoffishfeedingbehavior[J].ComputersandElectronicsinAgriculture,2023,214:108310.[30]HasanahSA,PravitasariAA,AbdullahAS,etal.AdeeplearningreviewofResNetarchitectureforlungdiseaseidenti-ficationinCXRImage[J].AppliedSciences,2023,13(24):13111.[31]张博熠,者甜甜,赵新旭,等.基于眼嘴状态识别网络的疲劳驾驶检测[J].计算机工程,2023,49(05):310-320.ZhangBO,ZheTT,ZhaoXX,etal.Fatiguedrivingdetectionbasedoneyeandmouthstaterecognitionnetwork[J].ComputerEngineering,2023,49(05):310-320.网络首发：
+
+标题：低照度下基于图像增强和人脸状态识别的疲劳驾驶检测
+
+作者：赵洋,苗佳龙,刘雪枫,赵锦程,徐森
+
+收稿日期：2024-02-20
+
+录用日期：2024-03-25
+
+DOI：10.3788/LOP240711
+
+引用格式：
+赵洋,苗佳龙,刘雪枫,赵锦程,徐森. 低照度下基于图像增强和人脸状态识别的疲劳驾驶检测
+
+[J].激光与光电子学进展,2024,61(22):2215005.
+
+网络首发文章内容与正式出版的有细微差别，请以正式出版文件为准！
+————————————————————————————————————————————————————
+
+O
+
+P
+
+L
+
+您感兴趣的其他相关论文：
+
+车底危险物图像快速拼接算法
+庄建军 金鑫 
+
+南京信息工程大学电子与信息工程学院，江苏 南京 210044
+
+激光与光电子学进展,2024,61(8):0837011
+
+基于YOLOv5s的自动扶梯乘客异常行为实时检测算法
+王源鹏 万海斌 黄凯 迟兆展 张金旗 黄智星 
+
+广西大学计算机与电子信息学院，广西 南宁 530004
+
+激光与光电子学进展,2024,61(8):0812004
+
+基于载物台运动信息的显微图像拼接算法研究
+黄家广 玉振明 彭国晋 甘辉 吕美妮 
+
+桂林电子科技大学信息与通信学院，广西 桂林 541004
+
+激光与光电子学进展,2024,61(8):0837012
+
+基于DeepLabv3+的轻量化路面裂缝检测模型
+夏晓华 苏建功 王耀耀 刘洋 李明臻 
+
+长安大学工程机械学院，陕西 西安 710000
+
+激光与光电子学进展,2024,61(8):0812001
+
+深度学习在甲状腺结节良恶性分类中的应用进展
+张文凯 王晓燕 刘静 周启香 贺鑫 
+
+山东中医药大学智能与信息工程学院，山东 济南 250355
+
+激光与光电子学进展,2024,61(8):0800002
+
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+

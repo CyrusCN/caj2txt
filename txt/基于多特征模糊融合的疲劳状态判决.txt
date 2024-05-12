@@ -1,0 +1,871 @@
+Vol. 42，No. 4
+Apr，2017
+
+火 力 与 指 挥 控 制
+Fire Control & Command Control
+
+第 42 卷 第 4 期
+2017 年 4 月
+
+文章编号：1002-0640（2017）04-0096-05
+
+基于多特征模糊融合的疲劳状态判决 *
+
+曹国震 1，彭 寒 2，谭 伟 3
+
+（1.西安航空学院，西安 710077；2.西北工业大学计算机学院，西安 710072；
+
+3.西安导航技术研究所，西安 710068）
+
+摘 要：在基于视觉的疲劳驾驶识别过程中，使用单个特征进行疲劳驾驶判断，常常会受到非普遍适用性、噪声
+
+等因素的影响，从而导致识别率降低。为了解决眼部特征参数或者是嘴巴特征参数单个特征识别率低甚至特使环境
+
+无法识别的问题，提出一种基于多特征融合的判决方法，利用了各种特征之间的优势互补，可以降低噪声和类内类
+
+间差异的影响，从而提高系统的性能，并且能增强适用性。最后通过实验结果证明，使用眼部和嘴巴特征融合的方法
+
+比单一的判决方法准确率更高。
+
+关键词：模糊控制器，多特征模糊融合，眼部特征参数，嘴巴特征参数
+中图分类号：TP391
+
+文献标识码：A
+
+Decision of Fatigue State Based on Characteristics' Fuzzy Fusion
+
+CAO Guo-zhen1，PENG Han2，TAN Wei3
+（1. Xi’an Aviation Academy，Xi’an 710077，China；
+2. School of Computer Science，Northwestern Polytechnical University，Xi’an 710072，China；
+
+3. Xi’an Institute of Navigation Technology，Xi’an 710068，China）
+
+Abstr act：The fatigue recognition process based on visual，using a single feature to fatigue driving，
+often by the universal applicability，the influence of factors such as noise，leading to the recognition rate
+is reduced. Characteristic parameters in order to solve the eye or mouth feature parameters of the
+individual character recognition rate is low and even envoy environment cannot be any other questions，
+this paper proposes a decision method based on feature fusion，using a variety of characteristics
+between the complementary advantages，can reduce the effects of difference between noise and class in
+
+the class，so as to improve the performance of the system，and can enhance the applicability. Finally，
+the experimental results show that using the eye and mouth features fusion method is higher accuracy
+than a single sentence.
+
+Key wor ds：fuzzy controller，characteristics' fuzzy fusion，eye feature parameters，mouth characteristic
+
+parameters
+
+0 引言
+
+我国汽车保有量与日俱增，道路交通事故发生
+
+率 居 高 不 下 ， 已 成 为 一 个 不 可 忽 视 的 问 题 ，
+2012~2014 年的交通事故死亡人数分别为 30 222、
+31 604、34 292［1］。Klauer 等研究发现，疲劳驾驶引
+发交通事故的概率是正常驾驶的 46 倍［2］。据美国
+
+收稿日期：2016-02-13
+基金项目：国家青年科学基金资助项目（61201321）
+
+修回日期：2016-04-07
+
+*
+
+NHTSA 相关研究表明，每年由于疲劳驾驶而导致的
+交通事故至少有 10 万起［3］。在我国，每年因疲劳驾
+车而造成的事故分别占总事故率、特大事故率、死
+亡事故率的 20 %、40 %以上、83 %［4］。虽然疲劳驾驶
+引发交通事故所占比例在不同的国家之间存在一
+定差异，然而基本都在 20 %左右［5］。因而疲劳驾驶
+检测成为智能交通的一部分。
+
+作者简介：曹国震（1980- ），男，陕西榆林人，讲师，硕士研究生。研究方向：计算机应用技术、信息安全。
+
+96· ·
+
+曹国震，等：基于多特征模糊融合的疲劳状态判决
+
+（总第 42- ）
+
+0653
+
+基于视觉的疲劳驾驶判断主要是通过提取典型
+的疲劳特征，最后进行疲劳程度判断。基于眼睛特征
+提取来判决疲劳状态有很多，例如 Suzuki M ［6］、
+Lenskiy A A［7］等国内外研究者就基于眼睛特征进行
+了研究，并取得显著的成果；基于嘴巴特征提取来判
+决疲劳状态的方法也有大量研究者在进行研究，例
+如 Li，Lingling［8］、Jin Li-sheng［9］等国外学者。
+
+基于单个特征进行疲劳驾驶判断的方法，常常
+会受到非普遍适用性、噪声等因素的影响，从而导致
+识别率降低。在驾驶员的疲劳检测中，如果嘴巴或者
+眼睛出现部分、全部遮挡时，单特征判决法将无法判
+决。而应用多特征融合的判决方法，由于利用了各种
+特征之间的优势互补，从而提高系统的性能，并且能
+增强适用性。由于模糊逻辑控制是一种易于控制，容
+易掌握的非线性控制器，有不错的适应性和鲁棒性，
+因此，得到广泛的应用，所以提出了一种基于模糊逻
+辑融合的方法进行疲劳驾驶检测方法。
+
+1 疲劳驾驶模糊控制器的设计
+
+打哈欠是疲劳或者当人体睡眠不足的表现，这
+就预示着大脑和其他器官已经疲劳，需要得到休
+息；同时在疲劳状态下，眼睛部位的特征将会发生
+明显的变化，出现眨眼频率加快，眨眼持续时间延
+长等特征。
+
+使用两个模糊控制器组合的方式来进行疲劳判
+决，首先对提取到的眨眼频率和平均每次眨眼持续
+时间这两个参数使用模糊逻辑的方法进行特征融
+合，获得眼部状态，然后再与嘴巴状态一起输入到眼
+嘴模糊控制器，进行最终的疲劳判决，如图 1 所示。
+
+图 1 模糊融合判决
+
+1.1 隶属度函数的建立
+
+对于眼睛特征模糊控制器，眨眼频率和持续时
+间作为两个输入、一个输出变量分别定义模糊集
+合，并选择不同的隶属度函数。选择如下：眨眼频率 =
+{快、较快、中、较慢、慢}={PB，PS，Z，NS，NB}；平均
+眨眼持续时间 ={短、较短、中、较长、长}={NB，NS，
+Z，PS，PB}；眼部疲劳状态 ={清醒、较清醒、注意、较
+疲劳、疲劳}={NB，NS，Z，Ps，PB}。选取 1 min 之内
+的眨眼次数和平均眨眼时间作为输入，选用经验法
+
+来确定隶属度函数，采用三角形隶属度函数。其中
+眼部频率隶属度函数分别为 PB=［21 28 50 57］，PS=
+［14 21 28］，Z=［7 14 21］，NS=［0 7 14］，NB=［1 0 7］；
+平 均 眨 眼 持 续 时 间 隶 属 度 函 数 分 别 为 PB=［1.05
+1.4 5 5.7］，PS=［0.7 1.05 1.4］，Z=［0.35 0.7 1.05］，
+NS=［0 0.35 0.7］，NB=［0.1 0 0.3 5］。据此，可以得
+到眨眼频率和平均眨眼持续时间的隶属度函数。
+
+对于输出眼部疲劳状态，隶属度函数为 PB=
+
+［0.9 1.2 1.21］，PS= ［0.6 0.9 1.2］，Z= ［0.3 0.6 0.9］，
+NS=［0 0.3 0.9］，NB=［0.01 0 0.3］，使用模糊控制器
+1（即眼部特征模糊融合）的输出眼部疲劳状态和嘴
+巴打哈欠状态作为模糊控制器 2（即眼嘴模糊融合）
+的输入，进行最终的疲劳度判决。模糊控制器二的
+输入输出隶属度函数同样采用常用的三角形隶属
+度函数。
+
+模糊控制器 2 输入为眼睛疲劳度和嘴巴疲劳
+度，输出为最终的疲劳度，隶属度函数分别为：眼睛
+疲劳度 ={清醒、较清醒、注意、较疲劳、疲劳}={NB，
+NS，Z，PS，PB}，其中 NB= ［0.1 0 0.3］，NS= ［0 0.3
+0.6］，Z=［0.3 0.6 0.9］，PS=［0.6 0.9 1.2］，PB=［0.9 1.2
+2］；打哈欠频率 ={快、较快、中、慢}={PB，Ps，Z，NB}，
+其中 NB=［0.1 0 2］，NS=［0 2 4］，Z=［2 4 6］，PB=［4 6
+20 24］；输出疲劳度 ={清醒、较清醒、注意、较疲劳、
+疲 劳 }= {NB，NS，Z，PS，PB}，NB=［0.1 0 0.3］，NS=［0
+0.3 0.6］，Z=［0.3 0.6 0.9］，PS=［0.6 0.9 1.2］，PB=［0.9
+1.2 2］，当最终输出大于等于 0.8 时则判定为疲劳，
+否则为正常状态。
+1.2 模糊推理规则的建立
+
+模糊控制器的输入变量为平均眨眼持续时间
+和眨眼频率，采集的图像经过处理后得到眼睛睁闭
+的情况，并将眨眼频率转换为频率快、眼频率较快、
+频率中、频率较慢、频率慢、平均眨眼持续时间转换
+为持续时间长、持续时间较长、持续时间中、持续时
+间较短、持续时间短等模糊语言。
+
+对于模糊控制器 1，平均眨眼持续时间的重要
+性要高于眨眼频率，这是因为眨眼持续时间越长代
+表了眼睛在眨眼过程中眼睛闭合的时间越长，眼睛
+闭合越长代表危险性越高；同时由于驾驶员进入轻
+度疲劳时，眨眼持续时间增加、眨眼频率增加，但当
+进入深度疲劳以至于睡眠时，眨眼持续时间非常
+长，而眨眼频率降低，因此，本文在建立模糊规则库
+时，针对眨眼持续时间过高这种特殊情况，则不论
+眨眼频率是否高低均判断为眼睛疲劳。建立模糊控
+制规则表，其相互间最多可得 25 条控制规则，可以
+
+将上述规则以简单的模糊控制规则表，如下页表 1
+所示。
+
+97· ·
+
+（总第 42- ）
+
+0654
+
+火 力 与 指 挥 控制
+
+2017 年 第 4 期
+
+眨眼频率
+
+NB
+
+NS
+
+Z
+
+PS
+
+PB
+
+NB
+
+NB
+
+NB
+
+NS
+
+Z
+
+PS
+
+表 1 模糊控制规则表
+
+平均眨眼持续时间
+
+NS
+
+NB
+
+NS
+
+Z
+
+PS
+
+PS
+
+Z
+
+NZ
+
+Z
+
+PS
+
+PB
+
+PB
+
+PS
+
+Z
+
+PS
+
+PB
+
+PB
+
+PB
+
+PB
+
+PB
+
+PB
+
+PB
+
+PB
+
+PB
+
+疲劳状态数值越高表示越疲劳，文中眼睛疲劳
+
+状态的重要性要高于嘴巴疲劳状态，因为眨眼持续
+时间越长或眨眼频率越高代表了眼睛在眨眼过程
+
+中眼睛闭合的时间越长，不论驾驶员疲劳与否，眼
+睛闭合越久代表危险性越高。
+
+对于模糊控制器 2 输入变量为眼睛疲劳状态
+和嘴巴疲劳状态，将眼部状态转换为清醒、较清醒、
+注意、较疲劳、疲劳等模糊语言，嘴巴状态转换为不
+打哈欠、打哈欠频率低、打哈欠频率较高、打哈欠频
+率高。因此，其相互间最多可得 20 条控制规则，推
+理的 20 条控制规则如表 2 所示。
+表 2 控制规则表
+
+打哈欠
+频率
+
+NB
+
+Z
+
+PS
+
+PB
+
+NB
+
+NB
+
+NB
+
+NS
+
+Z
+
+眼部状态
+
+NS
+
+NB
+
+NS
+
+Z
+
+PS
+
+Z
+
+Z
+
+Z
+
+PS
+
+PB
+
+PS
+
+PS
+
+PS
+
+PB
+
+PB
+
+PB
+
+PB
+
+PB
+
+PB
+
+PB
+
+2 疲劳驾驶检测算法整体设计
+
+图 2 疲劳驾驶检测总流程图
+
+疲劳驾驶检测总流程如图 2 所示。整体设计思
+路为：人脸检测 * 人脸跟踪 * 特征定位 * 参数提取
+* 疲劳判决。特征定位为定位人眼和嘴巴并求其宽
+高比，参数提取为提取该帧前 1 min 之内的眨眼频
+率、平均眨眼持续时间和打哈欠频率。首先针对第
+一帧图像进行人脸检测，确定人脸区域，在其后的
+帧中对该人脸区域进行跟踪，只有在跟踪失败（相
+
+似度 Bhattacha}yya 系数 <0.8 或特征定位失败的时
+
+候才重新启动人脸检测算法；因为本文提取的是
+
+98· ·
+
+1 min（即 120 帧）之内的参数，因此，在开始的 120
+帧之内并不进行参数提取，只是提取每帧眼睛、嘴
+巴的宽高比，并求取该 120 帧中的宽高比最大值及
+
+最小值，当 120 帧处理完毕之后，在后续帧中便可
+以对该帧前 1 min 的眨眼频率等参数进行提取，并
+进行疲劳判定。
+2.1 人脸检测
+
+人脸检测流程如图 3、图 4 所示，该流程分为两
+部分：第 1 部分为神经网络训练，如图 3，首先对人
+
+脸及非人脸样本进行 Gabor 滤波，得到一组特征向
+
+量，其次使用 PCA 特征降维，将降维后的向量输入
+到神经网络进行训练，训练后得到神经网络分类器。
+
+图 3 神经网络训练
+
+图 4 人脸标记流程
+
+第 2 部分为人脸检测部分，如图 4 所示，首先
+
+将待检测的原始图像经过光照补偿预处理，其次进
+
+行非线性肤色分割，并进行形态学处理得到人脸候
+选区域，然后分别对每个候选区域进行逐次缩放，
+
+进行人脸判别，缩放停止的判断标准是直到检测到
+为人脸或缩放到训练样本大小。对每个候选区域进
+行人脸判别的过程为：首先将候选区域与人脸库样
+
+本平均脸做二维卷积运算，在结果矩阵中选取与候
+选区域相同大小的中间部分作为一个新矩阵，在该
+
+矩阵中寻找极值点，在候选区域上与极值点位置对
+应的附近一定范围内依次选取样本大小的图像区
+域，将该区域经过 Gabor 滤波和 PCA 降维之后输入
+
+到神经网络进行人脸判别；当该区域没有检测到人
+脸，但神经网络输出值较大时，可将极值点附近的
+范围适当放大。人脸跟踪流程如下页图 5 所示。
+2.2 特征定位和参数提取流程图
+
+根据上述人脸检测和跟踪提取到人脸图像之
+后便可以进一步定位眼睛和嘴巴，在文中，为避免
+
+受跟踪误差的影响，选取的人脸图像为跟踪窗口适
+当放大之后包含的图像。首先对该人脸图像进行肤
+
+曹国震，等：基于多特征模糊融合的疲劳状态判决
+
+（总第 42- ）
+
+0655
+
+图 5 人脸跟踪流程
+
+色二值分割，分别用垂直、水平灰度积分投影确定
+眼睛、嘴巴的大致区域，即眼睛和嘴巴的初定位；其
+次将该人脸图像转化为灰度图像，进行直方图均衡
+化增强、最大类间方差分割和形态学处理，这样便
+可以获得将眉眼区域有效区分开的二值图，结合之
+
+前的初定位，使用连通域标记法便可以精确定位出
+
+眼睛和嘴巴；然后分别计算眼睛和嘴巴的宽高比，
+
+进行状态分析，判断是否张开或闭合；最后如果该
+帧前面帧数大于 120，便可以获得该帧前 120 帧的
+眨眼频率、平均眨眼持续时间和打哈欠频率等参
+数。特征定位和参数提取流程图如图 6 所示。
+
+图 6 特征定位和参数提取
+
+2.3 疲劳判决流程图
+
+获得眨眼频率、平均眨眼持续时间和打哈欠频
+率等参数之后，便可以使用本文建立的模糊融合法
+判定疲劳度，疲劳判决流程图如图 7 所示。首先对
+眨眼频率和平均眨眼持续时间根据模糊控制器一
+输入隶属度函数进行模糊化，进行模糊推理，结合
+输出隶属度函数进行反模糊化，得出眼睛的疲劳状
+
+态；其次把眼睛疲劳状态和打哈欠频率作为输入，
+通过模糊控制器二得出最终的疲劳度，判定是否疲
+劳驾驶。
+
+3 试验分析
+
+选取 20 组在实验室模拟的驾驶员疲劳驾驶时
+
+的序列图像进行的测试，其中 1~5 组含有打哈欠动
+
+作并且眼部疲劳程度较高，6~10 组不含打哈欠动作
+
+图 7 模糊控制器
+但眼部疲劳程度较高，11~15 组含有打哈欠动作但
+眼部疲劳程度较低，16~20 组不含打哈欠动作且眼
+部疲劳程度较低，系统使用处理器为 Inter Pentium
+E5300 2G 内存的计算机进行测试，图像大小为 320
+×240，每秒为 20 帧，分别使用 A：眼睛状态判定（使
+用眨眼频率和平均眨眼持续时间）、B：嘴巴状态判
+定（使用打哈欠频率）、C：先嘴巴状态判定再眼部状
+态判定、D：眼睛和嘴巴融合判定 4 种方法来判断驾
+驶员是否疲劳，实验结果如下页表 3 所示，表 3 中
+疲劳用 Y 表示，不疲劳用 N 表示。
+
+由表 3 可知，使用 A 方法在组别 3，4，6，7，
+12，15，20 出现误判，使用 B 方法在组别 8，9，10，
+11，13，14 出现误 判，使用 C 方 法 在 组 别 6，7，
+11，13，14 出现误判。从实验结果可以看出，联合使
+用眼睛和嘴巴比使用单一的特征进行疲劳判决在
+准确性上有明显提高。对不同的驾驶员疲劳和不疲
+劳状态下的视频序列进行检测，每段视频序列时长
+为 3 min，试验结果表明，本文提出的算法在头部偏
+转不大时疲劳检测正确率为 93.6 %，当存在头部偏
+转时，正确率为 87.9 %。由此可知，本文算法具有较
+
+99· ·
+
+（总第 42- ）
+
+0656
+
+火 力 与 指 挥 控制
+
+2017 年 第 4 期
+
+表 3 试验结果
+
+参考文献：
+
+组别
+
+11
+
+12
+
+13
+
+14
+
+15
+
+16
+
+17
+
+18
+
+19
+
+20
+
+D
+
+Y
+
+Y
+
+Y
+
+Y
+
+Y
+
+N
+
+N
+
+Y
+
+Y
+
+Y
+
+A
+
+N
+
+N
+
+N
+
+N
+
+N
+
+N
+
+N
+
+N
+
+N
+
+Y
+
+选择方法
+
+B
+
+Y
+
+Y
+
+Y
+
+Y
+
+Y
+
+N
+
+N
+
+N
+
+N
+
+N
+
+C
+
+Y
+
+Y
+
+Y
+
+Y
+
+Y
+
+N
+
+N
+
+N
+
+N
+
+N
+
+D
+
+N
+
+Y
+
+N
+
+N
+
+Y
+
+N
+
+N
+
+N
+
+N
+
+N
+
+组别
+
+1
+
+2
+
+3
+
+4
+
+5
+
+6
+
+7
+
+8
+
+9
+
+10
+
+A
+
+Y
+
+Y
+
+N
+
+N
+
+Y
+
+Y
+
+Y
+
+Y
+
+Y
+
+Y
+
+选择方法
+
+B
+
+Y
+
+Y
+
+Y
+
+Y
+
+Y
+
+N
+
+N
+
+N
+
+N
+
+N
+
+C
+
+Y
+
+Y
+
+Y
+
+Y
+
+Y
+
+Y
+
+Y
+
+Y
+
+Y
+
+Y
+
+高的检测率。
+
+4 结论
+
+为了解决单个特征进行疲劳驾驶判断的方法，
+常常会受到非普遍适用性、噪声等因素的影响从而
+导致识别率降低的问题。本文提出了一种基于多特
+征模糊融合的疲劳状态判决，通过使用两个模糊控
+制器组合的方式来进行疲劳判决。针对眼睛特征模
+糊控制器（模糊控制器 1）建立了眨眼频率和平均眨
+
+眼持续时间隶属度函数，并确定相应的规则表，使
+
+用眨眼频率和平均眨眼持续时间这两个参数进行
+
+特征融合，获得眼部状态，并结合嘴巴打哈欠状态
+
+作为眼嘴模糊控制器（模糊控制器 2）的输入，建立
+
+相应的隶属度函数和规则表，进行最终的疲劳判
+决。实验结果表明，结合使用眼睛和嘴巴比使用单
+一的特征进行疲劳判决在准确性上有明显提高，本
+
+文提出的算法在头部偏转不大时疲劳检测正确率
+为 93.6 %，当存在头部偏转时，正确率为 87.9 %。由
+此可知，本文算法具有较高的检测率。
+
+［1］ 公安部交通管理局. 中华人民共和国道路交通事故统计
+
+年报［R］.北京：公安部交通管理局，2014.
+
+［2］ KLAUER S G，DINGUS T A，NEALE V L，et al. The impact
+
+of driver inattention on near crash/crash risk：An analysis us-
+
+ing the 100 car naturalistic driving study data ［R］. Wash-
+
+ington：National Highway Traffic Safety Administration，
+
+2006.
+
+［3］ LIU C，SUBRAMANIAN R. Factors related to fatal singleve-
+
+hicle run off road crashes ［R］，DOTHS811232，U.S. De-
+
+partment of Transportation，American National Highway
+
+Traffic Safety Administration，Washington，DC，USA，2009.
+
+［4］ 牛清宁. 基于信息融合的疲劳驾驶检测方法研究［D］.长
+
+春：吉林大学，2014.
+
+［5］ MAC LEAN A W，DAVIES D R T，THIELE K. The hazards
+
+and prevention of driving while sleepy ［J］. Sleep Medicine
+
+Reviews，2003（7）：507-521.
+
+［6］SUZUKI M，YAMAMOTO N，YAMAMOTO O，et al. Mea-
+
+surement of driver’s consciousness by image processing a
+
+method for presuming driver’s drowsiness by eye blinks cop-
+
+ing with individual differences［C］//IEEE International Con-
+
+ference on Systems，Man and Cybernetics，2006.
+
+［7］ LENSKIY A A，LEE J S. Driver’s eye blinking detection us-
+
+ing novel color and texture segmentation algorithms ［J］. In-
+
+ternational Journal of Control Automation and Systems，
+
+2012，10（2）：317-327.
+
+［8］ LI L L，CHEN Y Z，XIN L. Driver Fatigue Detection Based
+
+on Mouth Information［C］//8th World Congress on Intelligent
+
+Control and Automation，Jinan，PEOPLES R CHINA，2010：
+
+6058-6062.
+
+［9］ JIN L S，SUN X，JIANG Y Y. Study on driver's mouth seg-
+
+mentation and location based on color space ［C］//IEEE In-
+
+telligent Vehicles Symposium，Xi’an，Peoples R China，
+
+2009：500-506.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+（上接第 95 页）
+
+［2］SHIMON P，BENJAMIN F. The discrete-polynomial-phase
+
+2010，4（2）：130-136.
+
+transform ［J］.IEEE Trans. On Signal Processing，1995，43
+
+［6］HUANG N E. The empirical mode decomposition and the
+
+（8）：1901-1914.
+
+Hilbert spectrum for nonlinear and non-stationary time series
+
+［3］GABOR D. Theory of communication［J］.Proc. IEE，1946，93
+
+analysis ［J］.Proceedings of the Royal Society of London. Se-
+
+（3）：429-457.
+
+ries A：Mathematical，Physical and Engineering Sciences，
+
+［4］MARTIN W，PATRICK F. Wigner-ville spectral analysis of
+
+1998，454（1971）：903-995.
+
+non-stationary processes［J］.IEEE Transactions on Acoustics
+
+［7］ZHANG L，SHENG J L，DUAN J. Translational motion com-
+
+Speech and Signal Processing，1985，33（6）：1461-1470.
+
+pensation for ISAR imaging under low SNR by minimum en-
+
+［5］ WANG Y，JIANG Y C. New time-frequency distribution
+
+tropy ［J］.EURASIP Journal on Advances in Signal Process-
+
+based on the polynomial Wigner-ville distribution and L
+
+ing，2013，8（1）：1-19.
+
+class of Wigner-ville distribution ［J］.Signal Processing，
+
+100· ·
+
+
