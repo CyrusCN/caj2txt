@@ -1,0 +1,697 @@
+2018 年
+第 37 卷
+
+11 月
+第 11 期
+
+机 械 科 学 与 技 术
+Mechanical Science and Technology for Aerospace Engineering
+
+November
+
+2018
+
+Vol．37
+
+No．11
+
+DOI: 10．13433 / j．cnki．1003-8728．20180131
+
+多特征融合的驾驶员疲劳检测研究
+
+黄占鳌，史晋芳*
+( 西南科技大学 制造科学与工程学院，四川绵阳 621010)
+
+摘要: 针对驾驶疲劳检测中面部特征定位及驾驶员疲劳状态判别方法判断存在的不足，提出了利用
+
+监督下降算法同时定位驾驶员的多个面部特征。在眨眼、哈欠及点头判断的基础上，提取驾驶员眨
+
+眼频率、哈欠频率及点头频率多个特征值建立疲劳检测样本数据库，并构建朴素贝叶斯分类器进行
+
+疲劳判断。当驾驶员出现疲劳驾驶时及时给以警告信息，以预防交通事故发生。在实际的驾驶环
+
+境视频测试结果中，驾驶员疲劳状态的判别平均准确率达到了 94．87%，具有较好的性能。
+
+关键词: 驾驶员疲劳检测; 监督下降算法; 多特征值融合; 朴素贝叶斯分类器
+中图分类号: TP273
+
+文献标识码: A
+
+文章编号: 1003-8728( 2018) 11-1750-05
+
+Research on Driver's Fatigue Detection by Multi-feature Fusion
+
+Huang Zhan'ao，Shi Jinfang*
+( School of Manufacturing Science and Engineering，Southwest University of Science and Technology，Sichuan Mianyang 621010，China)
+
+Abstract: Aiming at the deficiencies of facial features location and driver fatigue judgments in driving fatigue
+
+detection，a new method called supervised descend method was proposed to locate driver' s face features
+
+simultaneously． Driver' s eye blink frequency，yaw frequency and nodding frequency are extracted to build the
+
+fatigue detection sample database based on eye blink，yawn and nodding judgments，then a naive Bayesian
+
+classifier was constructed to judge the driver's fatigue state． If a driver appears fatigue state during driving，warning
+
+message would be given promptly to prevent traffic accidents． In the actual driving environment video test result，the
+
+average accuracy rate of the driver's fatigue detection achieved 94．87%，with good performances．
+
+Keywords: driver's fatigue detection; supervised descent method; multi-feature fusion; naive Bayesian classifier
+
+在汽车 行 驶 过 程 中，驾 驶 员 疲 劳 驾 驶 成 为 众
+多交通事 故 的 隐 患 因素 之 一 。据 统 计 表 明，大 约
+15% ～ 20% 的 致 命 交 通 事 故 由 疲 劳 驾 驶 导 致［1］。
+
+驾驶环境的 随 机 性、复 杂 性 等 特 点 使得 一 般 的 检
+测手段难以对驾驶员的疲劳状态做出有效的评估
+及预警。
+
+收稿日期: 2018-01-18
+
+基金项目: 西南科技大学博士基金项目( 16ZX7119) 资助
+作者简介: 黄占鳌( 1993－) ，硕士研究生，研究方向为图像处理、机器
+
+学习，huangza123@ qq．com
+
+* 通讯作者: 史晋芳，副教授，硕士生导师，博士研究生，jennifer．shi@
+
+qq．com
+
+http: / / journals．nwpu．edu．cn /
+
+目前驾驶员疲劳检测方法大致可分为 3 类: 基
+于车辆行驶 行 为 的 检 测 方 法，基 于 人 体 生 理 信 号
+的检测方法及基于机器视觉的检测方法 。在基于
+车辆行驶行为检测方法中，通过监测车辆加速度、
+车身偏角、转向盘转角、车轮转向角及车辆行驶曲
+线等信息的变化来推测当前驾驶员是否处于疲劳
+驾驶的状 态［2］。在 驾 驶 员 操 作 过 程 中，不 同 的 操
+
+第 11 期
+
+黄占鳌等: 多特征融合的驾驶员疲劳检测研究
+
+1571
+
+作习惯 对 于 车 辆 行 驶 的 状 态 可 能 存在 较 大 的 偏
+差，从而使得这种方法难以直接、准确的反应驾驶
+员的疲劳状态。一种改进的方式是以人体的生理
+信号来进行 疲 劳 监 测，通 过 驾 驶 员 佩戴 相 关 生 理
+信号采集装置，记录行驶过程中驾驶员的脑电图 、
+肌电图、心电图等生理信号，进一步对信号进行分
+析处理后提取能够直接反应疲劳状态的生理特征
+值来检测驾驶员的疲劳状态［3］。与基于车辆行驶
+行为的检测 方 法 相 比，这 种 检 测 方 法能 够 真 实 的
+反应驾驶员的疲劳状态，具备较高的精度，但佩戴
+
+复杂的检测装置对驾驶员的操作动作存在一定的
+干扰因素。在 基 于 机 器 视 觉 的 检 测 方 法 中，通 过
+摄像头监测驾驶员面部特征变化来判断驾驶员的
+疲劳状态。与 基 于 生 理 信 号 的 方 法 相 比，这 种 方
+法具备非 侵 入 性、实 时 性、灵 活 性 等 特 点，在 众 多
+检测方法 中 受 到 了 广 泛 的 研 究 与 关 注［4-7］。在 该
+方法中，面部 特 征 定 位 与 疲 劳 状 态 判别 为 两 大 重
+点研究内容。其中传统检测方法主要针对单一面
+部特征，如文献［4］在 YCbCr 空间用高斯模型定位
+眼部特 征 进 行 预 警。 文 献［7］中 用 边 缘 检 测 与
+Hough 圆变换定位驾驶员嘴部特征进行预警，这种
+方式存在较 多 的 约 束 条 件，无 法 适 应 驾 驶 环 境 的
+随机性、复杂性等特点。所以，多个面部特征的检
+测与融合成为必然的发展趋势，但在驾驶过程中，
+驾驶员的头部姿态、外部环境、光照等因素的动态
+变化 对 于 实 现 多 个 特 征 的 定 位 仍 具 有 较 高 的
+难度。
+
+针对以上问题，提出了一种基于机器视觉的多
+特征融合 的 驾 驶 疲 劳检 测 算 法 ，以 监 督 下 降 算 法
+( Supervised descent method) 优 化 面 部 SIFT ( Scale-
+invariant feature transform) 特征值实现面部特征定
+位; 结合朴素贝叶斯分类器融合眨眼频率、哈欠频率
+及点头频率进行疲劳判断。在驾驶员出现疲劳驾驶
+时给以警告信息，以预防交通事故发生。
+
+1 面部特征定位算法
+
+人体面部是一类具有相当复杂细节变化的非结
+构目标，这使得基于面部肤色和形状特征的传统检
+
+测 方 法 在 复 杂 环 境 的 变 化 无 法 得 到 较 好 的 适
+应［4，7］。在众多的研究算法中，以机器学习为代表
+的定位算法建立在大量的数据样本基础上，通过某
+种学习方式从中挖掘出数据的内在关系，从而使得
+
+学习模型在面对复杂的环境变化时仍可表现出良好
+的学习与推理能力。因此考虑从机器学习的角度出
+发进行面部特征定位。通过监督下降算法优化面部
+
+特征点的 SIFT 特征值建立面部特征点预测模型［8］。
+算法模型如公式( 1) 所示。
+
+2
+
+f( x0 + Δx) = ‖h( d( x0 + Δx) ) － * ‖2
+( 1)
+式中: d( x) 为标记特征点索引值，如图 1 所示，选择
+68 个特征点标记人脸面部特征位置 ，d ( x) ∈ R68×1
+( R68×1为特征点索引矩阵; h( x) 为非线性特征提取
+函数，表示面部特征点 SIFT 特征值，对于 128 维的
+SIFT 特征，h( d( x) ) ∈R128×68; 在训练过中，x* 为样
+本数据库中已知的标记特征点，* = h( d( x* ) ) 为
+标记特 征 点 特 征 值，* ∈ R128×68; x0 为 初 始 化 特
+征点。
+
+图 1 标记特征点与预测特征点对比
+
+该模型可看作通过寻找特征点的梯度方向 Δx
+使得式( 1) 最小。在模型训练过程中，对于一般的
+牛顿迭代法，初始化特征点 x0 收敛到标记特征点
+x* 只需通过求取一系列梯度下降方向及缩放系数
+更新 Δxk+1 = xk +Δxk 即可。假设特征提取函数 h( x)
+存在二阶导数，将式( 1) 以二阶泰勒公式展开得
+
+f( x0 + Δx) ≈ f( x0) + Jf( x0) TΔx +
+
+1
+2
+
+ΔxTH( x0) Δx
+
+( 2)
+式中: Jf( x0) ，H( x0) 为模型在初始化面部特征点 x0
+处的 Hessian 与 Jacobian 矩阵。式 ( 2) 中令 f ( x0 +
+Δx) = 0 对 Δx 求导可得
+
+h( 0 － * )
+
+Δx = － H － 1Jf = － 2H － 1JT
+
+( 3)
+T( 0 －* ) ，令 R0 = － 2H－1 Jh
+T，则 Δx =
+式中: Jf = 2Jh
+R0( 0 －* ) ，在这个过程中 R0 的计算不可避免的
+会涉及到 Hessian 与 Jacobian 矩阵的计算，这将导致
+计算复杂度增大，且存在强约束条件。因此采用监
+督下降算法直接通过训练数据集学习 R0，但在模型
+训练过程中式( 1) 中 * 为已知参数，而测试过程中
+* 为未知变量，因此将式( 3) 修改为
+
+Δx = R00 + b0
+式中 b0 为偏置项，训练流程如下:
+
+( 4)
+
+1) 给定一组训练集图片{ di} ，与对应标记特征
+* } ，归一化训练样本，计算平均面部特征点
+
+点集{ xi
+
+http: / / journals．nwpu．edu．cn /
+
+机 械 科 学 与 技术
+
+第 37 卷
+
+2571
+
+形状;
+
+2) 以人脸检测分类器定位训练样本面部［10］，
+
+用平均面部特征点形状初始化面部特征点{ xi
+
+0} ;
+
+3) 计算第一次下降方向 R0 与偏差项 b0，如公
+
+式( 5) 所示
+
+∑
+
+∑
+
+di
+
+arg min
+R0，b0
+* －xi
+
+xi
+0
+i = h( di( x0
+
+* = xi
+xi
+
+0，0
+图像初始化面部特征点的特征值;
+
+‖Δxi
+
+* － R0i
+
+0 － b0‖2
+
+( 5)
+
+i) ) 为第 i 个训练样本
+
+4) 进行特征点 xi 第一次更新，如式( 6) 所示
+x1 = x0 + R00 + b0
+5) 重复步骤 3) ～ 步骤 4) ，直至式( 1) 收敛。
+在模型训练中，第 k － 1 次下降方向 Rk－1 及偏差
+bk－1计算如式( 7) 所示。特征点 xi 第 k 次更新计算
+如式( 8) 所示。
+∑
+
+k－1 － bk－1‖2 ( 7)
+
+‖Δx( k－1) i
+
+－ Rk－1i
+
+∑
+
+( 6)
+
+*
+
+arg min
+Rk，bk
+
+xi
+k
+
+di
+xk = xk － 1 + Rk － 1k － 1 + bk － 1
+
+( 8)
+以 LFPW 数据库进行模型训练［9］，面部特征点
+
+模型检测结果如图 2 所示。
+
+图 2 面部特征点模型检测结果
+
+2 疲劳特征值提取
+
+大量研究表明，人体在疲劳状态时会出现打哈
+欠、频繁点头以及眨眼频率增加等现象［2，4-6，11-12，15］。
+因此在面部特征定位的基础上，选择以眨眼频率，哈
+欠频率及点头频率作为疲劳特征值。首先对眨眼、
+哈欠及点头的状态判断进行分析，以眨眼判断为例，
+如图 3 所示。
+
+图 3 眼部高宽比示意图
+
+http: / / journals．nwpu．edu．cn /
+
+选择眼部高宽比( eh / ew) 作为眨眼判断的条件，
+当 eh / ew≤et 时为闭眼，反之为睁眼，其中，et 为眼睛
+睁闭的判断阈值。哈欠状态判断与眨眼判断类似。
+头部姿态估计采用文献［13］中所述的基于头
+部位姿的监督下降算法方法建立了头部位姿模型预
+测头部姿态 pk。与眨眼判断类似，当 pk ≥nt 为点头
+状态，反之为正常状态( nt 为点头判断阈值) 。
+
+3 朴素贝叶斯分类器设计
+
+朴素贝叶斯分类器的基础为贝叶斯理论，其假
+设各变量之间条件独立，通过求取样本属于某一类
+别后验概率进行分类［14］。将驾驶疲劳判断看作二
+分类问题，给定样本特征 x = ( x1，x2，x3 ) ，x1 为眨眼
+频率，x2 为哈欠频率，x3 为点头频率，计算样本后验
+概率分布，将后验概率最大的类作为 x 的类。根据
+贝叶斯公式可将后验概率计算化为
+
+p( Y = ck | X = x) =
+
+p( X = x | Y = ck) p( Y = ck)
+
+p( X = x | Y = ck) p( Y = ck)
+
+∑
+
+k
+
+( 9)
+
+式中: X 为输入特征集，x∈X; Y 为类别集，Y∈{ c1，
+
+c2…ck} ，k = 1，2，c1 = 1 为正常驾驶状态，c2 = －1 为疲
+
+劳驾驶状态。将式( 9) 利用全概率公式展开得
+
+p( Y= ck | X= x) =
+
+P( Y= ck) ∏
+
+j
+
+p( X( j) = x( j)
+
+| Y= ck)
+
+∑
+
+k
+
+p( Y= ck) ∏
+
+j
+
+p( X( j) = x( j)
+
+| Y= ck)
+
+( 10)
+
+根据式( 10) ，建立朴素贝叶斯分类器为
+
+y= f( x) = arg max
+
+ck
+
+P( Y= ck) ∏
+
+j
+
+p( X( j) = x( j)
+
+| Y= ck)
+
+∑
+
+k
+
+p( Y= ck) ∏
+
+j
+
+p( X( j) = x( j)
+
+| Y= ck)
+
+( 11)
+
+由于式( 11) 中分母对所有 ck 都相同，所以分类
+
+器可进一步可简化为
+
+y = f( x) = arg max
+
+ck
+
+P( Y = ck) ∏
+
+j
+
+p( X( j) = x( j)
+
+| Y = ck)
+
+( 12)
+
+黄占鳌等: 多特征融合的驾驶员疲劳检测研究
+
+3571
+
+第 11 期
+
+4 实验
+
+为验证算法的可行性，实验采集了多段驾驶员
+
+正常驾驶与疲劳驾驶视频进行算法验证。
+
+实验中统计了驾驶员疲劳与正常状态视频中的
+眨眼频率，哈欠频率及点头频率等特征值，首先以驾
+
+驶过程中的一段样例来说明分类器训练中正负样本
+的选择过程，如图 4 所示。在 x≤8 所示部分，驾驶
+员处于正常驾驶状态，该状态下哈欠、点头频率为
+0，眨眼频率处于 0 ～ 0. 06 之间，此时的驾驶员注意
+力集中，对车辆具有较好的控制意识; 在 8＜x≤15 部
+分，当驾驶员出现轻度疲劳现象，开始出现哈欠动
+作，且频繁的眨眼，哈欠频率，眨眼频率增加，此时的
+驾驶员出现注意力分散现象; 随着疲劳程度的进一
+步加深，在 x ＞ 15 部分，驾驶员开始出现点头，眼睛
+长时间闭合等现象，此时驾驶员已进入重度疲劳状
+态，完全失去控制车辆的意识。
+
+图 4 样本频率取值
+
+因此，根据 驾 驶 员 正 常 状 态 与 疲 劳状 态 时 的
+眨眼频率、哈欠频率及点头频率的取值变化 ，可制
+作对应的正负样本进行朴素贝叶斯分类器训练与
+测试。在实验过程中，总共选择了样本 1 520 个，
+其中正样本( 正常驾驶) 740 个; 负样本 780 个( 疲
+劳驾驶) 。在朴素 贝 叶 斯 分 类 器 训 练 与 测 试 过 程
+中，训 练 样 本 数 为 910 个，测 试 样 本 数 为 610 个，
+错分类数为 30 个，分类器准确率为 95. 08%，如表
+1 所示。
+
+表 1 朴素贝叶斯分类器测试
+
+视频样本 1 中共检测到 19 次驾驶员疲劳状态，其
+中误判 1 次，准 确 率 为 94. 74%，在 视 频 样 本 2 中
+共检测到 20 次驾驶员疲劳状态，其中误判 1 次，准
+确率达到了 95. 00%。
+
+表 2 实际驾驶环境测试
+
+测试参数
+
+测试视频 1
+
+测试视频 2
+
+视频总帧数
+
+闭眼帧数
+
+哈欠帧数
+
+点头帧数
+
+检测次数
+
+误判次数
+
+685
+
+407
+
+80
+
+124
+
+19
+
+1
+
+714
+
+72
+
+104
+
+72
+
+20
+
+1
+
+准确率 / %
+
+94. 74
+
+95. 00
+
+平均准确率 / %
+
+94. 87
+
+5 结论
+
+1) 实现以 监 督 下 降 算 法 模 型 定 位 驾 驶 员 多
+个面部特征，并在其 基 础 上 提 取 了 反 应 驾 驶 员 疲
+劳状态的多个特征值建立对应的正负样本数据。
+2) 训练了朴素贝叶斯分类器用于预警驾驶员
+是否疲劳驾驶，在实际驾驶过程测试中达到了平均
+准确率 94. 87%的测试结果。
+
+3) 该算法仅针对面部特征进行疲劳状态判别，
+后续工作需进一步综合考虑驾驶员注意力、生理状
+态、天气、车辆驾驶状况等更多因素。
+
+［参考文献］
+
+［1］ 肖赛，雷叶维．驾驶疲劳致因及监测研究进展［J］． 交
+
+通科技与经济，2017，19( 4) : 14-19，63
+
+Xiao S，Lei Y W． Research on the causes for driver
+
+fatigue and the monitoring technology progress ［J］．
+
+Technology ＆ Economy in Areas of Communications，
+
+2017，19( 4) : 14-19，63 ( in Chinese)
+
+样本总数 训练样本数 测试样本数 误检样本数 准确率
+
+［2］ Satzoda R K，Trivedi M M． Drive analysis using vehicle
+
+1 520
+
+910
+
+610
+
+30
+
+95. 08%
+
+dynamics and vision-based lane semantics［J］． IEEE
+
+为进一步验证实际驾驶过程中朴素叶斯分类
+器的性能，针 对 驾 驶 员 驾 驶 操 作 环 境中 选 择 了 两
+段样本视频进行了测试，测试结果如表 2 所示，在
+
+Transactions on Intelligent Transportation Systems，
+
+2015，16( 1) : 9-18
+
+［3］ Zhang C，Wang H，Fu R R． Automated detection of driver
+
+fatigue based on entropy and complexity measures［J］．
+
+http: / / journals．nwpu．edu．cn /
+
+4571
+
+机 械 科 学 与 技术
+
+第 37 卷
+
+IEEE Transactions on Intelligent Transportation Systems，
+
+［9］ Belhumeur P N，Jacobs D W，Kriegman D J，et al． Localizing
+
+2014，15( 1) : 168-177
+
+parts of
+
+faces using a consensus of exemplars ［C］/ /
+
+［4］ 旷文腾，毛宽诚，黄家才，等． 基于高斯眼白模型的疲
+
+Proceedings of 2011 IEEE Conference on Computer
+
+劳驾驶检测［J］． 中国图象图形学报，2016，21( 11) :
+
+Vision and Pattern Recognition． Colorado Springs，USA:
+
+1515-1522
+
+IEEE，2011: 545-552
+
+Kuang W T，Mao K C，Huang J C，et al． Fatigue
+
+［10］ Viola P，Jones M J． Robust real-time object detection［J］．
+
+driving detection based on sclera Gaussian model［J］．
+
+International Journal of Computer Vision，2004，57( 2) :
+
+Journal of Image and Graphics，2016，21 ( 11) : 1515-
+
+137-154
+
+1522 ( in Chinese)
+
+［11］ Hartley L，Horberry T，Mabbott N，et al． Review of
+
+［5］ 邓正宏，黄一杰，李翔，等．基于视频的驾驶疲劳检测
+
+fatigue detection and prediction technologies ［R］．
+
+技术的研究［J］． 西 北 工 业 大 学 学 报，2015，33 ( 6) :
+
+Australia: National Road Transport Commission，2000
+
+1001-1006
+
+［12］ 吕健健．基于贝叶斯网络的驾驶员疲劳评估方法研究［D］．
+
+Deng Z H，Huang Y J，Li X，et al． Researching driver
+
+辽宁大连: 大连理工大学，2013
+
+fatigue detection using video technology［J］． Journal of
+
+Lv J J． Study on driver fatigue alertness based on Bayesian
+
+Northwestern Polytechnical University，2015，33 ( 6 ) :
+
+network ［D］． Liaoning Dalian: Dalian University of
+
+1001-1006 ( in Chinese)
+
+Technology，2013 ( in Chinese)
+
+［6］ Mbouna R O，Kong S G，Chun M G． Visual analysis of eye
+
+［13］ Xiong X H． Supervised descent method［C］/ / Proceedings
+
+state and head pose for driver alertness monitoring［J］．
+
+of
+
+the 2015 IEEE Computer Vision and Pattern
+
+IEEE Transactions on Intelligent Transportation Systems，
+
+Recognition． Boston， MA， USA:
+
+IEEE， 2015:
+
+2013，14( 3) : 1462-1469
+
+2664-2673
+
+［7］ Alioua N，Amine A，Rziza M． Driver's fatigue detection
+
+［14］ 李航．统计学习方法［M］．北京: 清华大学出版社，2012
+
+based on yawning extraction［J］． International Journal of
+
+Li H． Statistical
+
+learning methods ［M］． Beijing:
+
+Vehicular Technology，2014，2014: 678786
+
+Tsinghua University Press，2012 ( in Chinese)
+
+［8］ Xiong X H，De La Torre F． Supervised descent method
+
+［15］ Kaplan S，Guvensan M A，Yavuz A G，et al． Driver
+
+and its applications to face alignment［C］/ / Proceedings
+
+behavior analysis for safe driving: a survey［J］． IEEE
+
+of 2013 IEEE Computer Vision and Pattern Recognition．
+
+Transactions on Intelligent Transportation Systems，
+
+Portland，OR，USA: IEEE，2013: 532-539
+
+2015，16( 6) : 3017-3032
+
+http: / / journals．nwpu．edu．cn /
+
+

@@ -1,0 +1,2453 @@
+Computer Engineering and Applications 计算机工程与应用
+
+2022，58（21）
+
+53
+
+驾驶员疲劳驾驶检测方法研究综述
+
+张 瑞 1，朱天军 1，2，邹志亮 3，宋 瑞 3
+1. 河北工程大学 机械与装备工程学院，河北 邯郸 056038
+2. 肇庆学院 机械与汽车工程学院，广东 肇庆 526061
+3. 中汽研汽车检验中心（广州）有限公司，广州 511340
+
+摘 要：由于疲劳驾驶导致的交通事故占比逐年上涨，引起了研究人员的广泛关注。目前疲劳驾驶检测的研究受限
+于科技水平、环境、道路等各种因素的影响，导致疲劳驾驶检测技术难以进一步发展。介绍了近 10 年内驾驶员疲劳
+驾驶检测方法的最新进展。阐述并回顾了主动检测法和被动检测法两大类。根据两大类检测方法各自不同的特征
+
+进行细致的分类。进一步分析了各类疲劳驾驶检测方法的优势和局限，同时对主动检测法中基于面部特征的检测
+方法近 3 年内所使用的检测算法进行了分析和总结。归纳了各类疲劳驾驶检测方法存在的不足，同时提出疲劳检测
+领域未来的研究趋势，为研究人员进一步的研究提供新的思路。
+关键词：疲劳驾驶 ；主动检测法 ；被动检测法 ；检测算法
+文献标志码：A 中图分类号：TP391
+
+doi：10.3778/j.issn.1002-8331.2204-0053
+
+Review of Research on Driver Fatigue Driving Detection Methods
+ZHANG Rui1, ZHU Tianjun1，2, ZOU Zhiliang3, SONG Rui3
+1.School of Mechanical and Equipment Engineering, Hebei University of Engineering, Handan, Hebei 056038, China
+
+2.College of Mechanical and Automotive Engineering, Zhaoqing University, Zhaoqing, Gangdong 526061, China
+
+3.CATARC Automotive Inspection Center（Guangzhou）Co., Ltd., Guangzhou 511340, China
+
+Abstract：The proportion of traffic accidents caused by fatigue driving has increased year by year, which has attracted
+widespread attention from researchers. At present, the research of fatigue driving testing is limited by various factors such
+
+as scientific and technological level, environment, and road, which makes it difficult to further develop fatigue driving
+
+detection technology. This article introduces the latest progress in driver fatigue driving detection methods in the past
+
+decade. The two categories of active detection method and passive detection method are elaborated and reviewed. According
+
+to the different characteristics of the two major types of detection methods, it is carefully classified. The advantages and
+
+limitations of various fatigue driving detection methods are further analyzed, and the detection algorithms used in the
+
+active detection method based on facial features in the past three years are analyzed and summarized. Finally, the short-
+
+comings of various fatigue driving detection methods are summarized, and the future research trends in the field of fatigue
+
+detection are proposed, which provides new ideas for researchers to further research.
+
+Key words：fatigue driving；subjective detection method；objective detection method；detecting algorithm
+
+在经济全球化的影响下，世界上的人民生活水平逐
+
+步提高。人们可以选择不同的交通方式出行，进而导致
+
+交通事故也频繁发生。引发交通事故的原因有很多，其
+中疲劳驾驶是一个关键性因素[1]。通过调查发现，因疲
+
+劳引起的交通事故占总数的 20%左右，占特大交通事故
+的 40%以上[2]。如果在交通事故发生前的一瞬间及时向
+驾驶员发出预警，就可能避免近 90%的交通事故[3]。因
+此，对疲劳驾驶检测的研究很有必要。
+
+基金项目：国家自然科学基金（51205105）；河北省高等学校科学技术研究项目（ZD2017213）；河北省科技计划项目（17394501D）；
+广东省教育厅特色创新项目（2019KTSCX201）；肇庆市社会与民生科技项目（2020SN004）；广东省教育厅重点领域项
+目（2021ZDZX1061）。
+
+作者简介：张瑞（1995—），男，硕士研究生，研究方向为图像处理与识别；朱天军（1977—），通信作者，男，博士，教授，研究方向为
+车辆动态控制、新能源汽车和自动驾驶汽车应用，E-mail：493789751@qq.com；邹志亮，硕士，工程师，研究方向为视觉
+
+识别和无人驾驶汽车的测试与验证；宋瑞，博士研究生，高级工程师，研究方向为智能网联汽车技术。
+
+收稿日期：2022-04-06 修回日期：2022-07-13 文章编号：1002-8331（2022）21-0053-14
+
+54
+
+2022，58（21）
+
+Computer Engineering and Applications 计算机工程与应用
+
+世界上最早关于疲劳检测的研究是使用高精度的
+
+表 1 疲劳驾驶特征的表现方式
+
+Table 1 Manifestation of fatigue driving characteristics
+
+分类
+
+特征表现
+
+眨眼次数增多
+
+轻微疲劳
+
+间歇式打哈欠
+
+医 学 设 备 开 展 的 ，研 究 人 员 通 过 分 析 人 体 的 脑 电 信
+号[4-5]、心电信号[6-7]等生理信号的变化来判别人是否处于
+疲劳。生理信号的采集需在人体表皮粘贴传感器，进而
+
+对驾驶员的操作造成干扰。随着科技的进步，为了消除
+
+信号采集设备对人体的侵入性影响，非侵入性检测设备
+
+被研发出来。同时图像处理技术与机器学习的兴起，进
+
+一步推动了疲劳驾驶检测的发展。本文首先对疲劳驾
+
+行为特征
+
+中度疲劳
+
+驶的概念、特征以及形成机理进行论述，其次通过分析
+
+现有的疲劳检测研究方法，进行整理分类，阐述了疲劳
+
+检测方法各自的优劣。分析和讨论了疲劳驾驶检测存
+
+重度疲劳
+
+肢体轻微不适
+
+频繁眨眼且经常性揉眼睛
+
+经常性点头
+
+不能准确、及时地换挡
+
+头部有轻微的昏沉
+
+眼睛干涩且闭合时间较长
+
+频繁打哈欠
+
+反应迟钝、无法集中注意力
+
+肢体僵硬，下意识操控方向盘
+
+在的不足，进一步总结出未来的研究趋势，为今后研究
+
+疲劳驾驶检测的学者提供帮助。
+
+1 疲劳驾驶
+1.1 疲劳驾驶的概念
+
+疲劳驾驶一般是指驾驶员长时间精神高度集中的
+
+驾驶年限长，自认为驾驶技术熟练
+
+心理特征
+
+对交通事故抱有侥幸心理
+
+工作和家庭的双重压力
+
+（3）驾驶员连续行车：雇主催促、高收入的诱惑。
+（4）夜间行车：光线不足导致视野范围缩小，精神高
+
+行车后，肌肉上产生的松弛和精神上的疲倦，手脚反应
+
+度集中。
+
+能力和预判能力下降，进而产生动作迟缓的现象。在早
+期的疲劳驾驶的定义中，Lal 等人认为疲劳是一种从唤
+
+2 国内外驾驶员疲劳驾驶检测的研究现状
+
+醒到睡眠状态的过渡，若疲劳状态不发生改变时，就会
+产生睡眠[8]。
+1.2 疲劳驾驶的特征
+
+疲劳驾驶检测方法主要分为主动检测法和被动检
+测法两类，如图 1 所示。主动检测法是通过对驾驶员进
+
+行口头问答、填写问卷调查等方式获取在不同时段内
+
+疲劳驾驶特征从表现方式上可以分为行为特征和
+
+驾驶员的心理与面部表情等信息，然后对获取到的信
+
+心理特征两类。根据驾驶员的疲劳程度的不同所表现
+出来的身体特征也有所不同。如表 1 所示。
+1.3 疲劳驾驶的形成机理
+
+息进行分析得出驾驶员的精神状态。与主动检测法不
+
+同，被动检测法是通过外部装置采集驾驶员驾驶过程
+
+中的相关数据，再依靠算法检测驾驶员是否处于疲劳
+
+人们一直认为交通运输行业是一种高强度高危险
+
+行业。因为在车行进中，驾驶员需时刻关注车辆周围环
+
+驾驶状态。
+2.1 主动检测法
+
+境。在该过程中驾驶员的大脑神经持续处于兴奋状态，
+
+主动检测法主要是基于驾驶员主观表现、反应时
+
+极易产生精神上的疲乏。同时驾驶员操纵车辆的动作
+
+间、脸部表情变化等将司机主观疲劳表现进行分类量
+
+一直保持，肢体会变僵硬进而产生疲乏。概括来讲，产
+
+化。主动检测法具有操作便捷、成本低等优势而被广泛
+
+生驾驶疲劳的因素如下：
+
+（1）驾驶员的压力：生活和工作中的压力。
+（2）驾驶员睡眠时间不足：作息时间不规律。
+
+使用。但是也存在实时性差、干扰驾驶员正常驾驶以及
+
+受人为主观意识的影响等劣势。主动检测法又可分为
+
+填写问卷调查与主观评价表、口头问答分析以及主动检
+
+驾
+驶
+员
+疲
+劳
+驾
+驶
+
+填写问卷调查和主观评价表
+
+主动检测法
+
+口头问答分析
+
+主动检测模型
+
+基于车辆行为的疲劳检测
+
+车道偏离、车速、加速度等
+
+基于驾驶员行为的疲劳检测
+
+方向盘转角、方向盘握力、踏板开合度等
+
+被动检测法
+
+基于生理特征的疲劳检测
+
+脑电图、心电图、肌电图等
+
+基于面部特征的疲劳检测
+
+眨眼频率、哈欠、头部姿态角等
+
+基于多特征融合的疲劳检测
+
+脸部特征融合、生理特征融合等
+
+图 1 疲劳驾驶检测方法
+
+Fig.1 Fatigue driving detection method
+
+张 瑞，等：驾驶员疲劳驾驶检测方法研究综述
+
+2022，58（21）
+
+55
+
+测模型三类。
+2.1.1 调查问卷表与主观评价表
+
+研究人员通过填写问卷调查与主观评价表以及随
+
+机抽查驾驶员等方法，分析出驾驶员的实时状态。为了
+从社会心理学的角度探讨疲劳驾驶的影响因素，Jiang
+等人基于 TPB（theory of planned behaviour）设计了一
+
+份调查问卷。通过调查问卷有效地揭示了与疲劳驾驶
+
+相关的心理因素。研究表明主观规范、感知行为控制和
+驾驶意图与在疲劳状态下继续驾驶相关 [9]。Bener 等人
+使用曼彻斯特驾驶行为问卷（driving behavior question-
+naire，DBQ）评估导致事故的异常驾驶行为。通过分析
+受 试 者 所 填 写 的 疲 劳 严 重 程 度 量 表（fatigue severity
+scale，FSS）和斯坦福睡眠调查问卷（epworth 量表）的结
+
+果，表明患有慢性疲劳、急性嗜睡和不规范的驾驶操作
+可能会显著增加道路碰撞的风险[10]。Noughab 等人使用
+问卷调查得出影响重型车辆驾驶员困倦和疲劳程度的
+因素。并运用统计分析和 TOPSIS（technique for order
+of preference by similarity to ideal solution）技术对因
+
+素的影响程度进行排序。进而避免影响程度大的因素
+导致驾驶员疲劳驾驶 [11]。杜振君依据日本能率学会的
+《疲劳症状自评量表》设计了叉车操作员疲劳主观感受
+
+调查问卷。通过调查问卷对叉车操作员的作业疲劳状
+态进行主观检测，进而得出操作员的状态[12]。
+2.1.2 口头问答分析
+
+口头问答分析测试方法会受到被测试者的主观意
+
+识的影响，故其在疲劳驾驶检测中存在一定的局限性。
+Lee 等人通过对 929 名飞行员进行访谈的基础上，提出
+
+方法基于驾驶员的睡眠模式预测疲劳，并根据安全相关
+的操作指标估计驾驶性能[16]。Li 等人通过对出租车驾驶
+员的问卷数据建立模型。分析了样本数据集以识别与
+高\低疲劳事故风险（fatigue-related accident risk，FRAR）
+相关的主要因素，并拟合 FRAR 预测模型。同时使用另
+
+外的数据集测试该模型在高风险驾驶员预测的性能。
+
+结果表明该预测模型能较好地识别出存在高风险的驾
+驶员，预测结果如图 2 所示。图中显示为在不同班次即
+
+全班、长班、短班三种情形下，未标记的驾驶员疲劳相关
+
+事故风险预测情况。其中预测为高风险所占比例约为
+75%，低风险所占比例约为 25%。由于所检测人群为出
+
+租车驾驶员，经过实际考察得知所预测的结果与实际基
+
+本符合。进一步表明所构建预测模型实用性较好，可以
+
+推广至其他类型车辆的风险预测中，进而减少交通事故
+的发生[17]。
+
+Whole shift
+Long shift
+Short shift
+
+80
+
+60
+
+40
+
+20
+
+s
+r
+e
+v
+i
+r
+d
+
+f
+o
+
+r
+e
+b
+m
+u
+N
+
+0
+
+low-risk
+high-risk
+0.55
+Fatigue-related accident risk
+
+1.00
+
+图 2 驾驶员的 FRAR 的预测结果
+
+Fig.2 Prediction results of driver’s FRAR
+
+2.2 被动检测方法
+
+假设和调查问题，并进行了全国性的调查。结论表明：
+
+由于被动检测法具有准确率高、可靠性更佳以及不
+
+不足的计划操作、飞行方向、文化差异的伙伴关系、飞机
+
+受驾驶员主观意识的影响等优势，所以该种检测方法成
+
+环境、工作分配、种族差异、酒店环境等因素会造成飞行
+员的疲劳[13]。Filtness 等人从新西兰和澳大利亚的客运
+铁 路 公 司 中 选 出 28 名 驾 驶 员 ，开 展 关 于 SPAD（signal
+passed at danger）影响因素的小组讨论。提取与疲劳相
+
+关的数据并进行归纳分析，得出驾驶疲劳的原因、后果
+
+和应对措施。由于驾驶员工作时间并不规律，所得结论
+可信度较低[14]。
+2.1.3 主动检测的模型
+
+为目前检测驾驶员疲劳的主要研究方向。被动检测法
+
+根据检测疲劳特征的不同又可分为以下五类：基于车辆
+
+行为的疲劳检测、基于驾驶员行为的疲劳检测、基于驾
+
+驶员生理特征的疲劳检测、基于驾驶员面部特征的疲劳
+
+检测、基于多特征融合的疲劳检测，以下分别进行阐述。
+2.2.1 基于车辆行为特征的检测方法
+
+当驾驶员出现疲劳症状时，会通过车辆行为表现出
+
+来。车辆行为特征主要包括车辆速度、加速度、车辆横
+
+填写问卷表与主观评价表以及口头问答分析是针
+
+摆角以及车辆偏离车道的程度等。研究人员将获取的
+
+对驾驶员的主观行为进行分析和讨论的过渡，而建立检
+
+车辆行为特征参数进行分析，分别提取出正常驾驶与疲
+
+测的模型可以进行疲劳状态的判定。研究人员通过建
+
+劳驾驶的车辆行为特征参数，通过提取的参数制定一个
+
+立检测模型来评定驾驶员的疲劳程度。
+
+区分正常和疲劳驾驶的检测标准。将实时获取的车辆
+
+文献[15]提出一种铁路营运车操作员疲劳风险的动
+
+行为参数与标准比较，可以检测出驾驶员的身体状态。
+
+态评定方法。该方法将时变因素进行量化提高了准确性，
+利用层次分析法（improved analytic hierarchy process，
+IAHP）建立了评价模型，总结出在不同时段下机车操作
+员疲劳风险的变化规律。Mollicone 等人开发了一种基
+
+于生物数学模型预测驾驶员疲劳的方法。研究表明，该
+
+该种方法无侵入性，数据采集方便，检测设备易于安装
+
+携带，市场前景较好。但这种检测方法易受到周围环
+
+境、驾驶员的操作水平以及驾驶习惯等因素的影响。
+
+在早期的车辆行为的研究中，Pomerleau 等人提出了
+一个快速调整横向位置处理器（rapidly adapting lateral
+
+56
+
+2022，58（21）
+
+Computer Engineering and Applications 计算机工程与应用
+
+position handler，RALPH）的系统。系统通过模板匹配
+
+向盘的转角、方向盘的握力以及踏板的运动变化等特征
+
+及假设和测试策略对道路图像进行分析，进而估计出车
+道偏离的信息[18]。郭思强等人通过 CAN 总线采集到的
+车辆信息，如车速、瞬时油耗、踏板位置等信息。根据层
+
+次分析法原理构建了疲劳状态识别模型并从时间和空
+间维度进行检验和应用 [19]。黄皓利用驾驶模拟器获取
+驾 驶 员 正 常 状 态 和 疲 劳 状 态 下 的 操 作 特 征 及 车 辆 状
+
+态。将获取的信息建立数据库，依据因素方差分析法对
+
+特征指标的有效性进行分析。最后使用模糊聚类和神
+经网络算法对驾驶员疲劳进行检测 [20]。蔡素贤等人利
+用 CAN 总线捕获车辆行为数据，提取了车速、加速度、
+油门踏板与刹车踏板开合度等 18 项特征。通过皮尔森
+
+相关系数来得出所提取的特征与疲劳的相关性大小，同
+时采用随机森林算法对驾驶员疲劳进行检测，图 3 是将
+
+各类算法与随机森林算法作比较所得的。图中所示为
+
+逻辑回归、支持向量机、决策树、随机森林四种算法所训
+
+练的疲劳驾驶检测模型，利用同一组数据集检测疲劳，
+
+不同模型所得精确率、召回率和准确率的对比结果。通
+
+过比较得出随机森林的准确率和召回率均大于另外三
+种算法，进而表明随机森林算法更适用于疲劳检测[21]。
+Riera 等人开发了一种检测和跟踪车道偏离的新模型。
+
+该模型通过对视频中的前向车道区域进行前处理，并对
+
+其中的凸包进行标记，当检测到前方区域的凸包时，跟
+
+踪凸包区域的质心，利用质心位置判断驾驶员是否偏离
+
+车道行驶。研究显示，检测车道偏离事件的总召回率为
+81.82%[22]。Chen 等人设计了一个驾驶员行为检测和警
+告框架。该框架首先通过图像传感器连续检测车辆所
+
+在车道线的坡度变化，估计车辆车道偏离的功率谱密
+
+度。其次，利用头戴式设备提取头部姿态的特征向量，
+
+以测量驾驶员的异常水平。最后，根据估计的车道偏离
+
+功率谱密度和测量的驾驶员异常水平，通过车辆互联网
+
+将检测的危险驾驶警告发送给相邻车辆和附近行人，以
+避免交通事故的发生[23]。
+
+值
+测
+检
+
+0.9
+0.8
+0.7
+0.6
+0.5
+0.4
+0.3
+0.2
+0.1
+
+0.72
+
+0.58
+
+0.33
+
+0.75
+
+0.67
+
+0.36
+
+0.79
+
+0.67
+
+0.61
+
+0.66
+
+0.46
+
+0.58
+
+percision
+
+recall
+
+accuracy
+
+0 逻辑回归 支持向量机 决策树
+
+随机森林
+
+来检测驾驶员的精神状态。
+
+在早期驾驶员行为的疲劳检测研究中，张希波等人
+
+根据驾驶员疲劳与清醒状态下对方向盘修正幅度和频
+率的不同来实现疲劳状态检测 [24]。沙春发等人在实际
+
+道路环境开展试验。将采集的转向盘握力特征和脑电
+特征，利用 BP 神经网络建立基于转向盘握力的疲劳驾
+驶模型，并使用部分数据进行验证，图 4 为转向盘握力
+
+信号采集流程。信号采集时，先使用压力传感器将握
+
+力信息转化为电压信号，电压信号经分压电路传送至
+AD 转换器，电压信号通过 AD 转换器转化为数字量，转
+换的数据通过 Arduino 单片机（微处理器）从串口（USB
+接口）传输至计算机，在计算机上利用 Arduino IDE 把
+握力信息保存至 SD 卡 ，进而得到用于检测的握力 信
+息。结果表明所构建的模型对疲劳识别精度较高 [25]。
+Mcdonald 等人通过将转向角、踏板开合度、车速和加速
+
+度等信息输入动态的贝叶斯网络算法中进行驾驶员的
+疲劳检测[26]。由于真实道路和驾驶员的不确定性，有效
+地学习驾驶员的疲劳特征表示这一问题，Li 等人使用方
+
+向 盘 转 角 序 列 的 近 似 熵 对 输 入 数 据 进 行 裁 剪 ，通 过
+LSTM（long short- term memory）单 元 挖 掘 疲 劳 特 征 。
+
+最后利用信息获取方法得出潜在特征与疲劳之间的相
+关性，进而获得最佳的驾驶员疲劳特征[27]。Li 等人提出
+
+一种通过检测方向盘握力来测量驾驶员疲劳的方法。
+
+该方法通过分析驾驶员操作车辆的方向盘握力与握力
+
+标准偏差之间的差值，来判断驾驶员状态。同时采集驾
+
+驶员的自我疲劳评估、脑电信号、眨眼频率，在实际道路
+
+驾驶中进行交叉验证。研究表明，所提方法总体识别率
+为 86.6%，单独识别率为 88.3%[28]。
+
+压力传感器
+
+分压电路
+
+AD 转换
+
+微处理器
+
+IDF 软件编程读取端口信号
+
+数据保存到 SD 卡 csv 文件
+
+计算机
+
+USB 接口
+
+图 4 文献[25]中的握力采集流程图
+
+Fig.4 Flow chart of grip strength acquisition in [25]
+
+基于驾驶员行为的疲劳检测方法中信息采集比较
+
+便捷，成本较低，不会影响驾驶员的正常驾驶，设备小易
+
+于携带且精度相对较高。市场前景好，易于推广使用，
+
+但这种检测方法受驾驶行为的影响较大。
+2.2.3 基于驾驶员生理特征的检测方法
+
+图 3 疲劳驾驶检测模型指标对比
+
+由于人们的工作和生活方式发生了改变，导致了人
+
+Fig.3 Comparison of indicators of fatigue
+
+产生疲劳症状。对于驾驶员的疲劳驾驶的检测也是先
+
+driving detection models
+
+2.2.2 基于驾驶员行为的疲劳检测方法
+
+从医学角度入手，通过使用医疗设备来对驾驶员进行检
+测 [29]。人体的生理信号一直被认为是疲劳驾驶检测的
+
+在疲劳检测的研究中，学者发现驾驶员的行为也会
+
+“金标准”，由于生理信号主要是通过粘贴在人的身体上
+
+对疲劳驾驶造成影响。研究人员通过传感器测得的方
+
+的传感器进行采集的，它能够直接反映出驾驶员的身体
+
+张 瑞，等：驾驶员疲劳驾驶检测方法研究综述
+
+2022，58（21）
+
+57
+
+状况。生理特征主要有：脑电信号（electroencephalogra-
+phy，EEG）、眼电信号（electro-oculogram，EOG）、心电信
+号（electrocardiogram，ECG）、肌 电 信 号（electromyo-
+gram，EMG）等。
+
+研究发现当人进入疲劳状态时，EEG 中的 delta 波
+和 theta 波的频率会显著提高，而 alpha 波的频率只会小
+幅增长。因此，通过 EEG 中的三个波形的变化规律可
+以反应出驾驶员的状态。Lal 等人通过分析受试者在驾
+
+驶模拟实验中心理和生理的变化，总结出人在疲劳时脑
+电 图 中 的 delta 波 和 theta 波 活 性 显 著 加 强 [30]。 Housh-
+mand 等人提出一种基于脑电 alpha 纺锤波的早期驾驶员
+疲劳检测方法。该方法采用连续小波变换（continuous
+wavelet transform，CWT）和 Morlet 函数检测脑电特征，
+
+并利用卷积神经网络对脑电信号进行分类，自动学习早
+期嗜睡状态的特征，进而对驾驶员的疲劳进行检测 [31]。
+目前基于 EEG 信号的相关研究仅针对二元分类（即警
+
+惕状态和疲劳状态）。同时基于脑电信号的脑机接口系
+统存在信号不平稳以及类别稀少的问题。Jeong 等人不
+
+仅分析了两种心理状态的分类，也分析了对疲劳等级进
+
+行高精度分类的可行性。提出一个深度时空卷积双向
+长短时记忆网络（DATCLN）模型，首先使用 BrainAmp
+设备采集受试者在模拟夜间飞行环境中持续飞行 1 h 的
+
+脑电数据，将所采集的数据进行预处理；其次，经过处理
+之后的数据输入模型进行检测；最后，将 EEG 信号的疲
+劳等级分为（非常警觉（VA）、相当警觉（FA）、既不警觉
+也不困倦（NAS）、困倦但不努力保持清醒（SNEA）和非
+常 困 倦（VS））五 个 阶 段 。 同 时 利 用 KSS（karolinska
+sleepiness scale）表评估了两种心理状态和五种疲劳等
+级的分类表现。总平均分类率分别为 0.87（±0.01）和
+0.69（±0.02）。进一步证明利用深度学习对五种疲劳等
+
+级进行高精度分类的可行性。该种分类方法是第一种
+仅使用 EEG 信号将疲劳详细分类的方法[32]。由于传统
+计算信号熵特征的方法只在单个尺度上分析数据，试验
+结 果 不 稳 定 。 Zou 等 人 提 出 一 种 基 于 经 验 模 式 分 解
+（empirical mode decomposition，EMD）多尺度熵的额头
+
+脑电图信号处理方法。该方法在传统模糊熵的基础上
+加入尺度信息，采用 EMD 技术，对 EEG 信号进行处理，
+
+并应用随机森林算法对所提取的特征进行分类，进而对
+驾驶员的疲劳进行检测 . 研究表明，所提方法的准确率
+最高为 88.74%[33]。Chinara 等人提出一种基于单通道脑
+电的疲劳检测模型，该模型利用小波包变换从单通道
+EEG 信号中提取时域特征。通过对时域特征进行分析
+
+对 驾 驶 员 的 状 态 进 行 分 类 ，进 而 识 别 出 驾 驶 员 的 状
+态 [34]。Liu 等人提出了一种基于 EEG 的脑疲劳检测方
+法。该方法通过设计的 2-back 任务的疲劳诱发实验中
+采集 EEG 信号。利用 ReliefF 算法计算特征下每个通道
+
+的权值，并分析其分类精度。利用精度加权和得到通道
+
+的权重值。然后，从权重值大的通道中提取时域和频域
+
+特征。采用稀疏表示方法得到融合特征作为分类器的
+输入。最后，使用 SRDA 分类器检测疲劳状态。研究表
+
+明，所提方法可以减少计算通道数量，提高了心理疲劳
+检测的准确性[35]。Zheng 等人提出了一种了结合脑电图
+和眼电图的多模态方法来估计警觉。图 5 为验证所提
+
+方法是否与真实受试者行为和认知状态一致。图中显
+
+示驾驶员从清醒到疲劳整个实验过程的警惕性持续估
+
+计，图中的抓拍与不同警戒下的帧数一一对应。从中可
+
+以清晰看出驾驶员从清醒状态到疲劳状态整个过程中
+PERCLOS、EOG、EEG、融合特征、连续性条件神经场以
+
+及连续条件随机场的变化情况。结果表明与单一模式
+
+相比，模式融合有效提升警觉估计的性能。同时与清
+醒 状 态 相 比 ，疲 劳 时 theta 和 alpha 频 率 活 动 增 加 ，而
+gamma 频率活动减少[36]。
+）
+
+y
+s
+w
+o
+r
+D
+
+o
+t
+
+e
+k
+a
+w
+A
+
+m
+o
+r
+
+s（f
+
+l
+e
+v
+e
+L
+
+e
+c
+n
+a
+l
+i
+g
+i
+V
+
+PERCLOS
+EOG
+EEG
+Fusion
+CCRF
+CCNF
+
+1.4
+
+1.2
+
+1.0
+
+0.8
+
+0.6
+
+0.4
+
+0.2
+
+0
+
+100
+
+200
+
+300
+
+400
+500
+Time[8 s]
+
+600
+
+700
+
+800
+
+900
+
+图 5 一次实验中不同方法的连续警惕估计
+
+Fig.5 Continuous vigilance estimation for different
+
+methods in one experiment
+
+Gromer 等人开发了一种低成本的心电图传感器，
+利用该传感器采集心率变异性（heart rate variability，
+HRV）信息。通过采集的信息检测驾驶员是否疲劳驾
+驶 [37]。徐礼胜等人提出一种基于短时心电信号的疲劳
+
+驾驶检测算法。首先，利用截取的短时心电信号序列计
+算 R-R 间期序列的时域/频域特征。通过 ImageNet 数据
+
+集训练深度卷积神经网络模型进而提取特征。将所提
+取特征与 R-R 间期序列的时频/频域特征结合，利用随
+
+机 森 林 分 类 器 进 行 分 类 ，进 而 对 驾 驶 员 进 行 疲 劳 检
+测[38]。Murugan 等人将疲劳视为一种低警觉状态，并将
+
+驾驶员的状态分为正常、困倦、疲劳、视觉和认知注意力
+
+不集中五类。通过驾驶模拟器模拟以上五类驾驶员的
+状态来采集 ECG 信号，从 ECG 信号中提取低警觉状态
+
+的特征，使用单因素方差分析方法对提取的特征进行统
+计显著性分析，并利用主成分分析（principle component
+analysis，PCA）来 选 取 特 征 。 最 后 ，利 用 SVM、KNN
+（K-nearest neighbor）和集成分类器对特征进行分类，进
+而检测出驾驶员的状态 [39]。Lee 等人使用可穿戴 ECG
+
+58
+
+2022，58（21）
+
+Computer Engineering and Applications 计算机工程与应用
+
+或 PPG 传 感 器 采 集 HRV 信 号 来 检 测 驾 驶 员 的 疲 劳 。
+为了将存在噪声的 HRV 信号区分为疲劳或不疲劳，分
+析了由心跳 RRIs（R-R intervals）生成的 Bin-RP（bin-
+recurrence plot）、Cont- RP（continuous- recurrence plot）
+和 ReLU- RP（ReLU- recurrence plot）三 种 类 型 的 递 归
+图，并将其都用作 CNN（convolutional neural network）
+
+的输入特征。同时检查每种分类模式的有用性。研究
+表明，不论使用哪种采集传感器，ReLU-RP-CNN 能更好
+地区分清醒和疲劳状态。与 Bin-RP 和 Cont-RP 结果相
+比，ReLU-RP-CNN 在疲劳/不疲劳的分类中分别将 PPG
+和 ECG 的准确率提高约 4%~14%和 6%~17%[40]。Salvati
+等人提出一种基于 HRV 的 ANS（autonomic nervous sys-
+tem）检测驾驶员疲劳的方法。该方法利用集成在座椅
+靠背中的传感器采集 HRV 信号。从 RRI 数据中提取心
+
+电信号的特征，利用疲劳检测模型实时评估驾驶员的状
+态。并利用 PERCLOS 对所提方法进行验证显示，与实
+验结果的符合率为 63%。进而表明所提方法能持续监
+测驾驶员状态的有效性[41]。
+
+Wang 等人提出了基于肌电图的驾驶疲劳非接触检
+
+测方法。通过采集了受试者二头肌的肌电图信号，从肌
+电图中选取峰值因子（Fc）为特征来检测受试者的疲劳，
+研究显示该方法可明显区分正常与疲劳状态[42]。Fan 等
+人提出并开发了一种有效检测驾驶员异常行为的方法，
+即 SafeDriving。该方法首先利用置于前臂上的肌电传
+感 器 采 集 EMG，根 据 设 定 的 异 常 驾 驶 行 为 对 样 本 标
+
+记。然后使用标记数据，设计和训练分类器，以提高检
+测方法的性能。研究表明，GRU（gated recurrent unit）
+
+分类器可以很好地检测驾驶员的异常行为，其精确度
+为 93.94%[43]。
+
+虽然这种检测方法精确度很高、鲁棒性很好，但是
+
+需要穿戴信息采集设备，会影响驾驶员的操作。同时试
+
+验成本较高，设备较大不宜装车以及个体差异性较大，
+
+从而致使这种检测方法大多是在试验室或驾驶模拟器
+
+上使用，不宜推广。
+2.2.4 基于驾驶员面部特征的检测方法
+
+基于面部特征的检测方法是指通过摄像头等图像
+
+传感器获取到的面部视频为基础，运用机器视觉中人脸
+
+识别、面部特征点定位等技术手段，对驾驶员的脸部变
+化如注视方向、眼睛张开程度（eye aspect ratio，EAR）、
+眨 眼 频 率 、单 位 时 间 内 眼 睛 闭 合 程 度（percentage of
+eyelid closure over tine，PERCLOS）、嘴巴开合度（mouth
+aspect ratio，MAR）、头部运动情况以及头部旋转角等特
+
+征进行提取，运用算法将所提取特征进行驾驶员疲劳驾
+
+驶检测。该检测方法根据人脸不同部位疲劳特征表现
+
+不同又可分为基于眼睛特征的检测方法、基于嘴巴特
+
+征的检测方法以及基于头部特征的检测方法三类。
+
+疲劳关系的学者是 Walt Wirewille。他通过模拟对比试
+
+验研究眼睛在受到光的作用下与疲劳的相关性，结论表
+明眼睛的闭合时间与疲劳的程度呈正相关 [44]。在此基
+础上，卡内基梅隆研究所经过反复试验和论证，得出度
+量疲劳的物理量 PERCLOS，将其定义为一定时间内眼
+睛 的 闭 合 程 度 。 PERCLOS 有 三 个 标 准 分 别 是 EM 标
+准、P70 标准、P80 标准。其中 P80 标准在反映人的疲劳
+
+状态远优于其他标准，所以科研人员经常选用该标准来
+判断驾驶员的精神状态[45]。
+
+由 于 人 戴 眼 镜 会 使 疲 劳 检 测 的 性 能 和 鲁 棒 性 降
+低，Tao 等人提出了一种基于人脸定位算法的疲劳检测
+方法。首先，利用每个眼睛的 6 个关键点定位驾驶员的
+眼 睛 ；其 次 ，将 提 取 的 HOG（histogram of oriented
+gradients）特征输入 SVM 分类器中来识别眼睛状态；最
+后，计算 PERCLOS 的值与阈值进行比较确定驾驶员是
+否困倦。该方法可快速检测人眼状态和实时报警 [46]。
+文献[47]设计了一种基于机器视觉的驾驶员疲劳检测
+机制。使用 Adaboost 算法进行人脸检测并定位眼睛区
+
+域，经预处理消除眉毛，再用模糊综合评价算法对眼睛
+的开合状态进行分析，最后根据 PERCLOS 原理判断驾
+驶员是否疲劳驾驶。图 6 为驾驶员疲劳检测结果，其中
+
+左侧为夜间环境下使用红外线摄像头进行驾驶员疲劳
+
+检测的结果显示图，右侧为白天正常光线下疲劳检测结
+果显示图。Zhuang 等人提出一种基于瞳孔和虹膜分割
+的眼睛开合度疲劳检测方法。该方法通过 Dlib 算法提
+
+取眼睛图像。使用分割网络提取眼睛图像中的瞳孔和
+
+虹膜特征。并利用决策网络评估眼睛的开合度。最后
+根据眼睛的开合度计算 PERCLOS 值，以预测驾驶员的
+状态。该方法在 NTHU-DDD 数据集上进行测试，疲劳
+检测准确率为 96.72%[48]。Bakheet 等人提出一种新兴的
+驾驶员疲劳检测框架。该框架通过摄像头采集驾驶员
+
+人脸图像，利用自适应对比度限制直方图均衡算法对采
+集的人脸图像进行预处理。然后，通过基于类 Haar 特
+征的级联 AdaBoost 分类器检测驾驶员的面部。采用改
+进 ASM（active shape model）算法定位眼睛区域。从眼
+睛区域中提取二值化方向偏移的 HOG 特征。最后，将
+提取的特征输入 NB（Naïve Bayes）分类器预测眼睛状
+态。进而判断驾驶员的状态[49]。
+
+图 6 文献[47]中的疲劳检测结果
+
+在基于眼睛特征的检测方法中，最开始研究眼睛与
+
+Fig.6 Fatigue detection results in [47]
+
+张 瑞，等：驾驶员疲劳驾驶检测方法研究综述
+
+2022，58（21）
+
+59
+
+基于嘴巴特征的检测方法中，在司机出现疲劳症状
+
+时，人会不由自主进行点头动作，导致头部的位置与注
+
+时，嘴巴会不受控制的打哈欠、嘴巴张开程度较大以及
+
+视方向发生变化。由此可将点头频率、头部姿态角以及
+
+张开时间相对较长。在早期的嘴部特征疲劳研究中，
+Wang 等人提出一种新的驾驶员嘴部运动的疲劳监测方
+
+视线偏离作为疲劳特征进行疲劳检测。为了弥补眼睛
+
+特征检测疲劳的不足，李勇达等人提出了基于头部姿态
+
+法。通过持续监测和追踪司机的嘴部运动，对嘴部运动
+进行了分类，进而在司机疲劳时发出警告[50]。打哈欠是
+
+特征的列车司机疲劳驾驶检测方法。所提方法先使用
+AdaBoost 算法定位人脸，再使用 Cameshift 算法跟踪脸
+
+疲劳的一个显著标志 ，为了使检测器的响应足够快 ，
+Anitha 等人提出一种基于双代理专家系统的新型哈欠
+
+检测系统，该系统将人脸分割为上下两部分，人脸下部
+
+分用于提取嘴部特征，利用二值图像来检测是否打哈
+欠，如图 7 所示。图中所示为当驾驶员在无遮挡、正面
+以及戴/不戴眼镜的情形下的哈欠疲劳检测过程，其中
+原始图像（a）经过预处理后，提取到嘴部特征（b），在经
+过哈欠检测器处理得到（c），最后得出哈欠特征的直方
+图（d），通过分析哈欠特征的直方图，进而判别出司机的
+状态[51]。文献[52]通过分析睡眠不足与警觉驾驶员的标
+
+记视频数据集，论证了面部接触、人脸遮掩及打哈欠之
+
+间的联系。进而提出面部接触可作为检测疲劳的新方
+
+向。同时还提出一种基于嘴巴和眼睛区域的几何和外
+观特征的自动哈欠检测方法。Adhinata 等人提出将人
+脸特征提取的 FaceNet 算法与 K-NN 或多类 SVM 分类
+方法相结合的一种疲劳检测方法。通过 FaceNet 算法进
+行特征的提取，并分析比较了 K-NN 和多类 SVM 对获取
+特征分类的准确率。FaceNet 算法的特征提取取决于每
+个类别中面部特征的相似性。研究表明，FaceNet 算法
+与 K-NN 结合使用的准确率为 94.68%，远远优于多类
+SVM，而所提方法处理一帧图像的速度为 0.061 s，符合
+实时监测的要求[53]。
+
+部并计算人脸的旋转角速度以及角加速度。依据头部
+
+的倾斜角度和旋转角速度综合推断列车司机的疲劳状
+态 [54]。传统的头部姿态计算方法是通过人脸来估计关
+
+键点，并利用平均头部模型求解二维到三维的对应问
+题，相对比较复杂。文献[55]提出一种便捷而稳定的头
+
+部姿势的估计方法。该方法是通过多损耗深度网络从
+
+像素强度中预测头部的姿态角，进而判断出司机的状
+态。Ansari 等人提出一种基于改进 Adam 优化算法的深
+度学习网络 ReLU-BiLSTM 来测量疲劳的新方法。该方
+法使用 XSENS 运动抓取系统来捕获司机头部姿态的变
+化规律，进而检测出司机的疲劳程度。图 8 为所提出的
+
+疲劳检测方法。该研究方法中，研究人员让受试者佩戴
+MCS（motion capture system）在 driver-in-loop（DIL）模
+拟器构建的模拟驾驶环境中驾驶车辆，并利用 MCS 的
+传感器将所采集的数据通过 Matlab 车辆动力学模型结
+合 3D 虚拟引擎可视化器进行实时仿真受试者在模拟驾
+
+驶过程中的姿态变化，进而捕获受试者的头部姿态变
+化。将头部姿态变化数据输入 Matlab 深度学习模型中，
+依据疲劳的模式进行疲劳检测[56]。Zhang 等人提出一种
+
+基 于 人 脸 关 键 点 头 部 姿 态 估 计 的 驾 驶 员 疲 劳 检 测 方
+
+法。该方法利用摄像机实时捕获人脸视频。采用基于
+模型的方法估计头部姿态的。使用 Dlib 工具包来判断
+
+基于头部姿态的检测方法中，在司机出现疲劳症状
+
+驾驶员的眼睛状态、嘴巴状态和头部姿态。研究表明，
+
+y
+
+y
+
+7
+6
+5
+4
+3
+2
+1
+
+0
+
+6
+
+5
+
+4
+
+3
+
+2
+
+1
+
+0
+
+10 20 30 40 50 60 70 80 90
+
+x
+
+10 20 30 40 50 60 70 80 90
+
+x
+
+（d）直方图
+
+（a）原始图像 （b）提取特征 （c）检测处理
+
+图 7 文献[51]中的哈欠检测
+
+Fig.7 Yawn detection in [51]
+
+60
+
+2022，58（21）
+
+Computer Engineering and Applications 计算机工程与应用
+
+Self-aligning torque
+
+Environment feedback
+
+根据眼睛中心点对人脸校正，提取人脸图像中的眼睛和
+
+MATLAB Vehicle
+Dynamics
+Toolbox
+
+Unreal Engine 3D
+Visualizer
+
+Steering angle，
+torque，pedals
+
+Human body
+posture
+
+Head
+variations
+
+yaw dynamics
+
+Vehicle speed，lateral，
+Fatigue
+pattern
+
+Motion Capture System
+Head 3D
+MVN Studio
+（（°）/s2）
+4.98
+
+MATLAB Deep
+Learning
+Toolbox
+
+Fatigue
+Detection
+
+图 8 疲劳检测方法
+
+Fig.8 Fatigue detection method
+
+所提方法可准确判断驾驶员的状态[57]。
+
+基于驾驶员面部特征的检测方法中，通过机器视觉
+
+技术得以实现，而机器视觉技术是利用机器学习算法运
+行的 [58]。以下是最近几年内新兴的用于驾驶员面部特
+
+征疲劳检测方法的机器学习算法。
+
+You 等人提出一种考虑驾驶员个体差异的实时疲
+
+劳驾驶检测算法。该算法由离线训练和在线监控两个
+模型组成。离线训练模型中以 EAR 为输入，训练基于
+SVM 的分类器。在线监控模型中，利用训练好的分类
+
+器在线监测驾驶员的状态。由于疲劳驾驶状态是逐渐
+
+产生的，因此引入以单位时间内的疲劳帧数计算的变量
+
+来评估驾驶员的疲劳状态。该算法在模拟驾驶应用中
+的准确率为 94.80%。通过对比实验，表明该算法在准
+确 性 和 速 度 上 都 优 于 目 前 的 驾 驶 疲 劳 检 测 方 法 [59]。
+Zhang 等人建立了一种疲劳特征参数优化选择算法。
+算法的基本思想是利用 SFFS 算法从疲劳特征中搜索最
+
+优特征子集，以最优子集为输入，建立了通用的疲劳运
+
+动检测模型。由于运动员个体差异对疲劳检测的影响，
+
+根据特征参数计算个性参数，进而建立了自适应检测模
+
+型。传统的基于瞳孔开合的疲劳检测算法由于使用单
+
+一特征进行疲劳识别 ，鲁棒性较差 ，而所提方法可将
+PERCLOS 标准应用于卷积神经网络的训练，在综合人
+
+脸特征的基础上识别人脸的疲劳状态，提高算法的鲁棒
+性[60]。Liu 等人提出一种基于人脸多特征的疲劳检测算
+
+法，该算法将多个面部特征（如闭眼持续时间、点头和打
+哈欠）反馈给卷积双流网络，称为 gamma 疲劳检测网
+络。该算法首先利用多任务级联 CNN 定位驾驶员的眼
+
+睛和嘴巴。其次从局部人脸图像中提取静态特征。然
+
+后，从局部人脸光流中提取动态特征。最后，将静态和
+
+动态特征使用双流神经网络组合，以对图像数据进行分
+类。使用 NTHU-DDD 数据集对该算法进行了验证，准
+确率为 97.06% [61]。Ji 等人提出一种基于多指标融合和
+状 态 识 别 网 络 的 疲 劳 检 测 算 法 。 算 法 采 用 MTCNN
+（multi-scale CNN）进行人脸检测和人脸关键点检测，
+
+嘴巴图像。然后，利用提取的图像构建识别网络来提取
+
+特征。最后，将所提取的特征进行融合，结合融合特征，
+
+建立疲劳判断模型，进而分析驾驶员的疲劳状态。该算
+法在人眼数据集上的准确率为 98.42%，在张口数据集
+上的准确率为 97.93%[62]。Zhao 等人提出一种全自动驾
+驶员疲劳状态检测算法。算法采用 MTCNN 结构进行
+
+人脸检测和特征点定位。其次，对眼睛和嘴巴的状态进
+
+行分类，并通过特征点提取感兴趣区域；然后，通过所提
+出 EM-CNN（eye and mouth-CNN）从感兴趣区域中检
+测眼睛和嘴巴的状态。最后，结合 MAR、PERCLOS 以
+
+及张口率来识别驾驶员的疲劳状态。研究表明，所提出
+的 EM-CNN 算法的精确率为 93.623% [63]。由于大多数
+
+算法不从驾驶员特征中分析驾驶状态，这样就会出现
+误差。Li 等人提出一种结合驾驶员特征的人脸多特征
+
+融合的疲劳驾驶监测算法。算法主要包括三个模块：
+（1）身份录入。使用摄像头采集驾驶员的生物特征图
+像、眼睛图像和嘴巴图像，利用 YOLOv3 定位人脸区域；
+利用 Dlib 工具包提取面部特征点，计算 128 维面部特征
+向量、眼镜特征向量（eye feature vector，EFV）和嘴巴特
+征向量（mouth feature vector，MFV）；利用采集的图像
+训练 SVM 分类器；将生物特征、眼睛以及嘴巴的分类器
+存储在身份信息库。（2）身份验证。将采集生物特征图
+
+像与身份信息库中存储的生物特征进行比较；根据比较
+结果，调用信息库中的分类器进行识别。（3）在线识别。
+实时计算驾驶视频中人脸图像的 EFV 和 MFV；使用（1）
+中的分类器判断眼睛与嘴巴状态；计算出 PERCLOS、眨
+眼频率和打哈欠频率，进而判断驾驶员的状态[64]。You
+
+等人提出一种基于人脸运动信息熵的实时驾驶员疲劳
+检测算法。该算法利用改进的 YOLOv3 微型 CNN 在不
+
+同的复杂条件下定位视频中的脸部位置。其次，使用
+Dlib 工 具 包 、人 脸 位 置 的 特 征 构 建 FFT（face feature
+triangle），同时基于 FFT 信息创建人脸特征向量。然后，
+
+提取人脸特征向量，组建疲劳状态数据集。最后，通过
+
+采样器提取面部运动信息熵。将信息熵与阈值进行比
+
+较，以评估驾驶员的疲劳状态。结果显示，算法能实时
+检测驾驶员的状态，其准确率为 94.32% [65]。为了提高
+驾驶员疲劳检测的准确性和实时性，Liu 等人提出一种
+
+基 于 面 部 表 情 分 析 的 疲 劳 检 测 算 法 。 算 法 中 通 过
+MB_LBP（multi block local binary patterns）特 征 是 在
+Haar_like 特征和 LBP 特征的基础上发展而来的。与传
+统的 LBP 特征相比，MB_LBP 可从不同尺度上检测图
+像。在 FDDB 数据集上的测试结果发现，所提出人脸检
+测模型灵敏度和精确性均高于基于传统的 LBP 特征和
+Haar_like 特征的人脸检测模型[66]。表 2 为基于驾驶员面
+
+部特征疲劳检测各类算法的总结。
+
+张 瑞，等：驾驶员疲劳驾驶检测方法研究综述
+
+2022，58（21）
+
+61
+
+表 2 基于面部特征的疲劳检测算法
+
+Table 2 Fatigue detection algorithm based on facial features
+
+文献
+
+使用方法
+
+数据集
+
+[59]
+
+DCCNN+Dlib+SVM
+
+WIDER_FACE、
+
+AFLW、FDDB
+
+识别率
+
+94.8%
+
+[60]
+
+SFFS+SVM
+
+自建数据集
+
+93%
+
+[61]
+
+CNN+MTCNN
+
+NTHU-DDD
+
+97.06%
+
+算法优势
+
+算法局限性
+
+能进行实时检测，准确率高
+
+鲁 棒 性 好 ，量 化 了 个 体 差 异
+
+性因素对疲劳检测的影响
+
+精 度 较 高 ，夜 间 环 境 中 算 法
+
+的精度提高了 2%
+
+准 确 性 和 鲁 棒 性 均 较 高 ，实
+
+处 于 模 拟 驾 驶 试 验 阶
+
+段，未进行夜间试验
+
+处于仿真研究和优化阶
+
+段 ，复 杂 环 境 和 人 脸 部
+
+分遮挡会对算法有干扰
+
+处于仿真试验阶段
+
+下也可识别
+
+准确度和灵敏度均高于其他
+
+[62]
+
+MTCNN+ESR-Net+
+
+CEW、YawDD 和自建
+
+MSR-Net
+
+数据集/YawDD
+
+98.42%/97.93%
+
+现 简 单 ，在 佩 戴 眼 镜 的 情 形
+
+处于仿真试验阶段
+
+[63]
+
+MTCNN+EM-CNN
+
+Biteda 公司提供的
+
+93.623%
+
+CNN 方法，较高的鲁棒性，环
+
+[64]
+
+YOLOv3+Dlib+SVM
+
+[65]
+
+YOLOv3+Dlib+SVM
+
+自建数据集 DSD 与
+
+WIDE FACE
+
+WIDE FACE 与
+
+YawDD
+
+境光线干扰小
+
+95.10%
+
+可以进行实时检测，精度高
+
+可 满 足 实 时 检 测 ，精 度 高 同
+
+94.32%
+
+时 ，在 佩 戴 眼 镜 的 情 形 下 也
+
+可进行识别
+
+处 于 测 试 试 验 阶 段 ，未
+
+来有必要进一步测试
+
+处 于 仿 真 试 验 阶 段 ，复
+
+杂环境和光线会有干扰
+
+夜间环境会导致算法的
+
+精度下降
+
+[66]
+
+MB_LBP+Adaboost
+
+FDDB
+
+正常 96.5%、轻度疲劳
+
+可满足实时检测，对光线变化
+
+戴眼镜和头部旋转过大
+
+94.7%、重度疲劳 100%
+
+和抖动模糊有较强的鲁棒性
+
+时，准确度会下降
+
+基于驾驶员面部特征的疲劳检测方法具有成本低、
+
+面部多特征融合的驾驶员疲劳综合检测方法，该方法利
+
+不需接触、检测方便、设备较小易于装车、准确度相对较
+
+好以及可以实时检测驾驶疲劳等优势。但是若驾驶员
+
+用人脸视频序列检测驾驶员的疲劳状态。该方法是基
+于 68 个关键点来检测人脸区域，解决了由于每个任务
+
+头部偏转过大、佩戴墨镜以及环境光线不足时，会出现
+
+无法识别的现象。虽然存在以上的问题，但是目前疲劳
+
+的收敛速度不同而导致的优化问题，并根据实时人脸视
+频图像，分别计算 EAR、MAR 和 PERCLOS。根据以上
+
+检测方法依旧以该种检测方法为主，市场前景好。
+2.2.5 基于多特征融合的疲劳检测
+
+三个特征值所占不同权重，估算融合特征值。最后通过
+
+驾驶员疲劳综合评估模型评估融合特征值的帧数进而
+
+上述基于四种人体特征的被动检测方法均存在各
+
+确定驾驶员的疲劳程度。通过对比实验表明该算法在
+
+自的优缺点，因此有学者提出了一种多特征融合的疲劳
+
+驾驶检测方法。基于多特征融合的检测方法是从汽车
+
+主动安全性出发，利用数字图像信号处理和传感器技
+
+驾驶员疲劳检测的精度和速度上效果较好，同时应用该
+方法可以有效避免因佩戴眼镜/墨镜而导致检测准确度
+下降[68]。Hong 等人提出一种通过脑电图结合光容积描
+
+术，结合驾驶员的各种疲劳特征对驾驶员的疲劳状态进
+
+行判别与预警。与单一特征的疲劳检测相比，降低了误
+检或漏检的概率，提升了检测的精确性和稳定性[67]。
+
+Zhu 等人提出了一种基于任务约束深度神经网络
+（tasks-constrained deep convolutional network，TCDCN）
+
+记法和心电图描记法检测驾驶员疲劳的方法，该方法所
+用的设备如图 9。其中最左侧为实验所用的驾驶模拟器
+
+和记录仪，中间为佩戴耳道脑电图的电极的受试者，最
+右侧为耳道脑电图的三维设计图[69]。Vardhan 等人提出
+
+一种基于面部多特征实时疲劳检测系统。该系统采用
+
+Cam
+
+Right Ear
+
+Accelerometer
+
+Ear Canal
+Electrode
+
+g.USBAMP.REF
+
+Ear Canal EEG REF
+
+Physiological Measurements
+
+图 9 文献[69]中的实验设备
+
+Fig.9 Experimental equipment in [69]
+
+62
+
+2022，58（21）
+
+Computer Engineering and Applications 计算机工程与应用
+
+方向梯度直方图（histogram of oriented gradients，HOG）
+识别每一帧中的人脸。通过状态向量机（state vector
+machine，SVM）检测眼睛和嘴巴特征，进而判别出驾驶
+员的状态[70]。Jia 等人提出一种基于深度学习和脸部多
+
+指标融合的疲劳驾驶检测算法。该算法通过改进多任
+务级联卷积神经网络（MTCNN），准确提取出眼睛和嘴
+
+巴的特征。将所提取特征输入眼睛和嘴巴状态识别网
+络（E-MSR Net）中进行状态分析，最后将眼睛闭合率
+（eye closure rate，ECR）、嘴 巴 张 开 率（mouth opening
+rate，MOR）以及头部非正面率（head non-positive face
+rate，HNFR）三个特征进行融合来判断司机的状态，流
+程如图 10 所示。首先，通过摄像头捕获驾驶员面部图
+
+关系数来评估模型。研究显示，REDE 性能优异，可进
+行实时疲劳检测 [73]。Zhao 等人提出了一种基于 Incep-
+tionV3-LSTM 的多特征融合疲劳检测方法。该方法首
+先使用 InceptionV3 提取眼睛的状态，经过 LSTM 处理
+得到时间序列特征组。然后，利用 BVP（blood volume
+pulse）方法获取 HRV 信号，并提取由 LF（low frequency）/
+HF（high frequency）比值计算阈值。最后，将 LSTM 输
+出的特征与 HRV 信号的阈值进行融合，进而检测驾驶
+员的状态。研究表明，所提方法的准确率为 96.5%[74]。
+
+多特征融合的疲劳检测方法可以改进目前疲劳检
+
+测存在的环境适应性差，光线不足等问题，同时可以整
+
+合不同特征的优势，以提高检测精确性。由此这种检测
+
+像；其次，利用多任务级联卷积神经网络定位人脸和人
+
+方法将会成为未来疲劳驾驶检测的重点研究方向。
+
+脸的关键点检测，根据检测到的关键点，确定眼睛和嘴
+
+巴的位置；然后，将其输入识别网络进行状态识别；最后
+
+3 现阶段疲劳驾驶检测方法存在的不足
+
+利 用 人 脸 多 指 标 融 合 策 略 来 判 断 驾 驶 员 的 疲 劳 状
+态 [71]。由于现有的检测方法忽视了疲劳特征的时间信
+息与特征之间的关系。Du 等人提出一种新颖的多模式
+融 合 递 归 神 经 网 络（multimodal fucused on recurrent
+neural network，MFRNN）。首次使用 RGB-D 摄像头提
+取心率、EAR 和 MAR 三个疲劳特征。该网络利用 RNN
+（recurrent neural network）层 提 取 疲 劳 特 征 的 时 间 信
+
+息。由于心率是间接提取的，存在噪声和模糊性，因此
+通过模糊推理与 RNN 结合的方式提取心率特征的时间
+
+信息。将所提取疲劳特征的时间信息作为所提网络的
+
+输 入 ，然 后 将 其 进 行 融 合 ，进 而 检 测 出 驾 驶 员 的 状
+态[72]。Li 等人提出一种基于人脸图像的疲劳检测系统
+REDE（recognizing the drowsy expression）。系统利用
+Dlib 算法从所采集的人脸图像中提取左右眼睛和嘴巴
+的位置区域。利用 LBP（local binary patterns）算法从眼
+睛和嘴巴图像中提取特征，并应用 RBF 核训练 SVM 模
+
+疲劳驾驶检测方法被广泛应用于多种交通运输工
+
+具。不论是从主动检测方面，还是被动检测方面，大量
+
+的研究表明熟悉被检测人员的真实的生理与精神状态，
+
+可以实时了解驾驶员是否疲劳驾驶，进而有效避免交通
+
+事故的发生。通过对上述文献进行整理和分析，得出目
+
+前驾驶员疲劳检测方法存在的不足，主要体现在以下几
+
+个方面：
+
+（1）试验样本数据缺乏参与者的年龄多样性和性别
+差异，以及未对驾驶员的疲劳进行量化。文献[28，33，
+41]没有考虑个体差异性而导致检测精度较低。文献
+[32，34，39，48，55，57]都是运用不同的方法对疲劳进行
+
+分类和评估。
+
+（2）疲劳驾驶检测试验大多是通过驾驶模拟器或
+室内模拟设备开展的，缺乏真实性。文献[22]在实际道
+
+路和模拟道路上都进行了试验，发现两者存在差别。文
+献[25]在实际道路上进行试验，得到的结果较为满意。
+
+型进行分类。通过灵敏度、特异性、准确度和马修斯相
+
+（3）基于主动检测法的疲劳驾驶因素分析不全面，
+
+Face location and facial key points
+detection module
+
+State judgment module
+
+Fatigue judgment
+module
+
+ECR
+
+MOR
+
+HNFR
+
+Get images
+
+MTCNN face location，
+Eye and mouth detection
+
+E-MSR Net recognition stasus
+
+Fatigue judgment
+
+Camera captures
+images
+
+Face Location
+and Facial Key
+Points Detection
+
+Eye region
+location
+
+Mouth region
+location
+
+Head posture
+parameters
+
+Eye state
+recognition
+
+Mouth state
+recognition
+
+Head posture
+recognition
+
+Fatigue
+state
+judgment
+algorithm
+based on
+multi-index
+fusion
+
+图 10 文献[71]中的疲劳检测算法流程
+
+Fig.10 Algorithm flow of fatigue detection in [71]
+
+张 瑞，等：驾驶员疲劳驾驶检测方法研究综述
+
+2022，58（21）
+
+63
+
+以 及 在 试 验 中 未 对 参 与 者 观 点 的 权 重 进 行 考 虑 。 同
+时，该种检测方法适用范围有限。文献[32，48]运用主
+
+移到实际道路进行测试和验证，这样可极大提高实用
+
+性。目前的检测算法无法进行独立的测试，必须借助第
+
+被动结合的检测方法进行疲劳检测，所得到的结果更
+
+三方平台才可实施。未来可以开发一种储存算法的模
+
+符合实际。
+
+块，可独立进行测试。同时算法测试所用数据集比较单
+
+（4）生理信号的测量受穿戴装置的不确定性影响，
+
+一且其对环境的要求严格，未来应对算法进行多种数据
+
+试验成本较高、设备体积大。同时，由于个体性差异，导
+致其自适应性很差。文献[31，33，36]等大多数的基于
+
+集进行验证，并对算法及逆行环境适应性的测试，进而
+
+使其在复杂环境中更具有稳定性。
+
+脑电的疲劳研究，所用设备均较大，不易移动，且难以进
+
+（7）未来可通过多特征融合的检测方法对极端环境
+
+行实时疲劳检测。
+
+（5）目前被动检测法的算法未能达到实际公开道路
+试验精确度和鲁棒性的要求。文献[21，31，36，40]所用
+算法均是在实验室内进行疲劳检测的，文献[59-66]所提
+
+下的驾驶员进行疲劳检测。同时开发一种警示系统，当
+
+驾驶员出现头部或身体扭转角度过大时，车载系统会提
+
+醒驾驶员调整好坐姿。同时进一步研发可以增强所捕
+
+获图像的亮度的算法，以达到准确识别图像中的所有疲
+
+出的算法大都处于仿真优化阶段，并未在公开道路验证
+
+劳特征。
+
+算法的精确性和鲁棒性。
+
+（6）当前驾驶环境、光线、驾驶员的头部或身体旋转
+
+过 大 以 及 墨 镜 或 眼 镜 的 佩 戴 都 会 增 加 疲 劳 检 测 的 难
+
+度。目前对于驾驶员佩戴眼镜情形的疲劳检测已有较
+大的进展。文献[65]和[68]均可以对佩戴眼镜的驾驶员
+
+参考文献：
+[1] 李都厚，刘群，袁伟，等 . 疲劳驾驶与交通事故关系[J]. 交通
+
+运输工程学报，2010，10（2）：104-109.
+
+LI D H，LIU Q，YUAN W，et al.Relationship between
+
+进行眼镜的识别与检测。对于另外几种情形的疲劳检
+
+fatigue driving and traffic accident[J].Journal of Traffic
+
+测的研究相对较少。
+
+4 未来的研究趋势
+
+目前，国内外对驾驶员疲劳检测的方法有很多，但
+
+大多数依旧处于试验阶段。本文通过对疲劳检测方法
+
+存在的不足进行分析，总结出未来的研究趋势如下：
+
+（1）由于个体差异性导致每一位驾驶员的驾驶行为
+
+都会存在差别。未来可进一步增加不同年龄段试验驾
+
+驶员，同时也增加女性试验驾驶员的比例，进而构建更
+
+为全面的疲劳检测数据集。
+
+and Transportation Engineering，2010，10（2）：104-109.
+
+[2] KHUMPISUTH O，CHOTCHINASRI T，KOSHAKOSAI V，
+
+et al.Driver drowsiness detection using eye- closeness
+
+detection[C]//2016 12th International Conference on Signal-
+
+Image Technology & Internet-Based Systems（SITIS），
+
+2016：661-668.
+
+[3] KOH S，CHO B R，LEE J，et al.Driver drowsiness detection
+
+via PPG biosignals by using multimodal head support[C]//
+
+2017 4th International Conference on Control，Decision
+
+and Information Technologies（CoDIT），2017：383-388.
+
+[4] HOTTA Y，ITO K.EMG-based detection of muscle fatigue
+
+（2）由于疲劳驾驶试验存在一定的风险，大多数的
+
+during low-level
+
+isometric contraction：effects of electrode
+
+疲劳检测试验均是通过模拟驾驶试验开展的。未来的
+
+configuration and blood flow restriction[C]//2011 Annual
+
+疲劳检测试验可以从模拟驾驶试验转向封闭道路试验，
+
+International Conference of the IEEE Engineering in
+
+这样可以极大程度地贴合实际情况。
+
+Medicine and Biology Society，2011：3877-3879.
+
+（3）未来可通过建立一套完整的疲劳分类标准，同
+
+[5] ZHANG Y Q，ZHENG W L，LU B L.Transfer compo-
+
+时 构 建 一 个 完 善 的 疲 劳 等 级 评 估 体 系 对 疲 劳 驾 驶 检
+
+测的进一步研究奠定理论基础。目前的分类标准与评
+
+估体系都是在前人的研究的基础上进行疲劳分类和评
+
+估的。
+
+（4）未来可以将主被动检测法相结合的方式对驾驶
+
+员进行疲劳检测。在应用主动检测法时，应尽量避免主
+
+观因素的干扰，同时对参与者不同的客观描述进行权重
+
+的合理分配。
+
+（5）未来可通过研发一种新型的干电极材料应用于
+
+生理检测来提高生理信号采集装置的稳定性。将生理
+
+nents between subjects for EEG- based driving fatigue
+
+detection[C]//International Conference on Neural Informa-
+
+tion Processing.Cham：Springer，2015：61-68.
+
+[6] LI M，ZHANG C，YANG J F.An EEG-based method for
+
+detecting drowsy driving state[C]//2010 Seventh Interna-
+
+tional Conference on Fuzzy Systems and Knowledge
+
+Discovery，2010：2164-2167.
+
+[7] 周展鹏，孔万增，王奕直，等 . 基于心电和脑电的驾驶疲劳
+
+检测研究[J]. 杭州电子科技大学学报，2014，34（3）：25-28.
+
+ZHOU Z P，KONG W Z，WANG Y Z，et al.ECG and
+
+EEG based detection of driver fatigue[J].Journal of Hang-
+
+采集系统进行小巧化和无线化，进而将数据进行实时的
+
+zhou Dianzi University，2014，34（3）：25-28.
+
+处理。同时寻找能更好体现且易于提取的生理特征。
+
+[8] LAL S K L，CRAIG A.A critical review of the psycho-
+
+（6）未来可将疲劳检测算法的测试和验证尽可能转
+
+physiology of driver
+
+fatigue[J].Biological Psychology，
+
+64
+
+2022，58（21）
+
+Computer Engineering and Applications 计算机工程与应用
+
+2001，55（3）：173-194.
+
+究[D]. 南京：东南大学，2016.
+
+[9] JIANG K，LING F，FENG Z，et al.Why do drivers continue
+
+HUANG H.Fatigue driving detection based on driver
+
+driving while fatigued？An application of the theory of
+
+behavior and vehicle state[D].Nanjing：Southeast Univer-
+
+planned behaviour[J].Transportation Research Part A：Policy
+
+sity，2016.
+
+and Practice，2017，98：141-149.
+
+[21] 蔡素贤，杜超坎，周思毅，等 . 基于车辆运行数据的疲劳驾
+
+[10] BENER A，YILDIRIM E，ÖZKAN T，et al.Driver sleep-
+
+驶状态检测[J]. 交通运输系统工程与信息，2020，20（4）：
+
+iness，fatigue，careless behavior and risk of motor vehicle
+
+77-82.
+
+crash and injury：population based case and control
+
+CAI S X，DU C K，ZHOU S Y，et al.Fatigue driving state
+
+study[J].Journal of Traffic and Transportation Engineering
+
+detection based on vehicle running data[J].Journal of
+
+（English Edition），2017，4（5）：496-502.
+
+Transportation Systems Engineering and Information
+
+[11] NOUGHABI M G，SADEGHI A，MOGHADDAM A M，
+
+Technology，2020，20（4）：77-82.
+
+et al.Fatigue risk management：assessing and ranking the
+
+[22] RIERA L，OZCAN K，MERICKEL J，et al.Detecting
+
+factors affecting the degree of fatigue and sleepiness
+
+and tracking unsafe lane departure events for predicting
+
+of heavy- vehicle drivers using TOPSIS and statistical
+
+driver safety in challenging naturalistic driving data[C]//
+
+analyses[J].Iranian Journal of Science and Technology，
+
+2020 IEEE Intelligent Vehicles Symposium（IV），2020：
+
+Transactions of Civil Engineering，2020，44（4）：1345-1357.
+
+238-245.
+
+[12] 杜振君 . 基于工效学的某汽车总装车间叉车司机疲劳评
+
+[23] CHEN L W，CHEN H M.Driver behavior monitoring
+
+估研究[D]. 沈阳：沈阳工业大学，2020.
+
+and warning with dangerous driving detection based on
+
+DU Z J.Study on fatigue assessment of forklift driver in
+
+the internet of vehicles[J].IEEE Transactions on Intelli-
+
+ageneral a ssembly workshop based on ergonomics[D].
+
+gent Transportation Systems，2020，22（11）：7232-7241.
+
+Shenyang：Shenyang University of Technology，2020.
+
+[24] 张希波，成波，冯睿嘉 . 基于方向盘操作的驾驶人疲劳状
+
+[13] LEE S，KIM J K.Factors contributing to the risk of
+
+态实时检测方法[J]. 清华大学学报（自然科学版），2010，
+
+airline pilot fatigue[J].Journal of Air Transport Manage-
+
+50（7）：1072-1076.
+
+ment，2018，67：197-207.
+
+ZHANG X B，CHENG B，FENG R J.Real-time detection
+
+[14] FILTNESS A J，NAWEED A.Causes，consequences and
+
+of driver drowsiness based on steering performance[J].
+
+counter measures to driver fatigue in the rail industry：
+
+Journal of Tsinghua University（Science and Technology），
+
+the train driver perspective[J].Applied Ergonomics，2017，
+
+2010，50（7）：1072-1076.
+
+60：12-21.
+
+[25] 沙春发，李瑞，张明明 . 基于方向盘握力的疲劳驾驶检测
+
+[15] 李响，徐玉萍，章海亮 . 机车司机驾驶疲劳风险动态量化
+
+研究[J]. 科学技术与工程，2016，16（30）：299-304.
+
+评价研究[J]. 中国安全科学学报，2017，27（2）：18-23.
+
+SHA C F，LI R，ZHANG M M.Detecting fatigue driving
+
+LI X，XU Y P，ZHANG H L.A study on dynamic
+
+based on steering wheel grip force[J].Science Technology
+
+quantitative evaluation of train driver’s fatigue risk[J].
+
+and Engineering，2016，16（30）：299-304.
+
+China Safety Science Journal，2017，27（2）：18-23.
+
+[26] MCDONALD A D，LEE J D，SCHWARZ C，et al.A
+
+[16] MOLLICONE D，KAN K，MOTT C，et al.Predicting
+
+contextual and temporal algorithm for driver drowsiness
+
+performance and safety based on driver fatigue[J].Acci-
+
+detection[J].Accident Analysis & Prevention，2018，113：
+
+dent Analysis & Prevention，2019，126：142-145.
+
+25-37.
+
+[17] LI M K，YU J J，MA L，et al.Modeling and mitigating
+
+[27] LI Z，CHEN L，NIE L，et al.A novel learning model of
+
+fatigue- related accident
+
+risk of
+
+taxi drivers[J].Accident
+
+driver fatigue features representation for steering wheel
+
+Analysis & Prevention，2019，123：79-87.
+
+angle[J].IEEE Transactions on Vehicular Technology，
+
+[18] POMERLEAU D.RALPH：rapidly adapting lateral position
+
+2021，71（1）：269-281.
+
+handler[C]//Proceedings of the Intelligent Vehicles’95，
+
+[28] LI R，CHEN Y V，ZHANG L.A method for fatigue
+
+1995：506-511.
+
+detection based on driver’ s steering wheel grip[J].Inter-
+
+[19] 郭思强，滕靖，郭旭健，等 . 基于车辆行驶数据的营运车驾
+
+national Journal of Industrial Ergonomics，2021，82：103083.
+
+驶员疲劳驾驶监控研究[C]//2014 第九届中国智能交通年
+
+[29] 彭军强，吴平东，殷罡 . 疲劳驾驶的脑电特性探索[J]. 北京
+
+会，2014：91-102.
+
+理工大学学报，2007，27（7）：585-589.
+
+GUO S Q，TENG J，GUO X J，et al.Research on fatigue
+
+PENG J Q，WU P D，YIN G.Explorating the characters of
+
+driving of commercial vehicle drivers based on multi-
+
+electroencephalogram for fatigued drivers[J].Transactions
+
+source real data[C]//Proceedings of the 9th China Intel-
+
+of Beijing Institute of Technology，2007，27（7）：585-589.
+
+ligent Transportation Annual Conference，2014：91-102.
+
+[30] LAL S K L，CRAIG A.Driver fatigue：electroencepha-
+
+[20] 黄皓 . 基于驾驶操作及车辆状态的疲劳驾驶行为检测研
+
+lography and psychological assessment[J].Psychophysiology，
+
+张 瑞，等：驾驶员疲劳驾驶检测方法研究综述
+
+2022，58（21）
+
+65
+
+2002，39（3）：313-321.
+
+155-157.
+
+[31] HOUSHMAND S，KAZEMI R，SALMANZADEH H.
+
+[43] FAN Y，GU F，WANG J，et al.SafeDriving：an effective
+
+A novel convolutional neural network method for subject-
+
+abnormal driving behavior detection system based on
+
+independent driver drowsiness detection based on single-
+
+EMG signals[J].IEEE Internet of Things Journal，2021，
+
+channel data and EEG alpha spindles[J].Proceedings of
+
+9（14）：12338-12350.
+
+the Institution of Mechanical Engineers，Part H：Journal
+
+[44] WIERWILLE W，KNIPLING R.Vehicle- based drowsy
+
+of Engineering in Medicine，2021，235（9）：1069-1078.
+
+driver detection：current status and future prospects[C]//
+
+[32] JEONG J H，YU B W，LEE D H，et al.Classification
+
+Proceedings of
+
+the IVHS America Conference，1994：
+
+of drowsiness levels based on a deep spatio-temporal
+
+245-256.
+
+convolutional bidirectional LSTM network using electro-
+
+[45] DINGES D F，GRACE R.PERCLOS：a valid psycho-
+
+encephalography signals[J].Brain Sciences，2019，9（12）：348.
+
+physiological measure of alertness as assessed by psy-
+
+[33] ZOU S，QIU T，HUANG P，et al.Constructing multi-scale
+
+chomotor vigilance[D].US Department of Transportation.
+
+entropy based on the empirical mode decomposition（EMD）
+
+Federal Highway Administration，Publication Number
+
+and its application in recognizing driving fatigue[J].
+
+FHWA-MCRT-98-006，1998.
+
+Journal of Neuroscience Methods，2020，341：108691.
+
+[46] TAO H，ZHANG G，ZHAO Y，et al.Real-time driver
+
+[34] CHINARA S.Automatic classification methods for detecting
+
+fatigue detection based on face alignment[C]//Ninth
+
+drowsiness using wavelet packet transform extracted time-
+
+International Conference on Digital
+
+Image Processing
+
+domain features from single- channel EEG signal[J].
+
+（ICDIP 2017），2017：6-11.
+
+Journal of Neuroscience Methods，2021，347：108927.
+
+[47] 潘志庚，刘荣飞，张明敏 . 基于模糊综合评价的疲劳驾驶
+
+[35] LIU Q，LIU Y，CHEN K，et al.Research on channel
+
+检测算法研究[J]. 软件学报，2019，30（10）：2954-2963.
+
+selection and multi- feature fusion of EEG signals for
+
+PAN Z G，LIU R F，ZHANG M M.Research on fatigue
+
+mental fatigue detection[J].Entropy，2021，23（4）：457.
+
+driving detection algorithm based on fuzzy comprehen-
+
+[36] ZHENG W L，LU B L.A multimodal approach to esti-
+
+sive evaluation[J].Journal of Software，2019，30（10）：
+
+mating vigilance using EEG and forehead EOG[J].Journal
+
+2954-2963.
+
+of Neural Engineering，2017，14（2）：026017.
+
+[48] ZHUANG Q，KEHUA Z，WANG J，et al.Driver fatigue
+
+[37] GROMER M，SALB D，WALZER T，et al.ECG sensor
+
+detection method based on eye states with pupil and
+
+for detection of driver’s drowsiness[J].Procedia Com-
+
+iris segmentation[J].IEEE Access，2020，8：173440-173449.
+
+puter Science，2019，159：1938-1946.
+
+[49] BAKHEET S，AL-HAMADI A.A framework for instan-
+
+[38] 徐礼胜，张闻勖，庞宇轩，等 . 基于短时心电信号的疲劳驾
+
+taneous driver drowsiness detection based on improved
+
+驶检测算法[J]. 东北大学学报（自然科学版），2019，40（7）：
+
+HOG features and Naïve Bayesian classification[J].Brain
+
+937-941.
+
+Sciences，2021，11（2）：240.
+
+XU L S，ZHANG W X，PANG Y X，et al.Driver drows-
+
+[50] WANG R B，GOU L，TONG B L，et al.Monitoring
+
+iness detection algorithm using short-term ECG signals[J].
+
+mouth movement for driver fatigue or distraction with
+
+Journal of Northeastern University（Natural Science），
+
+one camera[C]//The 7th International IEEE Conference on
+
+2019，40（7）：937-941.
+
+Intelligent Transportation Systems（IEEE Cat.No.04TH8749），
+
+[39] MURUGAN S，SELVARAJ J，SAHAYADHAS A.Detection
+
+2004：314-319.
+
+and analysis：driver state with electrocardiogram（ECG）[J].
+
+[51] ANITHA C，VENKATESHA M K，ADIGA B S.A two
+
+Physical and Engineering Sciences in Medicine，2020，
+
+fold expert system for yawning detection[J].Procedia
+
+43（2）：525-537.
+
+Computer Science，2016，92：63-71.
+
+[40] LEE H，LEE J，SHIN M.Using wearable ECG/PPG sen-
+
+[52] JIE Z，MAHMOUD M，STAFFORD-FRASER Q，et al.
+
+sors for driver drowsiness detection based on distin-
+
+Analysis of yawning behaviour in spontaneous expres-
+
+guishable pattern of recurrence plots[J].Electronics，2019，
+
+sions of drowsy drivers[C]//2018 13th IEEE International
+
+8（2）：192.
+
+Conference on Automatic Face & Gesture Recognition
+
+[41] SALVATI L，D’AMORE M，FIORENTINO A，et al.On-road
+
+（FG 2018），2018：571-576.
+
+detection of driver fatigue and drowsiness during medium-
+
+[53] ADHINATA F D，RAKHMADANI D P，WIJAYANTO D.
+
+distance journeys[J].Entropy，2021，23（2）：135.
+
+Fatigue detection on face image using FaceNet algorithm
+
+[42] WANG H.Detection and alleviation of driving fatigue
+
+and K-nearest neighbor classifier[J].Journal of Information
+
+based on EMG and EMS/EEG using wearable sensor[C]//
+
+Systems Engineering and Business Intelligence，2021，
+
+Proceedings of the 5th EAI International Conference on
+
+7（1）：22-30.
+
+Wireless Mobile Communication and Healthcare，2015：
+
+[54] 李勇达，张超，孟令君 . 基于头部姿态特征的列车司机疲
+
+66
+
+2022，58（21）
+
+Computer Engineering and Applications 计算机工程与应用
+
+劳驾驶检测系统研究[J]. 交通信息与安全，2014，32（5）：
+
+[64] LI K，GONG Y，REN Z.A fatigue driving detection
+
+114-119.
+
+algorithm based on facial multi- feature fusion[J].IEEE
+
+LI Y D，ZHANG C，MENG L J.A fatigue driving detection
+
+Access，2020，8：101244-101259.
+
+system for train driver based on head pose features[J].
+
+[65] YOU F，GONG Y，TU H，et al.A fatigue driving detec-
+
+Journal of Transport Information and Safety，2014，32（5）：
+
+tion algorithm based on facial motion information
+
+114-119.
+
+entropy[J].Journal of Advanced Transportation，2020.
+
+[55] RUIZ N，CHONG E，REHG J M.Fine- grained head pose
+
+[66] LIU Z，PENG Y，HU W.Driver fatigue detection based on
+
+estimation without keypoints[C]//Proceedings of the IEEE
+
+deeply- learned facial expression representation[J].Journal
+
+Conference on Computer Vision and Pattern Recognition
+
+of Visual Communication and Image Representation，
+
+Workshops，2018：2074-2083.
+
+2020，71：102723.
+
+[56] ANSARI S，NAGHDY F，DU H，et al.Driver mental fatigue
+
+[67] 张伟，黄炜，罗大庸 . 基于多特征量贝叶斯融合的驾驶疲
+
+detection based on head posture using new modified
+
+劳识别[J]. 计算机工程与应用，2012，48（33）：244-248.
+
+reLU- BiLSTM deep neural network[J].IEEE Transactions
+
+ZHANG W，HUANG W，LUO D Y.Recognition of driver
+
+on Intelligent Transportation Systems，2021.
+
+fatigue using multi-feature fusion by Bayesian network[J].
+
+[57] ZHANG N，ZHANG H，HUANG J.Driver fatigue state
+
+Computer Engineering and Applications，2012，48（33）：
+
+detection based on facial key points[C]//2019 6th Inter-
+
+244-248.
+
+national Conference on Systems and Informatics（ICSAI），
+
+[68] ZHU T，ZHANG C，WU T，et al.Research on a real-time
+
+2019：144-149.
+
+driver fatigue detection algorithm based on facial video
+
+[58] 刘鹏，江朝晖，熊进，等 . 用于驾驶疲劳检测的人眼定位及
+
+sequences[J].Applied Sciences，2022，12（4）：2224.
+
+状态判别算法[J].计算机工程与应用，2010，46（24）：185-188.
+
+[69] HONG S，KWON H，CHOI S H，et al.Intelligent system
+
+LIU P，JIANG Z H，XIONG J，et al.Algorithm of eye
+
+for drowsiness recognition based on ear canal electroen-
+
+localization and eye state recognition in driving fatigue
+
+cephalography with photoplethysmography and electro-
+
+detection[J].Computer Engineering and Applications，2010，
+
+cardiography[J].Information Sciences，2018，453：302-322.
+
+46（24）：185-188.
+
+[70] VARDHAN V V S，REDDY N R K，SURYA K J，et al.
+
+[59] YOU F，LI X，GONG Y，et al.A real-time driving drowsi-
+
+Driver’s drowsiness detection based on facial multi-
+
+ness detection algorithm with individual differences con-
+
+feature fusion[C]//Journal of Physics：Conference Series，
+
+sideration[J].IEEE Access，2019，7：179396-179408.
+
+2021，1998（1）：012034.
+
+[60] ZHANG F，WANG F.Exercise fatigue detection algorithm
+
+[71] JIA H，XIAO Z，JI P.Fatigue driving detection based on
+
+based on video image information extraction[J].IEEE
+
+deep learning and multi-index fusion[J].IEEE Access，
+
+Access，2020，8：199696-199709.
+
+2021，9：147054-147062.
+
+[61] LIU W，QIAN J，YAO Z，et al.Convolutional
+
+two-stream
+
+[72] DU G，LI T，LI C，et al.Vision-based fatigue driving
+
+network using multi-facial feature fusion for driver fatigue
+
+recognition method integrating heart
+
+rate and facial
+
+detection[J].Future Internet，2019，11（5）：115.
+
+features[J].IEEE Transactions on Intelligent Transportation
+
+[62] JI Y，WANG S，ZHAO Y，et al.Fatigue state detection
+
+Systems，2020，22（5）：3089-3100.
+
+based on multi- index fusion and state recognition net-
+
+[73] LI K，WANG S，DU C，et al.Accurate fatigue detection
+
+work[J].IEEE Access，2019，7：64136-64147
+
+based on multiple facial morphological features[J].Journal
+
+[63] ZHAO Z，ZHOU N，ZHANG L，et al.Driver
+
+fatigue
+
+of Sensors，2019.
+
+detection based on convolutional neural networks using
+
+[74] ZHAO Y，XIE K，ZOU Z，et al.Intelligent recognition of
+
+EM-CNN[J].Computational Intelligence and Neuroscience，
+
+fatigue and sleepiness based on InceptionV3-LSTM via
+
+2020.
+
+multi-feature fusion[J].IEEE Access，2020，8：144205-144217.
+
+

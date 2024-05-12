@@ -1,0 +1,696 @@
+信息技术 与信息化
+
+智能技术
+
+基于 BFDS 改进的 YOLOv8 疲劳驾驶检测算法
+
+郑凯东 1  舒  心 1
+ZHENG Kaidong   SHU xin    
+
+ 摘　要               近年来随着国内私家车保有量的逐年增多，我国的交通事故的发生率也是逐年升高，其中由于司机的疲
+
+劳驾驶导致的交通事故占比最多，针对司机在开车中的驾驶安全问题，提出了一种疲劳检测算法 BFDS-
+
+YOLO，融合了 DCNv2 与 BiFPN，并引入了视觉通道注意力机制，以提高疲劳检测的效率。引入了
+
+Yolov8n-DCNv2、YOLOv8n-BF 等变种模型，通过详细实验比较它们的性能。提出的 BFDS-YOLO 模型
+
+对主干网络和颈部网络进行了改进，将 DCNv2 与 BiFPN 结合，并引入了视觉通道注意力机制。实验结
+
+果表明，BFDS-YOLO 相较于其他模型在多个性能指标上均有显著提升，提出的算法在疲劳检测任务中
+
+具有广泛的应用前景。   
+
+ 关键词                  深度学习；疲劳检测；可变形卷积；视觉通道注意力机制；加权双向特征金字塔网络     
+
+doi：10.3969/j.issn.1672-9528.2024.02.048
+
+0  引言
+
+和部署相对困难。
+
+在近年来的研究中，疲劳驾驶检测系统取得了显著的进
+
+展。研究者们不断改进算法，结合深度学习的发展，提高了
+
+疲劳驾驶检测系统的准确性和实时性。在疲劳驾驶检测方法
+
+方面，主要分为两类方法：主动检测法、被动检测法。主动
+
+检测法包含但不限于：填写问卷、口头问答判断、主动检测
+
+模型。被动检测法包括：基于车辆行为 [1]、基于司机行为 [2]、
+
+基于生理信号 [3]、基于面部特征 [4] 以及基于多特征融合的疲
+
+劳检测 [5]。
+
+单阶段目标检测算法通常将目标检测任务视为一个回归
+
+问题，直接从输入图像中预测目标的类别和位置。YOLO（you 
+only look once）[9] 和 SSD（single shot multibox detector）10]
+
+是代表性的单阶段目标检测算法。YOLO 算法将目标检测问
+
+题转化为一个回归问题，通过将图像划分为网格单元并在每
+
+个单元中预测边界框的类别和位置。单阶段目标检测算法的
+
+优点为速度快，适用于实时应用，算法结构相对简单，易于
+
+理解和实现。单阶段目标检测算法的缺点为小目标检测效果
+
+目标检测在深度学习的推动下取得了革命性进展。基
+
+差、定位精度较低、定位精度通常不如两阶段算法高。
+
+于深度学习的目标检测方法通常可以分为单阶段和两阶段两
+
+鉴于疲劳驾驶检测的应用场景所需要的快速、实时运
+
+种类型以及卷积神经网络（CNN）方法。CNN 方法 [6] 在图
+像特征提取方面提取出色彩和纹理信息等更高级别的抽象特
+
+征，从而能够更好地捕捉目标，通常具有较高的准确性和鲁
+
+棒性，适用于各种目标检测任务。而 CNN 方法需要大量的
+标注数据来训练，对于小尺寸目标和遮挡目标，CNN 方法的
+性能可能会下降。
+
+两阶段目标检测算法通常分为两个阶段：首先生成一些
+
+候选区域，然后对这些区域进行分类和精确定位。代表性的
+
+两阶段目标检测算法有 Faster R-CNN[7] 和 Mask R-CNN[8]。两
+阶段目标检测算法的优点为准确度高、多任务处理，一些两
+
+行 的 必 须 要 求， 本 文 采 用 YOLOv8n 作 为 疲 劳 检 测 算 法，
+
+并 且 为 了 进 一 步 增 加 检 测 的 准 确 度， 本 文 融 合 了 DCNv2
+（ deformable convolutional networks version 2）[11] 与 BiFPN
+（bi-directional feature pyramid network）[12] 等先进技术，提
+
+出了一个新型的 BFDS-YOLO 模型。
+
+1  基于 BFDS 改进的 yolov8n 目标检测算法
+
+本文针对最新的目标检测模型 YOLOv8 中的轻量化模型
+
+YOLOv8n 融合先进的卷积模块、注意力机制以及加权双向特
+
+征拼接操作，相对于原始模型在轻量化的同时有着更高的精
+
+阶段算法如 Mask R-CNN 可以同时完成目标检测和语义分割
+等多个任务。两阶段目标检测算法的缺点为速度相对较慢，
+
+确度、更好的评价指标，命名为 BFDS-YOLO。图 1 展示了
+
+BFDS-YOLO 的模型架构，其中的红色虚线所框出来的为改
+
+不太适用于实时应用，复杂度高、网络结构较为复杂、训练
+
+进部分。BFDS-YOLO 模型的改进主要在以下三个方面体现。
+
+1. 西安石油大学 陕西西安 710065
+
+首先，改变原始的 C2f 模块，融合 DCNv2 变为 C2f_DCN 模块，
+
+以增强骨干网络的特征提取能力，更好地提取到图片的复杂
+
+  2024 年第 2 期 213
+
+智能技术 信息技术 与信息化
+
+细节并处理一些形状变化的检测目标。其次，通过引入 BiF-
+
+PN，增强了颈部网络的特征融合能力。最后，在颈部网络中
+的原始 C2f 之后添加视觉通道注意力机制 SEAttention[13]，使
+
+得模型更加关注学习到的重要特征，提升模型的鲁棒性。
+
+y p
+(
+0
+
+)
+
+=
+
+∑
+pn
+
+w p
+(
+
+⋅
+
+)
+
+n
+
+x p
+(
+0
+
++
+
+p
+
+n
+
+)
+
+                                        （2）
+
+可变形卷积（deformable conv）操作在卷积计算方法的
+
+功能范围上，增加了一种可学习的参数 ∆pn。虽然该计算方
+法对于每个输出的 y(p0) 仍然是从 x 上的中心位置 x(p0) 的四
+周不同的 9 个位置进行采样计算，但是增加了一个偏移量
+
+∆pn，则采样范围变成了不规则范围，计算公式为：
+
+y p
+(
+0
+
+)
+
+=
+
+∑
+pn
+
+w p
+(
+
+⋅
+
+)
+
+n
+
+x p
+(
+0
+
++
+
+p
+
+n
+
++ ∆
+p
+
+)
+
+n
+
+                            （3）
+
+DCNv2 的核心创新在于引入了可变形卷积层，通过自适
+
+应地调整卷积核的形状和采样位置，能够灵活地适应复杂的
+
+目标形变，提高了模型对图像细节的感知能力。DCNv2 网络
+
+结构图如图 3 所示。
+
+图 1 BFDS-YOLO 模型结构图
+
+1.1  C2f_DCN 模块设计
+
+疲劳驾驶检测中包含一些驾驶员的姿态的变化，例如东
+
+张西望、接听电话等动作。因此，在模型对目标进行特征的
+
+提取阶段，仅采用标准卷积（standard convolution）可能未能
+
+有效捕捉目标的细粒度细节。标准卷积无法适应目标的形变，
+
+无法自适应地调整卷积核的采样位置，导致目标的定位准确
+
+性下降，容易产生误检。
+
+为有效地减少上述的几个问题，在特征提取中采用了
+
+DCNv2 可变形卷积，着重解决的问题为常规的图像增强，仿
+
+射变换（线性变换加平移）中不能处理的，多种形式目标变
+
+图 3  DCNv2 网络结构图
+
+对加入 DCNv2 的模型，其计算时间会有明显增加，其
+
+原因为 DCNv2 中对可变形卷积的频繁使用。为了减少其计
+
+算量并且保持原始 YOLO 模型的轻量化，本文只对原始网络
+
+中 backbone 的 C2f 模块中的 Bottleneck 增加了 DCNv2 改变
+
+为 bottleneck_DCN 模块，如图 4 所示。
+
+化的几何变换问题。正常卷积计算和可变形卷积采样的方式
+
+图 4 可变形卷积替换普通卷积后的 Bottleneck_DCN 模块
+
+不同，如图 2 所示。
+
+1.2  Concat_BiFPN 模块设计
+
+BiFPN 是一种适用于目标检测的特征金字塔网络，基于
+
+特征金字塔网络，结合了双向路径和跨层特征聚合的思想，
+
+在提高特征表征能力的同时，实现了底层与高层之间特征信
+
+息的相互传递，有效地解决了特征金字塔网络中存在的信息
+
+图 2  卷积核大小为 3*3 的正常卷积和可变形卷积的采样方式
+
+丢失和冗余问题。
+
+以 3*3 大 小 的 卷 积 核 为 例， 每 个 卷 积 核 的 输 出 结 果
+
+BiFPN 采用了一种跨层特征聚合的策略，将相邻层的特
+
+y(p0) 都为 x 上以 x(p0) 为中心点的九宫格上所有参数的计算
+结果，(-1,-1) 代表 x(p0) 的左上角，(1,1) 代表 x(p0) 的右下角，
+其他类似，计算公式为：
+
+征进行加权融合，在牺牲小幅检测速度的前提下使模型能够
+
+对大小不同的特征进行融合，保留了不同尺度的特征信息，
+
+增强了网络的表征能力。BiFPN 网络结构如图 5 所示。本文
+
+R =
+
+{( 1, 1), ( 1, 0), ..., (0, 1), (1, 1)}
+
+− −
+
+−
+
+                             （1）
+
+借鉴了 BiFPN 的结构，将其融合进了原始模型的 neck 网络
+
+中的 Concat 变为 Concat_BiFPN 模块。
+
+214
+
+2024 年第 2 期
+
+信息技术 与信息化
+
+智能技术
+
+据集上进行验证对比。
+
+原始 YOLOv8n 和 BFDS-YOLO 的训练过程使用相同
+
+的数据集和参数，如图 8 所示，经过 30 轮迭代，几种模型
+
+的损失值下降速度开始趋于平缓，80 轮迭代后几种模型损
+
+失值误差趋于稳定。实验结果表明，BFDS-YOLO 和原模
+
+型相比，收敛速度更快，损失值更小，网络收敛能力明显
+
+提高。
+
+图 5  BiFPN 网络结构
+
+1.3  融合 SEAttention 的 neck 设计
+
+SEAttention 模块结合了空间激活和通道激活的双重注意
+
+机制，以增强模型对输入特征的表征能力。将全局信息与局
+
+部信息相结合，通过学习通道之间的关系动态调整通道权重，
+
+从而选择性地强化有用的特征信息。SEAttention 引入了两个
+
+子模块：Squeeze 操作和 Excitation 操作，前者用于压缩通道
+
+维度，后者则用于自适应地赋予通道不同的权重。SE-Block
+
+图 8  模型训练损失曲线
+
+模型如图 6 所示。
+
+2.3  评价标准
+
+在计算机视觉领域，模型的性能通常使用多个评估指标来
+
+全面衡量。其中，mAP50（mean average precision at IoU=0.5），
+
+mAP50-95，precision（精确率）和 recall（召回率）是几种
+
+常用的指标，这些评估指标能够帮助研究人员全面了解模型
+
+图 6  SE-Block 模型结构
+
+的性能，从而更好地选择适用于特定任务的模型，并进行进
+
+本文在借鉴 SEAttention 后将 SEAttention 模块融合进原
+
+一步的性能优化，本文即采用上述四个指标作为模型的评价
+
+始的 YOLO 模型的 neck 网络中的 C2f 之后，该改进版 neck
+
+指标。AP、mAP、precision 和 recall 的定义式为：
+
+模块能够自适应地学习特征图的权重，从而更好地捕捉到不
+
+同空间位置和通道之间的信息关系。
+
+2  实验结果分析
+
+2.1  所用数据集
+
+本文实验所用数据集为 WiderFace 数据集和自制公交车
+
+                                                          （4）
+
+mAP
+
+=
+
+k APi
+∑ =
+1
+i
+k
+
+                                                         （5）
+
+=
+precision=
+Precision
+
+True Positive
++
+True Positive False Positive
+
+                    （6）
+
+司机驾驶疲劳状态数据集，如图 7 所示。
+
+=
+Recall
+recall=
+
+True Positive
++
+True Positive False
+
+ Nega
+
+tive
+
+                       （7）
+
+式中：AP 为平均精度，使用积分的方式来计算 PR 曲线与坐
+
+标轴围成的面积。
+
+2.4  实验结果和分析
+
+消 融 实 验 的 目 的 是 对 每 个 模 型 的 改 进 版 本 进 行 测 评
+
+其 效 果 的 变 化。 第 一 个 模 型 为 Y OLO v8 n 本 身 的 模 型，
+
+不 加 改 动 在 相 同 的 参 数 与 数 据 集 上 训 练 10 0 轮 后 的 最 佳
+
+数 据 。 实 验 结 果 如 表 1 所 示 ， 最 终 所 有 指 标 对 于 原 始 的
+
+Y OLO v8n 模 型 在 不 同 程 度 上 都 有 所 提 升。m AP5 0、
+
+图 7  WiderFace 与公交司机数据集展示
+
+2.2  实验过程
+
+在 WiderFace 数据集上对面部检测进行训练，得到稳定
+
+mA P50 -95、re c al l、pr ec is io n 增长 了 1. 23 %、0.8 2%、
+
+准确的面部检测模型，然后将模型放在公交司机疲劳状态数
+
+0. 9%、 0. 88 %。
+
+  2024 年第 2 期 215
+
+ 
+ 
+ 
+智能技术 信息技术 与信息化
+
+表 1  消融实验中每个模型的评估指标
+
+[4]  LIU Z, PENG Y, HU W. Driver fatigue detection based on 
+
+模型 BiFPN DCNv2 SE
+
+mAP50
+/%
+× × 64.72
+
+mAP50-95
+/%
+
+Recall
+/%
+
+Precision
+/%
+
+35.26
+
+56.92
+
+83.67
+
+× × 65.10
+
+35.51
+
+56.90
+
+84.43
+
+deeply-learned facial expression representation[J].Journal of 
+
+visual communication and image representation, 2020,71:102-
+
+123.
+
+[5]  VARDHAN  V  V  S,  REDDY  N  R  K,  SURYA  K  J,  et  al. 
+
+√ × 65.61
+
+35.97
+
+57.77
+
+84.35
+
+Driver's  drowsiness  detection  based  on  facial  multifeature 
+
+√ × 65.93
+
+35.97
+
+57.99
+
+84.16
+
+√ √ 65.95
+
+36.08
+
+57.82
+
+84.55
+
+fusion[J].Journal of physics：conference series, 2021, 1998(1): 
+
+12-34.
+
+[6] KRIZHEVSKY A , SUTSKEVER I , HINTON G .Imagenet 
+
+√
+
+YOLOv8n ×
+YOLOv8n-
+BF
+YOLOv8n-
+DCNv2
+YOLOv8n-
+BFD
+BFDS-YO-
+LO
+
+×
+
+√
+
+√
+
+表 2 为 BFDS-YOLO 模型与原始 YOLOv8n 模型在自制
+
+classification  with  deep  convolutional  neural  networks[J].
+
+公交车司机数据集上进行 50 轮实验的对比分析。
+
+Advances  in  neural  information  processing  systems,  2017, 
+
+表 2 公交司机数据集上模型的评估指标
+
+模型
+
+mAP50/% mAP50-95/% Recall/% Precision/%
+
+YOLOv8n
+
+BFDS-YOLO
+
+98.98
+
+98.98
+
+57.50
+
+59.44
+
+97.49
+
+97.52
+
+97.26
+
+97.35
+
+60(6): 84-90.
+
+[7]  REN S, HE K, GIRSHICK R, et al.Faster R-CNN: towards 
+
+real-time object detection with region proposal networks[J].
+
+In  IEEE  transactions  on  pattern  analysis  and  machine 
+
+intelligence, 2017,39(6):1137-1149.
+
+从消融实验的结果来看，每个模型的改进方法都或多或
+
+[8]  HE K, GKIOXARI G,DOLLÁR P,et al. Mask R-CNN[C]// 
+
+少相对原始模型的精度有所提升，由此可见模型之间并不存在
+
+太大的冲突，以至最终的模型相比原始模型有着明显的提升。
+
+3  结语
+
+本 文 提 出 了 一 种 创 新 的 疲 劳 检 测 算 法， 名 为 BFDS-
+YOLO，该算法融合了 DCNv2 与 BiFPN 并引入了视觉通道
+注意力机制 SEAttention，以提高检测的性能。
+
+通过以上的改进和融合，BFDS-YOLO 在目标检测方面
+比原始模型有明显的提高。在 WiderFace 数据集上 mAP50 上
+升了 1.23%，mAP50-95 上升了 0.82%，recall 上升了 0.9%，
+precision 上升了 0.88%。当然，本模型主要为轻量化模型结构，
+在车内驾驶场景中场景较为简单，快速实时运行则成为首要
+
+考虑的因素，故不可避免地放弃了高精度的复杂模型，转而
+
+选择了检测更快速的轻量级模型。未来的研究可以选择模型
+
+与嵌入式设备相融合的方向，在可移植设备上实施进一步的
+
+研究。
+
+参考文献：
+
+[1]  CHEN  L W,CHEN  H  M.Driver  behavior  monitoring  and 
+
+warning  with  dangerous  driving  detection  based  on  the 
+
+internet  of  vehicles[J].IEEE  transactions  on  intelligent 
+
+transportation systems, 2020,22(11):7232-7241.
+
+[2]  LI R,CHEN Y V,ZHANG L. A method for fatigue detection 
+
+based on driver's steering wheel grip[J].International journal 
+
+of industrial ergonomics, 2021,82:83-103.
+
+2017  IEEE  international  conference  on  computer  vision 
+
+(ICCV). Piscataway: IEEE, 2017: 2980-2988.
+
+[9]  REDMON  J,  DIVVALA  S,  GIRSHICK  R,  et  al. You  only 
+
+look once: unified, real-time object detection[C]//Computer 
+
+Vision & Pattern Recognition. Piscataway:IEEE,2016:779-788.
+
+[10] WEI L , DRAGOMIR A , DUMITRU E ,et al.SSD:single 
+
+shot  multibox  detector[EB/OL].(2015-12-08)[2023-10-05].
+
+https://arxiv.org/abs/1512.02325.
+
+[11] ZHU X,HU H.,LIN S,et al. Deformable ConvNets V2: more 
+
+deformable,  better  results[C]//2019  IEEE/CVF  Conference 
+
+on  Computer  Vision  and  Pattern  Recognition  (CVPR).
+
+Piscataway: IEEE, 2019:9300-9308.
+
+[12] TAN M,PANG R,LE Q V. Eﬃ  cientdet: scalable and eﬃ  cient 
+
+object detection[C]//2020 IEEE/CVF Conference on Computer 
+
+Vision and Pattern Recognition (CVPR).Piscataway: IEEE, 
+
+2020:10778-10787.
+
+[13]  HU  J,  SHEN  L,  SUN  G,  et  al.  Squeeze-and-excitation 
+
+networks[C]//2018  IEEE/CVF  Conference  on  Computer 
+
+Vision  and  Pattern  Recognition.  Piscataway:  IEEE,  2017: 
+
+7132-7141.
+
+【作者简介】
+
+郑凯东（1964—），男，广东汕头人，副教授，硕士生导师，
+
+研究方向：图形学与虚拟现实、深度学习与计算机视觉、程
+
+[3]  FAN  Y,GU  F,WANG  J,et  al.SafeDriving： an  effective 
+
+序设计。
+
+abnormal driving behavior detection system based on EMG 
+
+舒心（1999—），男，江苏徐州人，硕士研究生，研究方向：
+
+signals[J]. IEEE internet of things journal, 2021,9(14): 12338-
+
+计算机视觉、深度学习。
+
+12350.
+
+216
+
+2024 年第 2 期
+
+（收稿日期：2023-12-04）
+
+

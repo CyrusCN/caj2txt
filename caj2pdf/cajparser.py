@@ -41,7 +41,11 @@ class CAJParser(object):
                         self._TOC_END_OFFSET = 0xD8
                         self._PAGEDATA_OFFSET = self._TOC_END_OFFSET + 20 * self.page_num
                         return
-                fmt = struct.unpack("4s", caj_read4)[0].replace(b'\x00', b'').decode("gb18030")
+                try:
+                    fmt = struct.unpack("4s", caj_read4)[0].replace(b'\x00', b'').decode("gb18030")
+                    pass
+                except:
+                    print ("doc has problem,please move or remove:", filename)
             if fmt == "CAJ":
                 self.format = "CAJ"
                 self._PAGE_NUMBER_OFFSET = 0x10
