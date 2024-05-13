@@ -4,10 +4,12 @@ import os,re
 import glob
 
 #定义你下载的一堆caj文件目录
-caj_path = "/home/ubuntu/caj2txt/caj"
+caj_path = "./caj"
 
+#定义转化pdf最终保留目录
+pdf_path = "./pdf"
 #定义你的txt输出目录
-output_path = "/home/ubuntu/caj2txt/txt"
+output_path = "./txt"
 
 def batch_convert_to_text(caj_path):
     # 获取指定文件夹下所有的 .caj 文件路径
@@ -43,7 +45,7 @@ def pdf_to_text(caj_path, output_path):
 #源文件夹路径
 source_folder = caj_path
 #目标文件夹路径
-destination_folder = './pdf'
+destination_folder = pdf_path
 #遍历源文件夹中的文件
 for filename in os.listdir(source_folder):
 #    如果文件是以.pdf结尾的文件，则移动到目标文件夹
