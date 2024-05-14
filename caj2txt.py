@@ -25,8 +25,7 @@ def pdf_to_text(pdf_path, output_path):
         try:
             text = extract_text(pdf)
         except:
-            print(pdf)
-            
+            print("file wrong:",pdf)
         with open(txt_output_path, 'w', encoding='utf-8') as f:
             f.write(text)
 
