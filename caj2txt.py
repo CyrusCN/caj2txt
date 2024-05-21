@@ -4,10 +4,10 @@ import os,re
 import glob
 
 #定义你下载的一堆caj文件目录
-caj_path = "/home/ubuntu/引用/caj"
-pdf_path = "/home/ubuntu/引用/pdf"
+caj_path = "/home/ubuntu/caj2txt/caj"
+pdf_path = "/home/ubuntu/caj2txt/pdf"
 #定义你的txt输出目录
-output_path = "/home/ubuntu/引用/txt"
+output_path = "/home/ubuntu/caj2txt/txt"
 
 def batch_convert_to_text(caj_path):
     # 获取指定文件夹下所有的 .caj 文件路径
@@ -25,7 +25,7 @@ def pdf_to_text(pdf_path, output_path):
         try:
             text = extract_text(pdf)
         except:
-            print("file wrong:",pdf)
+            print("file wrong:",txt_output_path)
         with open(txt_output_path, 'w', encoding='utf-8') as f:
             f.write(text)
 
@@ -33,7 +33,7 @@ def pdf_to_text(pdf_path, output_path):
 
 
 #开关caj转pdf
-#batch_convert_to_text(caj_path)
+batch_convert_to_text(caj_path)
 
 
 #原作者把输出封装了当前目录
